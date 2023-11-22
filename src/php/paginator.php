@@ -4,6 +4,7 @@
         'home' => 'html/home.html',
         'about' => 'html/about.html',
         'login' => 'html/login.html',
+        'mainpage' => 'html/mainpage.html',
         'dashboard' => 'html/dashboard.html',
         'error' => 'html/404.html'
     ];
