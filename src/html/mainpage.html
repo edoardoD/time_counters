@@ -4,84 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Social Media Feed</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="../css/mainpage.css">
-  <link rel="script" href="../js/mainpage.js">
-  
-  <style>
-    body {
-      padding: 20px;
-      background-color: #f8f9fa;
-    }
-
-    .post {
-      background-color: #ffffff;
-      border: 1px solid #dee2e6;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    .profile-image {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 15px;
-    }
-
-    .post-content {
-      flex: 1;
-    }
-
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
-
-    .action-icons {
-      display: flex;
-    }
-
-    .action-icons i {
-      margin-right: 10px;
-      cursor: pointer;
-    }
-
-    .add-post-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        width: 50px; /* Larghezza uguale all'altezza per rendere il pulsante circolare */
-        height: 50px;
-        font-size: 24px;
-        cursor: pointer;
-    }
-
-    .like-button {
-        cursor: pointer;
-    }
-
-    .like-button.liked i {
-         color: red; /* Cambia il colore del cuore a rosso quando la classe 'liked' è presente */
-    }
-
-    h1 {
-      color: #007bff;
-    }
-
-  </style>
 </head>
-
 <body>
 
   <div class="container">
@@ -93,80 +18,14 @@
     </div>
 
     <div id="posts-container"></div>
+
     <button class="add-post-button" onclick="openNewPostForm()">+</button>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-  <script>
-    const posts = [
-      { username: 'utente1', text: 'Questo è un post di utente1' },
-      { username: 'utente2', text: 'Ecco cosa ha pubblicato utente2' },
-      // Aggiungi altri post secondo necessità
-    ];
-
-    function createPostMarkup(post) {
-      return `
-        <div class="post">
-          <img src="https://via.placeholder.com/50" alt="${post.username}" class="profile-image">
-          <div class="post-content">
-            <h4 class="mb-3">${post.username}</h4>
-            <p>${post.text}</p>
-            <div class="actions">
-              <div class="action-icons">
-                <span class="like-button"><i class="far fa-heart"></i></span> <!-- Icona like -->
-                <span><i class="far fa-comment"></i></span> <!-- Icona commento -->
-                <span><i class="far fa-bookmark"></i></span> <!-- Icona salvataggio -->
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderPosts() {
-      const postsContainer = document.getElementById('posts-container');
-
-      posts.forEach(post => {
-        const postMarkup = createPostMarkup(post);
-        postsContainer.innerHTML += postMarkup;
-      });
-    }
-
-    function openNewPostForm() {
-      const thoughts = prompt('Condividi i tuoi pensieri:');
-      if (thoughts !== null && thoughts.trim() !== '') {
-        // Aggiungi il nuovo post alla lista
-        const newPost = { username: 'Utente Nuovo', text: thoughts };
-        posts.push(newPost);
-
-        // Rendere nuovamente la pagina con il nuovo post
-        renderPosts();
-      }
-    }
-
-    renderPosts();
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const postsContainer = document.getElementById('posts-container');
-    
-        posts.forEach(post => {
-        const postMarkup = createPostMarkup(post);
-        postsContainer.innerHTML += postMarkup;
-        });
-    
-        // Aggiungi un gestore di eventi per il click sul pulsante like
-        postsContainer.addEventListener('click', function (event) {
-        const likeButton = event.target.closest('.like-button');
-    
-        if (likeButton) {
-            likeButton.classList.toggle('liked'); // Aggiungi o rimuovi la classe 'liked'
-        }
-        });
-    });
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
