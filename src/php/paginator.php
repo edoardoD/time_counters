@@ -5,7 +5,7 @@
         'about' => 'html/about.html',
         'login' => 'html/login.html',
         'dashboard' => 'html/dashboard.html',
-        'error' => 'html/404.html'
+        'error' => 'html/error.html'
     ];
     if(isset($_GET['page'])){
         // se la pagina richiesta è presente nell'array
