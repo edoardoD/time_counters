@@ -9,6 +9,9 @@
         <li>
             <a href="<?php echo $_SERVER['PHP_SELF']."?page=login"?>">login</a>
         </li>
+        <li>
+            <a href="<?php echo $_SERVER['PHP_SELF']."?page=mainpage"?>">main page</a>
+        </li>
        
             <?php 
                 // Questo script mostra un link alla dashboard se l'utente è loggato

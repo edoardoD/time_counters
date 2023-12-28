@@ -1,0 +1,104 @@
+body {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh; /* Utilizzo di min-height per garantire che almeno l'altezza della viewport venga occupata */
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.post {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.action-icons {
+  display: flex;
+}
+
+.action-icons i {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.add-post-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.like-button {
+  cursor: pointer;
+}
+
+.like-button i {
+  color: black; /* Colore iniziale del cuore */
+  transition: color 0.3s ease; /* Aggiungi una transizione per un effetto più fluido */
+}
+
+.like-button.liked i {
+  color: red; /* Cambia il colore del cuore a rosso quando la classe 'liked' è presente */
+}
+
+footer {
+  width: 100%;
+  border: 5px solid black;
+}
+
+footer i {
+  font-size: 24px; /* Imposta la dimensione desiderata per le icone */
+  margin: 0 10px; /* Aggiungi spazio tra le icone */
+}
+
+#info {
+  text-align: left;
+  padding-right: 30%;
+  cursor: pointer;
+}
+
+#search {
+  text-align: center;
+  padding-left: 30%;
+  cursor: pointer;
+}
+
+#profile {
+ text-align: right;
+  padding-left: 10%;
+  padding-right: 10%;
+  cursor: pointer;
+}

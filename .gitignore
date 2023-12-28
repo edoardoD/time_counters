@@ -1,2 +1,4 @@
 settings.json
 launch.json
+.DS_Store
+src/.DS_Store
