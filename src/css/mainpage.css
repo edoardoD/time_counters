@@ -1,7 +1,8 @@
 body {
   padding: 20px;
   background-color: #f8f9fa;
-  min-height: 100vh; /* Utilizzo di min-height per garantire che almeno l'altezza della viewport venga occupata */
+  min-height: 100vh;
+  /* Utilizzo di min-height per garantire che almeno l'altezza della viewport venga occupata */
 }
 
 .container {
@@ -66,39 +67,13 @@ body {
 }
 
 .like-button i {
-  color: black; /* Colore iniziale del cuore */
-  transition: color 0.3s ease; /* Aggiungi una transizione per un effetto più fluido */
+  color: black;
+  /* Colore iniziale del cuore */
+  transition: color 0.3s ease;
+  /* Aggiungi una transizione per un effetto più fluido */
 }
 
 .like-button.liked i {
-  color: red; /* Cambia il colore del cuore a rosso quando la classe 'liked' è presente */
-}
-
-footer {
-  width: 100%;
-  border: 5px solid black;
-}
-
-footer i {
-  font-size: 24px; /* Imposta la dimensione desiderata per le icone */
-  margin: 0 10px; /* Aggiungi spazio tra le icone */
-}
-
-#info {
-  text-align: left;
-  padding-right: 30%;
-  cursor: pointer;
-}
-
-#search {
-  text-align: center;
-  padding-left: 30%;
-  cursor: pointer;
-}
-
-#profile {
- text-align: right;
-  padding-left: 10%;
-  padding-right: 10%;
-  cursor: pointer;
+  color: red;
+  /* Cambia il colore del cuore a rosso quando la classe 'liked' è presente */
 }
