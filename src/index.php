@@ -17,11 +17,12 @@
         
 
 
-    <?php include "php/header.php"?>
+        
+        <?php require "php/paginator.php"?>
+        <?php include "php/nav.php"?>
+    </body>
 
-    <?php require "php/paginator.php"?>
-
-    <footer id="footer" >
+    <footer id="footer">
         <div class="container">
             <div class="row">
                 <div class="col">
