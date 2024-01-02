@@ -17,11 +17,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
         
-        <?php require "php/paginator.php"?>
-        <?php include "php/nav.php"?>
+    <?php require "php/paginator.php"?>
+    <?php require "php/nav.php"?>
     </body>
-
-    <footer id="footer">
+    <footer>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -32,5 +31,4 @@
             </div>
         </div>
     </footer>
-    
 </html>
