@@ -5,6 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <title><?php echo $_GET['page']?></title>
         <!-- link bootstrap 5 -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,18 +18,18 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
         
-    <?php require "php/paginator.php"?>
-    <?php require "php/nav.php"?>
-    </body>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <i class="fas fa-info-circle" id="info" data-link="/link-alla-pagina-generale"></i>
-                    <i class="fas fa-user-circle" id="profile" data-link="/link-al-tuo-profilo"></i>
-                    <i class="fas fa-search" id="search" data-link="/link-alla-ricerca"></i>
+        <?php require "php/paginator.php"?>
+            <?php require "php/nav.php"?>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <i class="fas fa-info-circle" id="info" data-link="/link-alla-pagina-generale"></i>
+                        <i class="fas fa-user-circle" id="profile" data-link="/link-al-tuo-profilo"></i>
+                        <i class="fas fa-search" id="search" data-link="/link-alla-ricerca"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </body>
 </html>
