@@ -1,0 +1,35 @@
+footer {
+    border: 5px solid black;
+    position: fixed;
+    margin-top: auto;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+footer i {
+    font-size: 24px;
+    /* Imposta la dimensione desiderata per le icone */
+    margin: 0 10px;
+    /* Aggiungi spazio tra le icone */
+}
+
+#info {
+    text-align: left;
+    padding-right: 30%;
+    cursor: pointer;
+}
+
+#search {
+    text-align: center;
+    padding-left: 30%;
+    cursor: pointer;
+}
+
+#profile {
+    text-align: right;
+    padding-left: 10%;
+    padding-right: 10%;
+    cursor: pointer;
+}
