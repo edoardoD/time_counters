@@ -18,7 +18,7 @@
         <!-- script di utility -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+        
         
         <?php require "php/paginator.php"?>
             <?php require "php/nav.php"?>
@@ -26,9 +26,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <i class="fas fa-info-circle" id="info" data-link="/link-alla-pagina-generale"></i>
-                        <i class="fas fa-user-circle" id="profile" data-link="/link-al-tuo-profilo"></i>
-                        <i class="fas fa-search" id="search" data-link="/link-alla-ricerca"></i>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>"><i class="fas fa-info-circle"  id="info"></i></a>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=dashboard"?>"><i class="fas fa-user-circle " id="profile"></i></a>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=search"?>"><i class="fas fa-search" id="search"></i></a>
                     </div>
                 </div>
             </div>
