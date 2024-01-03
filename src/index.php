@@ -1,4 +1,6 @@
 <!-- https://unibowebprogramming.altervista.org/social/ -->
+<!-- HTML checker: http://achecker.csr.unibo.it/checker/index.php -->
+<!-- Validator: https://validator.w3.org/#validate_by_upload -->
 
 <!DOCTYPE html>
 <html lang="it">
