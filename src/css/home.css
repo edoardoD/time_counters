@@ -1,0 +1,9 @@
+.content {
+    margin-top: 60px; /* Regola il margine superiore in base all'altezza della barra di navigazione */
+}
+
+/* Altri stili per il contenuto della pagina */
+h1 {
+    font-size: 60px;
+    /* Altri stili per l'h1 */
+}
