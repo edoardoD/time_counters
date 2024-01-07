@@ -22,13 +22,13 @@
         
         <?php require "php/paginator.php"?>
             <?php require "php/nav.php"?>
-        <footer>
-            <div class="container">
+        <footer class="">
+            <div class="container p-4 pb-0">
                 <div class="row">
                     <div class="col">
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>"><i class="fas fa-info-circle"  id="info"></i></a>
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=dashboard"?>"><i class="fas fa-user-circle " id="profile"></i></a>
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=search"?>"><i class="fas fa-search" id="search"></i></a>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-info-circle"  id="info"></i></a>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=dashboard"?>" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-user-circle " id="profile"></i></a>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?page=search"?>" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-search" id="search"></i></a>
                     </div>
                 </div>
             </div>
