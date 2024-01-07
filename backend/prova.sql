@@ -1,16 +1,3 @@
--- *********************************************
--- * SQL MySQL generation                      
--- *--------------------------------------------
--- * DB-MAIN version: 11.0.2              
--- * Generator date: Sep 14 2021              
--- * Generation date: Fri Jan  5 17:26:14 2024 
--- * LUN file: C:\unibo\Webb\time_counters\backend\timesCounter.lun 
--- * Schema: tramutazione schema logico/1-1-1 
--- ********************************************* 
-
--- Tables Section
--- _____________ 
-
 create table CATEGORIA (
      nome char(20) not null,
      constraint IDCATEGORIA_ID primary key (nome))ENGINE=InnoDB;
@@ -79,15 +66,6 @@ create table UTENTE (
      password varchar(20) not null,
      constraint IDUTENTE primary key (email))ENGINE=InnoDB;
 
-
--- Constraints Section
--- ___________________ 
-
--- Not implemented
--- alter table CATEGORIA add constraint IDCATEGORIA_CHK
---     check(exists(select * from COMBINAZIONI
---                  where COMBINAZIONI.categoria = nome)); 
-
 alter table COMBINAZIONI add constraint FKINC_LIN
      foreign key (linea)
      references LINEA (nome);
@@ -116,11 +94,6 @@ alter table IMMAGINE add constraint FKCONTENIMENTO
      foreign key (id_post)
      references POST (id_post);
 
--- Not implemented
--- alter table LINEA add constraint IDLINEA_CHK
---     check(exists(select * from OROLOGIO
---                  where OROLOGIO.linea = nome)); 
-
 alter table LINEA add constraint FKDESING
      foreign key (marchio)
      references MARCHIO (nome);
@@ -128,16 +101,6 @@ alter table LINEA add constraint FKDESING
 alter table OROLOGIO add constraint FKPRODUZIONE
      foreign key (linea)
      references LINEA (nome);
-
--- Not implemented
--- alter table POST add constraint IDPOST_CHK
---     check(exists(select * from IMMAGINE
---                  where IMMAGINE.id_post = id_post)); 
-
--- Not implemented
--- alter table POST add constraint IDPOST_CHK
---     check(exists(select * from COMMENTO
---                  where COMMENTO.id_post = id_post)); 
 
 alter table POST add constraint FKCREA
      foreign key (utente)
@@ -158,8 +121,3 @@ alter table SEGUITO add constraint FKSEGUITO
 alter table SEGUITO add constraint FKSEGUACE
      foreign key (utente2)
      references UTENTE (email);
-
-
--- Index Section
--- _____________ 
-
