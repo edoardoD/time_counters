@@ -26,7 +26,7 @@
         else{
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $query = "SELECT * FROM CLIENTI WHERE email = '$username' AND Password = '$password'";
+            $query = "SELECT * FROM UTENTI WHERE email = '$username' AND Password = '$password'";
             $result= mysqli_query($conn,$query);
             if($result){
                 $row= mysqli_fetch_assoc($result);
@@ -63,7 +63,7 @@
             $telefono = $_POST['tel'];
             $lingua = $_POST['lingua'];    
             
-            $query = "INSERT INTO CLIENTI (email, nome, cognome, password, nazionalita, telefono, lingua) 
+            $query = "INSERT INTO UTENTI (email, nome, cognome, password, nazionalita, telefono, lingua) 
                     VALUES ('$email', '$nome', '$cognome', '$password', '$nazionalita', '$telefono','$lingua')";
             
 
