@@ -16,7 +16,7 @@
                     <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>">about</a>
                 </li>
                 <li class="navbar-nav">
-                    <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=login"?>">login</a>
+                    <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=register"?>">register/login</a>
                 </li>
                 <li class="navbar-nav">
                     <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=mainpage"?>">main page</a>
