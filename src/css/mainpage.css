@@ -49,13 +49,8 @@ body {
 }
 
 .add-post-button {
-  position: absolute; /* posiziona il bottone in modo assoluto rispetto al body */
-  right: 20px;
   color: #007bff;
-  width: auto;
-  height: auto;
-  font-size: 40px;
-  cursor: pointer;
+  font-size:26px;
 }
 
 .like-button {
