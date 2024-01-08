@@ -56,5 +56,12 @@ function renderPosts() {
 const posts = [
   { username: 'utente1', text: 'Questo è un post di utente1' },
   { username: 'utente2', text: 'Ecco cosa ha pubblicato utente2' },
+  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente3' },
+  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
   // Aggiungi altri post secondo necessità
 ];
