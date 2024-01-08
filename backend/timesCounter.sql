@@ -11,7 +11,7 @@
 -- Tables Section
 -- _____________ 
 
-create table CATEGORIA (
+create table CATEGORIE (
      nome char(20) not null,
      constraint IDCATEGORIA_ID primary key (nome))ENGINE=InnoDB;
 
@@ -20,39 +20,39 @@ create table COMBINAZIONI (
      linea char(20) not null,
      constraint IDINCLUSIONE primary key (categoria, linea))ENGINE=InnoDB;
 
-create table COMMENTO (
+create table COMMENTI (
      testo char(200) not null,
      id int not null,
      utente varchar(40) not null,
      id_post int not null,
      constraint IDCOMMENTO primary key (id))ENGINE=InnoDB;
 
-create table CONVERSAZIONE (
+create table CONVERSAZIONI (
      id_risposta int not null,
      id_commento int not null,
      constraint IDCONVERSAZIONE primary key (id_risposta, id_commento))ENGINE=InnoDB;
 
-create table IMMAGINE (
+create table IMMAGINI (
      id_post int not null,
      ref_img int not null,
      constraint IDIMMAGINE primary key (id_post, ref_img))ENGINE=InnoDB;
 
-create table LINEA (
+create table LINEE (
      nome char(20) not null,
      marchio char(20) not null,
      constraint IDLINEA_ID primary key (nome))ENGINE=InnoDB;
 
-create table MARCHIO (
+create table MARCHI (
      nome char(20) not null,
      anno_nascita  int not null,
      constraint IDMARCHIO primary key (nome))ENGINE=InnoDB;
 
-create table OROLOGIO (
-     referenza char(1) not null,
+create table OROLOGII (
+     referenza char(20) not null,
      sesso char(1) not null,
      dim_cassa int not null,
      spessore int not null,
-     dim_ansa char(1) not null,
+     dim_ansa int not null,
      linea char(20) not null,
      constraint IDOROLOGIO primary key (referenza))ENGINE=InnoDB;
 
@@ -63,7 +63,7 @@ create table POST (
      constraint IDPOST_ID primary key (id_post))ENGINE=InnoDB;
 
 create table PUBBLICAZIONE (
-     referenza char(1) not null,
+     referenza char(20) not null,
      id_post int not null,
      constraint IDPUBBLICAZIONE primary key (id_post, referenza))ENGINE=InnoDB;
 
