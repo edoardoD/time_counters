@@ -59,12 +59,10 @@
             $nome = $_POST['name'];
             $cognome = $_POST['surname'];
             $password = $_POST['password'];
-            $nazionalita = $_POST['nazionalita'];
-            $telefono = $_POST['tel'];
-            $lingua = $_POST['lingua'];    
+               
             
-            $query = "INSERT INTO UTENTI (email, nome, cognome, password, nazionalita, telefono, lingua) 
-                    VALUES ('$email', '$nome', '$cognome', '$password', '$nazionalita', '$telefono','$lingua')";
+            $query = "INSERT INTO UTENTI (email, nome, cognome, password) 
+                    VALUES ('$email', '$nome', '$cognome', '$password')";
             
 
             $result= mysqli_query($conn,$query);
