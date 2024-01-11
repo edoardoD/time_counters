@@ -22,7 +22,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
             integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-        
+
+        <!-- sweetalert -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.2/sweetalert2.min.js" 
+        integrity="sha512-k1jHgQwcMNMFymeyYv93tJOsIGpceFgh5VDTq2B5pF0pICXBzRGY97vlMobgYA4azK7936iOWkqm/C1vv/PKMA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         
         <?php require "php/paginator.php"?>
             <?php require "php/nav.php"?>
