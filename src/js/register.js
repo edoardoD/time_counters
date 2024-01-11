@@ -39,7 +39,7 @@ $(function () {
                 "Cognome: " + $("#surname").val() + "\n" +
                 "Username: " + $("#email").val() + "\n" +
                 "Password: " + $("#pass").val());
-            registerRequest();
+            registerRequest($("#name").val(),$("#surname").val(),$("#email").val(),$("#pass").val());
         } else {
             // se non sono uguali, mostro l'errore
             // error.textContent = "";
@@ -50,11 +50,11 @@ $(function () {
     });
 });
 
-function registerRequest() {
+function registerRequest(name,surname,email,pass) {
     $.ajax({
         type: "POST",
         url: "php/POST.php",
-        data: "request=register&name=" + $("#name").val() + "&surname=" + $("#surname").val() + "&username=" + $("#email").val() + "&password=" + $("#pass").val(),
+        data: "request=register&name=" + name + "&surname=" + surname + "&username=" + email + "&password=" + pass,
         dataType: "json",
         success: function (data) {
             console.log(data);
