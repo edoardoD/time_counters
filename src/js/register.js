@@ -72,4 +72,24 @@ function registerRequest(name,surname,email,pass) {
     });
 }
 
-
+function loginRequest(name, password) {
+    $.ajax({
+        type: "POST",
+        url: "php/POST.php",
+        data: "request=login&name=" + name + "&password" + password,
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            if (data.result) {
+                alert("login effettuato");
+            } else {
+                $("#error").html('<p>Username o Password errati</p>');
+            }
+        }, 
+        error: function (data, status, error) {
+            alert("errore del server" + error);
+            console.log(data);
+            console.log(status);
+        }
+    });
+}
