@@ -1,6 +1,6 @@
 <?php
     $host= "localhost";
     $user="root";
-    $password="";
+    $password="aU74pudmHUeD";
     $dbName="my_unibowebprogramming";
 ?>
