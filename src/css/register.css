@@ -592,3 +592,8 @@ label.valid {
     margin-bottom: 10px; } }
 
 /*# sourceMappingURL=style.css.map */
+
+
+.swal2-popup-custom{
+  position: relative;
+}
