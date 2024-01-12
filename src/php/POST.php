@@ -70,7 +70,7 @@
                 die(json_encode(["result" => true, "msg"=>"registrazione avvenuta con successo"]));
             }
             else{
-                $str = "errore nella query".$email." ".$nome." ".$cognome." ".$password." ".$nazionalita." ".$telefono." ".$lingua;
+                $str = "errore nella query";
                 die(json_encode(["result"=>false, "error"=> $str]));
             }
         }

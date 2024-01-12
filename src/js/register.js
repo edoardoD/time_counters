@@ -62,7 +62,6 @@ $(function () {
         if (pass.value === re_pass.value) {
             registerRequest($("#name").val(),$("#surname").val(),$("#email").val(),$("#pass").val());
         } else {
-            
             toastMixin.fire({
                 title: 'password not matching',
                 icon: 'error'
