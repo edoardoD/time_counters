@@ -24,8 +24,8 @@
             crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <!-- sweetalert -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.2/sweetalert2.min.js" 
-        integrity="sha512-k1jHgQwcMNMFymeyYv93tJOsIGpceFgh5VDTq2B5pF0pICXBzRGY97vlMobgYA4azK7936iOWkqm/C1vv/PKMA==" 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.2/sweetalert2.all.js" 
+        integrity="sha512-h+uc/rWXvhloPmX380zKn7+8D9xNiLvVMkhUW+5yIoHYD2I1wzWc/cSAbAflCohdv+AE0pOF2d8zrbQ+fiPQtA==" 
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         
         <?php require "php/paginator.php"?>
