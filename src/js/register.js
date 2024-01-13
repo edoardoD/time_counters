@@ -60,7 +60,7 @@ $(function () {
     $(form_tag).submit(function (event) {
         event.preventDefault(); // previene l'invio del form
         if (pass.value === re_pass.value) {
-            registerRequest($("#name").val(),$("#surname").val(),$("#email").val(),$("#pass").val());
+            registerRequest($("#name").val(),$("#surname").val(),$("#email").val(),$("#re_pass").val());
         } else {
             toastMixin.fire({
                 title: 'password not matching',
@@ -71,10 +71,17 @@ $(function () {
 });
 
 function registerRequest(name,surname,email,pass) {
+    console.log(name+" "+surname+" "+email+" "+pass);
     $.ajax({
-        type: "POST",
-        url: "php/POST.php",
-        data: "request=register&name=" + name + "&surname=" + surname + "&username=" + email + "&password=" + pass,
+        url: "php/router.php",
+        type: 'POST',
+        data: {
+            request: 'register',
+            name: name,
+            surname: surname,
+            email: email,
+            pass: pass
+        },
         dataType: "json",
         success: function (data) {
             console.log(data);
@@ -83,9 +90,10 @@ function registerRequest(name,surname,email,pass) {
                     animation: true,
                     title: 'Signed in Successfully'
                 });
+                
             } else {
                 toastMixin.fire({
-                    title: 'username already used',
+                    title: data.error,
                     icon:'error'
                 });
             }
@@ -95,8 +103,7 @@ function registerRequest(name,surname,email,pass) {
                 title: 'il server non risponde',
                 icon:'error'
             });
-            console.log(data);
-            console.log(status);
+            console.log(error);
         }
     });
 }
