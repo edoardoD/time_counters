@@ -2,21 +2,15 @@
 // Verifica se il modulo è stato inviato
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recupera i dati dal modulo
-    $email = $_POST["your_name"];
-    $password = $_POST["your_pass"];
-
-    // Credenziali di accesso al database
-    $host = "localhost"; // Può variare in base al tuo server
-    $nome_database = "my_unibowebprogramming";
-    $nome_utente = "unibowebprogramming";
-    $password_db = "aU74pudmHUeD";
+    $email = $_POST["email"];
+    $password = $_POST["pass"];
 
     // Connessione al database
-    $connessione = new mysqli($host, $nome_utente, $password_db, $nome_database);
+    $connessione = new mysqli($GLOBALS['host'], $GLOBALS['utente'], $GLOBALS['password'], $GLOBALS['database']);
 
     // Verifica della connessione
     if ($connessione->connect_error) {
-        die("Connessione al database fallita: " . $connessione->connect_error);
+        die(json_encode(["result"=>false,"error"=>"connessione non riuscita". $connessione->connect_error]));
     }
 
     // Utilizzo di istruzioni preparate per evitare SQL injection
@@ -35,11 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica se ci sono risultati
     if ($col1 !== null) {
         // Credenziali valide, reindirizza alla pagina di benvenuto o un'altra pagina sicura
-        header("Location: benvenuto.php");
-        exit();
+        die(json_encode(["result"=>true, "messagge"=>"Utente loggato correttamente"]));
     } else {
         // Credenziali non valide, mostra un messaggio di errore
-        echo "Credenziali non valide. Riprova.";
+        die(json_encode(["result"=>false, "error"=>"Utente non loggato"]));
     }
 
     // Chiudi la dichiarazione preparata

@@ -70,6 +70,18 @@ $(function () {
     });
 });
 
+$(function() {
+    password = document.getElementById("your_pass");
+    email = document.getElementById("your_name");
+    form = document.querySelector("#login-form");
+
+    let form_tag = "#"+form.id;
+    $(form_tag).submit(function (event){
+        event.preventDefault();
+        loginRequest(email.value, password.value);
+    })
+})
+
 function registerRequest(name,surname,email,pass) {
     console.log(name+" "+surname+" "+email+" "+pass);
     $.ajax({
@@ -88,7 +100,7 @@ function registerRequest(name,surname,email,pass) {
             if (data.result) {
                 toastMixin.fire({
                     animation: true,
-                    title: 'Signed in Successfully'
+                    title: data.messagge
                 });
                 
             } else {
@@ -109,23 +121,37 @@ function registerRequest(name,surname,email,pass) {
 }
 
 function loginRequest(name, password) {
+    console.log(" "+name+" "+password);
     $.ajax({
-        type: "POST",
-        url: "php/POST.php",
-        data: "request=login&name=" + name + "&password" + password,
+        url: "php/router.php",
+        type: 'POST',
+        data: {
+            request: 'login',
+            email: email,
+            pass: pass
+        },
         dataType: "json",
         success: function (data) {
             console.log(data);
             if (data.result) {
-                alert("login effettuato");
+                toastMixin.fire({
+                    animation: true,
+                    title: data.messagge
+                });
+                
             } else {
-                $("#error").html('<p>Username o Password errati</p>');
+                toastMixin.fire({
+                    title: data.error,
+                    icon:'error'
+                });
             }
-        }, 
+        },
         error: function (data, status, error) {
-            alert("errore del server" + error);
-            console.log(data);
-            console.log(status);
+            toastMixin.fire({
+                title: 'il server non risponde',
+                icon:'error'
+            });
+            console.log(error);
         }
     });
 }
