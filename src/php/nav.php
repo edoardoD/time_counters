@@ -1,5 +1,5 @@
  
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+<nav id="nav-menu" class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="<?php echo $_SERVER['PHP_SELF']."?page=home"?>">timesCounter</a>

@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
   renderPosts();
 
   postsContainer.addEventListener('click', function (event) {
-      const likeButton = event.target.closest('.like-button');
+    const likeButton = event.target.closest('.like-button');
 
-      if (likeButton && likeButton.classList.contains('like-button')) {
-          likeButton.classList.toggle('liked');
-      }
+    if (likeButton && likeButton.classList.contains('like-button')) {
+      likeButton.classList.toggle('liked');
+    }
   });
 });
 
@@ -34,9 +34,9 @@ function createPostMarkup(post) {
 function openNewPostForm() {
   const thoughts = prompt('Condividi i tuoi pensieri:');
   if (thoughts !== null && thoughts.trim() !== '') {
-      const newPost = { username: 'Utente Nuovo', text: thoughts };
-      posts.push(newPost);
-      renderPosts();
+    const newPost = { username: 'Utente Nuovo', text: thoughts };
+    posts.push(newPost);
+    renderPosts();
   }
 }
 
@@ -45,8 +45,8 @@ function renderPosts() {
   const fragment = document.createDocumentFragment();
 
   posts.forEach(post => {
-      const postElement = document.createRange().createContextualFragment(createPostMarkup(post));
-      fragment.appendChild(postElement);
+    const postElement = document.createRange().createContextualFragment(createPostMarkup(post));
+    fragment.appendChild(postElement);
   });
 
   postsContainer.innerHTML = ''; // Pulisce il contenuto del container
@@ -65,3 +65,31 @@ const posts = [
   { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
   // Aggiungi altri post secondo necessità
 ];
+
+
+$(function () {
+  footerHeigt = document.querySelector('footer').offsetHeight;
+  var bottomPosition = footerHeigt + 10;
+  
+  //allert più figo per quando si faranno i post
+  postAlert = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'Posted successfully',
+    animation: false,
+    position: 'bottom',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+      document.querySelector('.swall-alert-postInfo').style.marginBottom  = bottomPosition + 'px';
+    },
+    customClass: {
+      popup: '.swall-alert-postInfo'
+    }
+  });
+
+});
+
