@@ -1,6 +1,7 @@
 <?php
-    $host= "localhost";
-    $user="root";
-    $password="";
-    $dbName="my_unibowebprogramming";
+    // Connessione al database (sostituisci con i tuoi dati)
+    $host = "localhost"; // Può variare in base al tuo server
+    $utente = "root";
+    $database = "my_unibowebprogramming";
+    $password = "";
 ?>

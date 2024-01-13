@@ -68,3 +68,7 @@ body {
   color: red;
   /* Cambia il colore del cuore a rosso quando la classe 'liked' è presente */
 }
+
+.swall-alert-postInfo{
+  position: relative;
+}

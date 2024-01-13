@@ -22,10 +22,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
             integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <!-- sweetalert -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.2/sweetalert2.min.js" 
-        integrity="sha512-k1jHgQwcMNMFymeyYv93tJOsIGpceFgh5VDTq2B5pF0pICXBzRGY97vlMobgYA4azK7936iOWkqm/C1vv/PKMA==" 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.2/sweetalert2.all.js" 
+        integrity="sha512-h+uc/rWXvhloPmX380zKn7+8D9xNiLvVMkhUW+5yIoHYD2I1wzWc/cSAbAflCohdv+AE0pOF2d8zrbQ+fiPQtA==" 
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         
         <?php require "php/paginator.php"?>
