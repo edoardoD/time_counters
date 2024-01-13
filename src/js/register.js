@@ -51,9 +51,9 @@ function gotoNewAccount() {
 // seleziono gli elementi del form
 //document.querySelector("register-form")=> cerca un elemento <register-form>
 $(function () {
-    var pass = document.getElementById("pass");
+    let pass = document.getElementById("pass");
+    let re_pass = document.getElementById("re_pass");
     form = document.querySelector("#register-form");
-    var re_pass = document.getElementById("re_pass");
 
     let form_tag = "#"+form.id;
     // aggiungo un evento al submit del form d
