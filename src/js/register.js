@@ -10,7 +10,7 @@ document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px'
 
 $(function () {
 
-    navbarHeight = document.querySelector('#nav-menu').offsetHeight;
+    let navbarHeight = document.querySelector('#nav-menu').offsetHeight;
     var marginTop = navbarHeight + 20; // Aggiungi 20px al margine
     toastMixin = Swal.mixin({
         toast: true,
@@ -82,46 +82,55 @@ $(function() {
     })
 })
 
-function registerRequest(name,surname,email,pass) {
-    console.log(name+" "+surname+" "+email+" "+pass);
-    $.ajax({
-        url: "php/router.php",
-        type: 'POST',
-        data: {
-            request: 'register',
-            name: name,
-            surname: surname,
-            email: email,
-            pass: pass
-        },
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            if (data.result) {
+function registerRequest(name, surname, email, pass) {
+    // Verifica se tutti i dati sono definiti prima di procedere
+    if (name && surname && email && pass) {
+        console.log(name + " " + surname + " " + email + " " + pass);
+        $.ajax({
+            url: "php/router.php",
+            type: 'POST',
+            data: {
+                request: 'register',
+                name: name,
+                surname: surname,
+                email: email,
+                pass: pass
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (data.result) {
+                    toastMixin.fire({
+                        animation: true,
+                        title: data.messagge
+                    });
+                } else {
+                    toastMixin.fire({
+                        title: data.error,
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function (data, status, error) {
                 toastMixin.fire({
-                    animation: true,
-                    title: data.messagge
+                    title: 'Il server non risponde',
+                    icon: 'error'
                 });
-                
-            } else {
-                toastMixin.fire({
-                    title: data.error,
-                    icon:'error'
-                });
+                console.log(error);
             }
-        },
-        error: function (data, status, error) {
-            toastMixin.fire({
-                title: 'il server non risponde',
-                icon:'error'
-            });
-            console.log(error);
-        }
-    });
+        });
+    } else {
+        // Se uno o più dati sono mancanti, mostra un messaggio di errore
+        toastMixin.fire({
+            title: 'Assicurati di inserire tutti i dati',
+            icon: 'error'
+        });
+    }
 }
 
-function loginRequest(name, password) {
-    console.log(" "+name+" "+password);
+
+function loginRequest(email, pass) {
+    console.log(email + " " + pass + " ");
     $.ajax({
         url: "php/router.php",
         type: 'POST',
@@ -142,14 +151,14 @@ function loginRequest(name, password) {
             } else {
                 toastMixin.fire({
                     title: data.error,
-                    icon:'error'
+                    icon: 'error'
                 });
             }
         },
         error: function (data, status, error) {
             toastMixin.fire({
-                title: 'il server non risponde',
-                icon:'error'
+                title: 'Il server non risponde',
+                icon: 'error'
             });
             console.log(error);
         }
