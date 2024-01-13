@@ -11,7 +11,7 @@ $post_requests = [
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
     if(isset($_GET['request'])){
         if(array_key_exists($_GET['request'], $get_requests)){
-            require_once $get_requests[$_GET['request']];
+            require $get_requests[$_GET['request']];
         }
         else{
             die(json_encode(["result"=>false, "error"=>"richiesta non valida"]));
@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(isset($_POST['request'])){
         if(array_key_exists($_POST['request'], $post_requests)){
-            require_once $post_requests[$_POST['request']];
+            require $post_requests[$_POST['request']];
         }
         else{
             die(json_encode(["result"=>false, "error"=>"richiesta non valida"]));
