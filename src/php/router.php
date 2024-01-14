@@ -3,8 +3,7 @@ require_once "jsonHeader.php";
 require_once "global.php";
 
 $get_requests = [
-    'prova' => 'get/prova.php',
-    'loadPosts' => 'get/loadPosts.php',
+    'loadPosts' => 'mainpage.php',
 ];
 
 $post_requests = [
