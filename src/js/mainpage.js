@@ -32,12 +32,35 @@ function createPostMarkup(post) {
 }
 
 function openNewPostForm() {
-  const thoughts = prompt('Condividi i tuoi pensieri:');
-  if (thoughts !== null && thoughts.trim() !== '') {
-    const newPost = { username: 'Utente Nuovo', text: thoughts };
-    posts.push(newPost);
-    renderPosts();
-  }
+  // const thoughts = prompt('Condividi i tuoi pensieri:');
+  // if (thoughts !== null && thoughts.trim() !== '') {
+  //   const newPost = { username: 'Utente Nuovo', text: thoughts };
+  //   posts.push(newPost);
+  //   renderPosts();
+  // }
+
+  Swal.fire({
+    title: 'Carica immagine e testo',
+    html: `
+      <input id="imageUpload" type="file" accept="image/*" multiple aria-label="Carica la tua immagine del profilo">
+      <textarea id="textUpload" placeholder="Inserisci il tuo testo qui..."></textarea>
+    `,
+    confirmButtonText: 'Conferma',
+    focusConfirm: false,
+    preConfirm: () => {
+      const image = document.getElementById('imageUpload').files[0];
+      const text = document.getElementById('textUpload').value;
+      return { image, text };
+    }
+  }).then((result) => {
+    if (result.value) {
+      // Qui puoi gestire l'immagine e il testo caricati
+      // Ad esempio, puoi inviarli al server tramite una richiesta AJAX
+    }
+  });
+  
+  
+  
 }
 
 function renderPosts() {
