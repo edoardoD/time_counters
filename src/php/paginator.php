@@ -3,7 +3,6 @@
     $pages = [
         'home' => 'html/home.html',
         'about' => 'html/about.html',
-        'login' => 'html/login.html',
         'register' => 'html/register.html',
         'mainpage' => 'html/mainpage.html',
         'dashboard' => 'html/dashboard.html',
