@@ -95,9 +95,9 @@ $(function () {
 
 function popUpFunction() {
   if (confirm("Utente non loggato")) {
-   $.ajax({url: "index.php", data: {page: "register"}})
+    $.get("index.php", { page: "register" })
   } else {
-    $.ajax({url: "index.php", data: {page: "home"}})
+    $.get("index.php", { page: "home" })
   }
 }
 
