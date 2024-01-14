@@ -29,6 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica se ci sono risultati
     if ($col1 !== null) {
         // Credenziali valide, reindirizza alla pagina di benvenuto o un'altra pagina sicura
+        session_destroy();
+        session_start();
+        $_SESSION['username'] = $email;
         die(json_encode(["result"=>true, "messagge"=>"Utente loggato correttamente"]));
     } else {
         // Credenziali non valide, mostra un messaggio di errore
