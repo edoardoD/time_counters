@@ -42,8 +42,8 @@ function openNewPostForm() {
   Swal.fire({
     title: 'Carica immagine e testo',
     html: `
-      <input id="imageUpload" type="file" accept="image/*" multiple aria-label="Carica la tua immagine del profilo">
-      <textarea id="textUpload" placeholder="Inserisci il tuo testo qui..."></textarea>
+      <input id="imageUpload" class="swal2-inputimage" type="file" accept="image/*" multiple aria-label="Carica la tua immagine del profilo">
+      <textarea id="textUpload" class="swal2-textarea" placeholder="Inserisci il tuo testo qui..."></textarea>
     `,
     confirmButtonText: 'Conferma',
     focusConfirm: false,
@@ -62,6 +62,27 @@ function openNewPostForm() {
   
   
 }
+
+$("#imageUpload").change(function() {
+  var ext = btnUpload.val().split('.').pop().toLowerCase();
+	if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		$(".error_msg").text("Not an Image...");
+	} else {
+		$(".error_msg").text("");
+		btnOuter.addClass("file_uploading");
+		setTimeout(function(){
+			btnOuter.addClass("file_uploaded");
+		},3000);
+		Array.from(e.target.files).forEach(function(file){
+			var uploadedFile = URL.createObjectURL(file);
+			setTimeout(function(){
+				$("#uploaded_view").append('<img src="'+uploadedFile+'" />').addClass("show");
+			},3500);
+		});
+	}
+}); //quando si carica un immagine
+
+
 
 function renderPosts() {
   const postsContainer = document.getElementById('posts-container');
