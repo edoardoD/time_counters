@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-function createPostMarkup(post) {
+/* function createPostMarkup(post) {
   return `
       <div class="post">
           <img src="https://via.placeholder.com/50" alt="${post.username}" class="profile-image">
@@ -24,6 +24,25 @@ function createPostMarkup(post) {
                       <span class="like-button"><i class="fas fa-heart"></i></span>
                       <span><i class="far fa-comment"></i></span>
                       <span><i class="far fa-bookmark"></i></span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  `;
+} */
+
+function createPostMarkup(post) {
+  return `
+      <div class="post">
+          <img src="${post.profileImage}" alt="${post.username}" class="profile-image">
+          <div class="post-content">
+              <h4 class="mb-3">${post.username}</h4>
+              <p>${post.text}</p>
+              <div class="actions">
+                  <div class="action-icons">
+                      <span class="like-button"><i class="fas fa-heart"></i></span>
+                      <span><i class="far fa-comment"></i> ${post.comments}</span>
+                      <span><i class="far fa-bookmark"></i> ${post.likes}</span>
                   </div>
               </div>
           </div>

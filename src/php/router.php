@@ -8,7 +8,8 @@ $get_requests = [
 
 $post_requests = [
     'login' => 'post/login.php',
-    'register' => 'post/register.php'
+    'register' => 'post/register.php',
+    'upload' => 'upload.php'
 ];
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
