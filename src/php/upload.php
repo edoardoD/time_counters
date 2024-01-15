@@ -36,7 +36,16 @@ if (!in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     // Memorizza i dati nel database
     $nomeImmagine = basename($_FILES["fileToUpload"]["name"]);
+
+    //-------------------------------------------------------------//
+    /* Da modificare, perchè vorrei inserire un id-immagine, il nome dell'immagine, e 
+    o l'id utente, oppure associare l'id-immagine all'utente
+    Quando riandrò a fare il caricamento (visualizzazione) delle immagini
+    vedrò quali id-imm sono associati all'utente, e caricherò dal nome.jpg 
+    l'immagine 
+     */
     $query = "INSERT INTO IMMAGINI (Nome) VALUES ('$nomeImmagine')";
+    //-------------------------------------------------------------//
 
     if ($conn->query($query) === TRUE) {
         die(json_encode(["result" => true, "error" => "File caricato correttamente"]));
