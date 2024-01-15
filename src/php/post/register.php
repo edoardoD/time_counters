@@ -20,7 +20,7 @@ if (empty($password)) {
 $stmt = $conn->prepare("INSERT INTO UTENTI (email, nome, cognome, password) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("ssss", $email, $name, $surname, $password);
 if ($stmt->execute()) {
-    die(json_encode(["result"=>true,"messagge"=>"Utente registrato con successo"]));
+    die(json_encode(["result"=>true,"message"=>"Utente registrato con successo"]));
 }
 // Chiudi la dichiarazione preparata
 $stmt->close();

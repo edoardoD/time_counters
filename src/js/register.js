@@ -2,16 +2,23 @@
 
 
 /*
-
-
 document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
-
 */
+function scrolToLog() {
+    document.getElementById("login-section").scrollIntoView();
+}
 
+function gotoNewAccount() {
+    document.getElementById("register-section").scrollIntoView();
+}
+
+
+// seleziono gli elementi del form
+//document.querySelector("register-form")=> cerca un elemento <register-form>
 $(function () {
 
     let navbarHeight = document.querySelector('#nav-menu').offsetHeight;
-    var marginTop = navbarHeight + 20; // Aggiungi 20px al margine
+    let marginTop = navbarHeight + 20; // Aggiungi 20px al margine
     toastMixin = Swal.mixin({
         toast: true,
         icon: 'success',
@@ -31,31 +38,13 @@ $(function () {
         }
     });
 
-});
 
 
-
-function scrolToLog() {
-    document.getElementById("login").scrollIntoView();
-}
-
-function gotoNewAccount() {
-    document.getElementById("login-form").scrollIntoView();
-}
-
-
-
-
-
-
-// seleziono gli elementi del form
-//document.querySelector("register-form")=> cerca un elemento <register-form>
-$(function () {
     let pass = document.getElementById("pass");
     let re_pass = document.getElementById("re_pass");
-    form = document.querySelector("#register-form");
+    register_form = document.querySelector("#register-form");
 
-    let form_tag = "#"+form.id;
+    let form_tag = "#"+register_form.id;
     // aggiungo un evento al submit del form d
     $(form_tag).submit(function (event) {
         event.preventDefault(); // previene l'invio del form
@@ -68,19 +57,19 @@ $(function () {
             });
         }
     });
-});
 
-$(function() {
-    password = document.getElementById("your_pass");
-    email = document.getElementById("your_name");
-    form = document.querySelector("#login-form");
+    let password = document.getElementById("your_pass");
+    let email = document.getElementById("your_name");
+    login_form = document.querySelector("#login-form");
 
-    let form_tag = "#"+form.id;
-    $(form_tag).submit(function (event){
+    let login_tag = "#"+login_form.id;
+    $(login_tag).submit(function (event){
         event.preventDefault();
         loginRequest(email.value, password.value);
     })
-})
+});
+
+
 
 function registerRequest(name, surname, email, pass) {
     // Verifica se tutti i dati sono definiti prima di procedere
