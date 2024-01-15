@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
 
-  renderPosts();
+  //renderPosts();
 
   postsContainer.addEventListener('click', function (event) {
     const likeButton = event.target.closest('.like-button');
@@ -112,16 +112,16 @@ function renderPosts() {
   postsContainer.appendChild(fragment); // Aggiunge il fragment al container
 }
 
-const posts = [
-  { username: 'utente1', text: 'Questo è un post di utente1' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente2' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente3' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  { username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+posts = [
+  //{ username: 'utente1', text: 'Questo è un post di utente1' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente2' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente3' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
+  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
   // Aggiungi altri post secondo necessità
 ];
 
@@ -152,3 +152,35 @@ $(function () {
 
 });
 
+function popUpFunction() {
+  if (confirm("Utente non loggato")) {
+    $.get("index.php", { page: "register" })
+  } else {
+    $.get("index.php", { page: "home" })
+  }
+}
+
+$(function () {
+  $.ajax({
+    type: 'GET',
+    dataType: "json",
+    url: "php/router.php",
+    data: {
+      request: 'loadPosts'
+    },
+    success: function (data) {
+      if (data.result) {
+        post = data.posts
+      } else {
+        popUpFunction();
+      }
+    },
+    error: function (error) {
+      toastMixin.fire({
+        title: 'Il server non risponde',
+        icon: 'error'
+      });
+        console.log(error);
+    }
+  });
+})
