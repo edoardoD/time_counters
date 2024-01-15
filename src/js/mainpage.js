@@ -32,57 +32,72 @@ function createPostMarkup(post) {
 }
 
 function openNewPostForm() {
-  // const thoughts = prompt('Condividi i tuoi pensieri:');
-  // if (thoughts !== null && thoughts.trim() !== '') {
-  //   const newPost = { username: 'Utente Nuovo', text: thoughts };
-  //   posts.push(newPost);
-  //   renderPosts();
-  // }
-
+  let fileArray = [];
   Swal.fire({
     title: 'Carica immagine e testo',
     html: `
-      <input id="imageUpload" class="swal2-inputimage" type="file" accept="image/*" multiple aria-label="Carica la tua immagine del profilo">
-      <textarea id="textUpload" class="swal2-textarea" placeholder="Inserisci il tuo testo qui..."></textarea>
+      <div class="button_outer">
+        <div class="btn_upload">
+          <input type="file" id="upload_file" accept="image/*"  name="" multiple>
+          Upload Image
+        </div>
+        <div class="processing_bar"></div>
+        <div class="success_box"></div>
+      </div>
+      <div class="error_msg"></div>
+      <div class="uploaded_file_view" id="uploaded_view">
+        <span class="file_remove">X</span>
+      </div>
+      <textarea id="textUpload" placeholder="Inserisci il tuo testo qui..."></textarea>
     `,
     confirmButtonText: 'Conferma',
     focusConfirm: false,
+    didOpen: () => {
+      let btnUpload = $("#upload_file"),
+        btnOuter = $(".button_outer");
+
+      btnUpload.on("change", function (e) {
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+          $(".error_msg").text("Not an Image...");
+        } else {
+          $(".error_msg").text("");
+          btnOuter.addClass("file_uploading");
+          setTimeout(function () {
+            btnOuter.addClass("file_uploaded");
+          }, 3000);
+          fileArray = Array.from(e.target.files);
+          fileArray.forEach(function (file) {
+            let uploadedFile = URL.createObjectURL(file);
+            setTimeout(function () {
+              $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
+            }, 3500);
+          });
+        }
+      });
+      $(".file_remove").on("click", function () {
+        $("#uploaded_view").removeClass("show");
+        $("#uploaded_view").find("img").remove();
+        btnOuter.removeClass("file_uploading");
+        btnOuter.removeClass("file_uploaded");
+      });
+    },
     preConfirm: () => {
-      const image = document.getElementById('imageUpload').files[0];
-      const text = document.getElementById('textUpload').value;
-      return { image, text };
+      let formData = new FormData();
+      let text = $("#textUpload").val();
+
+      fileArray.forEach(function (file, index) {
+        formData.append('file' + index, file);
+      });
+      return { formData, text };
     }
   }).then((result) => {
     if (result.value) {
-      // Qui puoi gestire l'immagine e il testo caricati
-      // Ad esempio, puoi inviarli al server tramite una richiesta AJAX
+      console.log(result.value);
     }
   });
-  
-  
-  
+
 }
-
-$("#imageUpload").change(function() {
-  var ext = btnUpload.val().split('.').pop().toLowerCase();
-	if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-		$(".error_msg").text("Not an Image...");
-	} else {
-		$(".error_msg").text("");
-		btnOuter.addClass("file_uploading");
-		setTimeout(function(){
-			btnOuter.addClass("file_uploaded");
-		},3000);
-		Array.from(e.target.files).forEach(function(file){
-			var uploadedFile = URL.createObjectURL(file);
-			setTimeout(function(){
-				$("#uploaded_view").append('<img src="'+uploadedFile+'" />').addClass("show");
-			},3500);
-		});
-	}
-}); //quando si carica un immagine
-
-
 
 function renderPosts() {
   const postsContainer = document.getElementById('posts-container');
@@ -114,7 +129,7 @@ const posts = [
 $(function () {
   footerHeigt = document.querySelector('footer').offsetHeight;
   var bottomPosition = footerHeigt + 10;
-  
+
   //allert più figo per quando si faranno i post
   postAlert = Swal.mixin({
     toast: true,
@@ -128,7 +143,7 @@ $(function () {
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
-      document.querySelector('.swall-alert-postInfo').style.marginBottom  = bottomPosition + 'px';
+      document.querySelector('.swall-alert-postInfo').style.marginBottom = bottomPosition + 'px';
     },
     customClass: {
       popup: '.swall-alert-postInfo'
