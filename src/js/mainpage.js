@@ -1,7 +1,27 @@
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
 
   //renderPosts();
+  toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+      document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+    },
+    customClass: {
+      popup: 'swal2-popup-custom'
+    }
+  });
 
   postsContainer.addEventListener('click', function (event) {
     const likeButton = event.target.closest('.like-button');
@@ -57,16 +77,14 @@ function openNewPostForm() {
     html: `
       <div class="button_outer">
         <div class="btn_upload">
-          <input type="file" id="upload_file" accept="image/*"  name="" multiple>
+          <input type="file" id="upload_file" accept="image/*"  multiple>
           Upload Image
         </div>
         <div class="processing_bar"></div>
         <div class="success_box"></div>
       </div>
       <div class="error_msg"></div>
-      <div class="uploaded_file_view" id="uploaded_view">
-        <span class="file_remove">X</span>
-      </div>
+      <div class="container" id="img_loaded"></div>
       <textarea id="textUpload" placeholder="Inserisci il tuo testo qui..."></textarea>
     `,
     confirmButtonText: 'Conferma',
@@ -86,20 +104,39 @@ function openNewPostForm() {
             btnOuter.addClass("file_uploaded");
           }, 3000);
           fileArray = Array.from(e.target.files);
-          fileArray.forEach(function (file) {
+
+          fileArray.forEach(function (file, count = 0) {
+
             let uploadedFile = URL.createObjectURL(file);
+            let html = `
+            <div class="uploaded_file_view show" id="img${count}" >
+              <span class="file_remove" id="remover${count}">X</span>
+              <img src="${uploadedFile}" />
+            </div>`;
             setTimeout(function () {
-              $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
+              $("#img_loaded").append(html);
+              let idImg = "#img" + count
+              let remover = "#remover" + count;
+              console.log(remover);
+              $(remover).click(function () {
+                let element = document.getElementById("img" + count);
+                let parent = element.parentElement;
+                element.parentNode.removeChild(element);
+                console.log("remover pressed");
+                console.log(parent.children.length);
+                if (parent.children.length == 0) {
+                  btnOuter.removeClass("file_uploading");
+                  btnOuter.removeClass("file_uploaded");
+                }
+                
+              });
             }, 3500);
+
           });
         }
       });
-      $(".file_remove").on("click", function () {
-        $("#uploaded_view").removeClass("show");
-        $("#uploaded_view").find("img").remove();
-        btnOuter.removeClass("file_uploading");
-        btnOuter.removeClass("file_uploaded");
-      });
+
+
     },
     preConfirm: () => {
       let formData = new FormData();
@@ -179,27 +216,27 @@ function popUpFunction() {
   }
 }
 
-$(function () {
-  $.ajax({
-    type: 'GET',
-    dataType: "json",
-    url: "php/router.php",
-    data: {
-      request: 'loadPosts'
-    },
-    success: function (data) {
-      if (data.result) {
-        post = data.posts
-      } else {
-        popUpFunction();
-      }
-    },
-    error: function (error) {
-      toastMixin.fire({
-        title: 'Il server non risponde',
-        icon: 'error'
-      });
-        console.log(error);
-    }
-  });
-})
+// $(function () {
+//   $.ajax({
+//     type: 'GET',
+//     dataType: "json",
+//     url: "php/router.php",
+//     data: {
+//       request: 'loadPosts'
+//     },
+//     success: function (data) {
+//       if (data.result) {
+//         post = data.posts
+//       } else {
+//         popUpFunction();
+//       }
+//     },
+//     error: function (error) {
+//       toastMixin.fire({
+//         title: 'Il server non risponde',
+//         icon: 'error'
+//       });
+//         console.log(error);
+//     }
+//   });
+// });
