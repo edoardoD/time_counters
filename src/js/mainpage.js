@@ -216,27 +216,27 @@ function popUpFunction() {
   }
 }
 
-// $(function () {
-//   $.ajax({
-//     type: 'GET',
-//     dataType: "json",
-//     url: "php/router.php",
-//     data: {
-//       request: 'loadPosts'
-//     },
-//     success: function (data) {
-//       if (data.result) {
-//         post = data.posts
-//       } else {
-//         popUpFunction();
-//       }
-//     },
-//     error: function (error) {
-//       toastMixin.fire({
-//         title: 'Il server non risponde',
-//         icon: 'error'
-//       });
-//         console.log(error);
-//     }
-//   });
-// });
+ $(function () {
+   $.ajax({
+     type: 'GET',
+     dataType: "json",
+     url: "php/router.php",
+     data: {
+       request: 'loadPosts'
+     },
+     success: function (data) {
+       if (data.result) {
+         post = data.posts
+       } else {
+         popUpFunction();
+       }
+     },
+     error: function (error) {
+       toastMixin.fire({
+         title: 'Il server non risponde',
+         icon: 'error'
+       });
+         console.log(error);
+     }
+   });
+ });
