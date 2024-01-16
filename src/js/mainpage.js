@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
       document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
     },
-    customClass:{
-        popup:'swal2-popup-custom'
+    customClass: {
+      popup: 'swal2-popup-custom'
     }
-});
+  });
 
   postsContainer.addEventListener('click', function (event) {
     const likeButton = event.target.closest('.like-button');
@@ -58,7 +58,7 @@ function openNewPostForm() {
     html: `
       <div class="button_outer">
         <div class="btn_upload">
-          <input type="file" id="upload_file" accept="image/*"  name="" multiple>
+          <input type="file" id="upload_file" accept="image/*"  multiple>
           Upload Image
         </div>
         <div class="processing_bar"></div>
@@ -85,9 +85,9 @@ function openNewPostForm() {
             btnOuter.addClass("file_uploaded");
           }, 3000);
           fileArray = Array.from(e.target.files);
-          
-          fileArray.forEach(function (file, count=0) {
-            
+
+          fileArray.forEach(function (file, count = 0) {
+
             let uploadedFile = URL.createObjectURL(file);
             let html = `
             <div class="uploaded_file_view show" id="img${count}" >
@@ -96,22 +96,28 @@ function openNewPostForm() {
             </div>`;
             setTimeout(function () {
               $("#img_loaded").append(html);
+              let idImg = "#img" + count
+              let remover = "#remover" + count;
+              console.log(remover);
+              $(remover).click(function () {
+                let element = document.getElementById("img" + count);
+                let parent = element.parentElement;
+                element.parentNode.removeChild(element);
+                console.log("remover pressed");
+                console.log(parent.children.length);
+                if (parent.children.length == 0) {
+                  btnOuter.removeClass("file_uploading");
+                  btnOuter.removeClass("file_uploaded");
+                }
+                
+              });
             }, 3500);
+
           });
         }
       });
-      fileArray.forEach(function (count=0) {
-        $(`#remover${count}`).on("click", function () {
-          $(`#img${count}`).removeClass("show");
-          $(`#img${count}`).find("img").remove();
-          fileArray.splice(count, 1);
-          console.log(fileArray);
-        });
-      });
-      if (!Array.isArray(fileArray) || !fileArray.length) {
-        btnOuter.removeClass("file_uploading");
-        btnOuter.removeClass("file_uploaded");
-      }
+
+
     },
     preConfirm: () => {
       let formData = new FormData();
