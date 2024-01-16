@@ -85,11 +85,13 @@ function openNewPostForm() {
             btnOuter.addClass("file_uploaded");
           }, 3000);
           fileArray = Array.from(e.target.files);
-          fileArray.forEach(function (file) {
+          
+          fileArray.forEach(function (file, count=0) {
+            
             let uploadedFile = URL.createObjectURL(file);
             let html = `
-            <div class="uploaded_file_view show" >
-              <span class="file_remove">X</span>
+            <div class="uploaded_file_view show" id="img${count}" >
+              <span class="file_remove" id="remover${count}">X</span>
               <img src="${uploadedFile}" />
             </div>`;
             setTimeout(function () {
@@ -98,12 +100,18 @@ function openNewPostForm() {
           });
         }
       });
-      $(".file_remove").on("click", function () {
-        $(".uploaded_view").removeClass("show");
-        $(".uploaded_view").find("img").remove();
+      fileArray.forEach(function (count=0) {
+        $(`#remover${count}`).on("click", function () {
+          $(`#img${count}`).removeClass("show");
+          $(`#img${count}`).find("img").remove();
+          fileArray.splice(count, 1);
+          console.log(fileArray);
+        });
+      });
+      if (!Array.isArray(fileArray) || !fileArray.length) {
         btnOuter.removeClass("file_uploading");
         btnOuter.removeClass("file_uploaded");
-      });
+      }
     },
     preConfirm: () => {
       let formData = new FormData();
