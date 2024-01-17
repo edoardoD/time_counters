@@ -31,22 +31,29 @@
         
         <?php require "php/paginator.php"?>
             <?php require "php/nav.php"?>
+        <?php  session_start(); ?>
 
         
-        <footer class="fixed-bottom bg-white " >
-            <ul class="nav justify-content-center">
-                <li><a href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>" class="btn btn-outline-light btn-floating m-1 "><i class="fas fa-info-circle"  id="info"></i></a></li>
-                <li><a href="<?php 
-                    if (isset($_SESSION['username'])) {echo $_SERVER['PHP_SELF']."?page=dashboard";?>" class="btn btn-outline-light btn-floating m-1 "><i class="fas fa-user-circle " id="profile"></i></a></li> <?php } ?>
-               
-               <li><a href="<?php echo $_SERVER['PHP_SELF']."?page=search"?>" class="btn btn-outline-light btn-floating m-1 "><i class="fas fa-search" id="search"></i></a></li>
-                <?php
-                    if (isset($_GET['page']) && $_GET['page'] == 'mainpage' ) {
-                        print("<li><p  class=\"btn btn-outline-light btn-floating m-1 \" ><i onclick=\"openNewPostForm()\" class=\"fa fa-solid fa-circle-plus add-post-button \"></i></p></li>");
-                    }
-                ?>
-            </ul>
-        </footer>
+            <footer class="fixed-bottom bg-white">
+    <ul class="nav justify-content-center">
+        <li><a href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-info-circle" id="info"></i></a></li>
+        
+
+        <?php if(isset($_SESSION['username'])) {
+            var_dump($_SESSION['username']);
+            echo '<li><a href="' . $_SERVER['PHP_SELF'] . '?page=dashboard" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-user-circle" id="profile"></i></a></li>';
+        }  
+        ?>
+        <li><a href="<?php echo $_SERVER['PHP_SELF']."?page=search"?>" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-search" id="search"></i></a></li>
+        
+        <?php
+            if (isset($_GET['page']) && $_GET['page'] == 'mainpage') {
+                print("<li><p class=\"btn btn-outline-light btn-floating m-1\"><i onclick=\"openNewPostForm()\" class=\"fa fa-solid fa-circle-plus add-post-button\"></i></p></li>");
+            }
+        ?>
+    </ul>
+</footer>
+
         
     </body>
 </html>

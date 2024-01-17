@@ -6,7 +6,7 @@ session_start();
 if (!isset($_SESSION['username'])) {
     // Se l'utente non è autenticato, reindirizza alla pagina di login o esegui altre azioni necessarie
     die(json_encode(["result"=>false,"error"=>"Utente non loggato"]));
-}
+} 
 
 $connessione = new mysqli($GLOBALS['host'], $GLOBALS['utente'], $GLOBALS['password'], $GLOBALS['database']);
 
