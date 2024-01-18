@@ -1,6 +1,7 @@
 <?php
 require_once "jsonHeader.php";
 require_once "global.php";
+session_start();
 
 $get_requests = [
     'loadPosts' => 'mainpage.php',
