@@ -245,6 +245,14 @@ function popUpFunction() {
     });
   }
 }
+/* Con questo codice cambia URL alla pagina e va
+function popUpFunction() {
+  if (confirm("Utente non loggato")) {
+    window.location.href = "index.php?page=register";
+  } else {
+    window.location.href = "index.php?page=home";
+  }
+}*/
 
 
 
