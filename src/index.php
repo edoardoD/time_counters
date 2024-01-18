@@ -2,7 +2,7 @@
 <!-- HTML checker: http://achecker.csr.unibo.it/checker/index.php -->
 <!-- Validator: https://validator.w3.org/#validate_by_upload -->
 <!-- font awensome scripts: https://cdnjs.com/libraries/font-awesome -->
-
+<?php  session_start(); ?>
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -31,7 +31,7 @@
         
         <?php require "php/paginator.php"?>
             <?php require "php/nav.php"?>
-        <?php  session_start(); ?>
+       
 
         
             <footer class="fixed-bottom bg-white">
@@ -40,10 +40,10 @@
         
 
         <?php 
-        var_dump($_SESSION['username']);
+        
         if(isset($_SESSION['username'])) {
             //var_dump($_SESSION['username']);
-            echo '<li><a href="' . $_SERVER['PHP_SELF'] . '?page=dashboard" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-user-circle" id="profile"></i></a></li>';
+            print('<li><a href="' . $_SERVER['PHP_SELF'] . '?page=dashboard" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-user-circle" id="profile"></i></a></li>');
         }  
         ?>
         <li><a href="<?php echo $_SERVER['PHP_SELF']."?page=search"?>" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-search" id="search"></i></a></li>
