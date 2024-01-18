@@ -21,6 +21,15 @@
                 <li class="navbar-nav">
                     <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=mainpage"?>">main page</a>
                 </li>
+                <?php
+                    if (isset($_SESSION['username'])) {
+                        $htm = "<li class=\"navbar-nav\">
+                        <a class=\"nav-link\" onclick =\"confirmLogOut()\">logout</a>
+                    </li>";
+                        print($htm);
+                    }
+                
+                ?>
             </ul>
         </div>
     </div>
