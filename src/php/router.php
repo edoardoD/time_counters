@@ -4,7 +4,7 @@ require_once "global.php";
 session_start();
 
 $get_requests = [
-    'loadPosts' => 'mainpage.php',
+    'loadPosts' => 'get/mainpage.php',
 ];
 
 $post_requests = [
