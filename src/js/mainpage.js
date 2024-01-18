@@ -2,26 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
-
-  //renderPosts();
-  toastMixin = Swal.mixin({
-    toast: true,
-    icon: 'success',
-    title: 'General Title',
-    animation: false,
-    position: 'top-right',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-      document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
-    },
-    customClass: {
-      popup: 'swal2-popup-custom'
-    }
-  });
+  
 
   postsContainer.addEventListener('click', function (event) {
     const likeButton = event.target.closest('.like-button');
@@ -168,18 +149,7 @@ function renderPosts() {
   postsContainer.appendChild(fragment); // Aggiunge il fragment al container
 }
 
-posts = [
-  //{ username: 'utente1', text: 'Questo è un post di utente1' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente2' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente3' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  //{ username: 'utente2', text: 'Ecco cosa ha pubblicato utente4' },
-  // Aggiungi altri post secondo necessità
-];
+posts = [];
 
 
 $(function () {
@@ -245,14 +215,7 @@ function popUpFunction() {
     });
   }
 }
-/* Con questo codice cambia URL alla pagina e va
-function popUpFunction() {
-  if (confirm("Utente non loggato")) {
-    window.location.href = "index.php?page=register";
-  } else {
-    window.location.href = "index.php?page=home";
-  }
-}*/
+
 
 
 
