@@ -208,13 +208,45 @@ $(function () {
 
 });
 
+/*
 function popUpFunction() {
   if (confirm("Utente non loggato")) {
     $.get("index.php", { page: "register" })
   } else {
     $.get("index.php", { page: "home" })
   }
+} 
+*/
+
+function popUpFunction() {
+  if (confirm("Utente non loggato")) {
+    $.ajax({
+      url: "index.php",
+      data: { page: "register" },
+      success: function(response) {
+        // Operazioni da eseguire in caso di successo, se necessario
+        console.log("Success");
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error("Error", textStatus, errorThrown);
+      }
+    });
+  } else {
+    $.ajax({
+      url: "index.php",
+      data: { page: "home" },
+      success: function(response) {
+        // Operazioni da eseguire in caso di successo, se necessario
+        console.log("Success");
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error("Error", textStatus, errorThrown);
+      }
+    });
+  }
 }
+
+
 
  $(function () {
    $.ajax({

@@ -39,8 +39,10 @@
         <li><a href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-info-circle" id="info"></i></a></li>
         
 
-        <?php if(isset($_SESSION['username'])) {
-            var_dump($_SESSION['username']);
+        <?php 
+        var_dump($_SESSION['username']);
+        if(isset($_SESSION['username'])) {
+            //var_dump($_SESSION['username']);
             echo '<li><a href="' . $_SERVER['PHP_SELF'] . '?page=dashboard" class="btn btn-outline-light btn-floating m-1"><i class="fas fa-user-circle" id="profile"></i></a></li>';
         }  
         ?>
