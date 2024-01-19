@@ -24,7 +24,7 @@
                 <?php
                     if(isset($_SESSION['username'])){
                         print("<li class=\"navbar-nav\">
-                            <a class=\"nav-link\" href=\" echo $_SERVER['PHP_SELF'].\"?request=logOut.php\">logOut</a>
+                            <a id=\"logOut\" class=\"nav-link\"  onclick=\"logOut()\">logOut</a>
                         </li>");
                     }
                 ?>

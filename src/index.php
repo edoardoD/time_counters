@@ -28,6 +28,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.2/sweetalert2.all.js" 
         integrity="sha512-h+uc/rWXvhloPmX380zKn7+8D9xNiLvVMkhUW+5yIoHYD2I1wzWc/cSAbAflCohdv+AE0pOF2d8zrbQ+fiPQtA==" 
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="js/index.js"></script>
         
         <?php require "php/paginator.php"?>
             <?php require "php/nav.php"?>
