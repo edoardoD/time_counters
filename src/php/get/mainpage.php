@@ -17,7 +17,12 @@ if ($connessione->connect_error) {
 $username = $_SESSION['username'];
 
 // Query per ottenere i post dell'utente
-$query = "SELECT * FROM POST WHERE utente = ?";
+$query = "SELECT p.*
+FROM POST p
+JOIN SEGUITI s ON p.utente_email = s.utente2_email
+JOIN UTENTI u ON s.utente1_email = u.email
+WHERE u.email = ?;
+";
 $stmt = $connessione->prepare($query);
 
 // Verifica la preparazione della query
