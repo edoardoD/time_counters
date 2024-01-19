@@ -173,10 +173,13 @@ function popUpFunction(msg) {
   }).then((result) => {
     if (result.isConfirmed) {
         // Azione da eseguire se l'utente clicca su OK
-        $.get("index.php", { page: "register" })
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
+        
+        window.location.href = "index.php?page=register";
+        
+        
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
         // Azione da eseguire se l'utente clicca su Annulla
-        $.get("index.php", { page: "home" })
+        window.location.href = "index.php?page=home";
     }
   });
 }
