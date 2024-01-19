@@ -22,7 +22,7 @@ $stmt = $connessione->prepare($query);
 
 // Verifica la preparazione della query
 if ($stmt === false) {
-    die("Errore nella preparazione della query: ");
+    die(json_encode(["result"=>false,"error"=>"errore della preparazione della query"]));
 }
 
 // Lega i parametri
