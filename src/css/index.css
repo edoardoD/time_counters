@@ -10,3 +10,7 @@ footer a i {
     /* Aggiungi spazio tra le icone */
     color: black;
 }
+
+#logOut{
+    cursor: pointer;
+}
