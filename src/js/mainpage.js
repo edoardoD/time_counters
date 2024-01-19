@@ -13,24 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-/* function createPostMarkup(post) {
-  return `
-      <div class="post">
-          <img src="https://via.placeholder.com/50" alt="${post.username}" class="profile-image">
-          <div class="post-content">
-              <h4 class="mb-3">${post.username}</h4>
-              <p>${post.text}</p>
-              <div class="actions">
-                  <div class="action-icons">
-                      <span class="like-button"><i class="fas fa-heart"></i></span>
-                      <span><i class="far fa-comment"></i></span>
-                      <span><i class="far fa-bookmark"></i></span>
-                  </div>
-              </div>
-          </div>
-      </div>
-  `;
-} */
 
 function createPostMarkup(post) {
   return `
@@ -178,24 +160,17 @@ $(function () {
 
 });
 
-/*
-function popUpFunction() {
-  if (confirm("Utente non loggato")) {
-    $.get("index.php", { page: "register" })
-  } else {
-    $.get("index.php", { page: "home" })
-  }
-} 
-*/
 
-function popUpFunction() {
+
+function popUpFunction(msg) {
   Swal.fire({
-    title: 'Utente non loggato, loggati o registrati?',
+    title: 'Utente non registrato',
+    text:''+msg,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'OK',
     cancelButtonText: 'Annulla',
-}).then((result) => {
+  }).then((result) => {
     if (result.isConfirmed) {
         // Azione da eseguire se l'utente clicca su OK
         $.get("index.php", { page: "register" })
@@ -203,13 +178,11 @@ function popUpFunction() {
         // Azione da eseguire se l'utente clicca su Annulla
         $.get("index.php", { page: "home" })
     }
-});
+  });
 }
 
 
-
-
- $(function () {
+$(function () {
    $.ajax({
      type: 'GET',
      dataType: "json",
@@ -221,7 +194,7 @@ function popUpFunction() {
        if (data.result) {
          post = data.posts
        } else {
-         popUpFunction();
+         popUpFunction(data.error);
        }
      },
      error: function (error) {
@@ -232,4 +205,4 @@ function popUpFunction() {
          console.log(error);
      }
    });
- });
+});
