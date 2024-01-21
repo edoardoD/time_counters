@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-function confirmLogOut(){
-    swall.fire({
-        title: 'Sei sicuro di voler uscire?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sì',
-        cancelButtonText: 'No'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.get("router.php", { request: "logout" });
-        }
-    });
-};
-=======
 
 
 function logOut() {
@@ -53,4 +36,27 @@ function logOut() {
         }
     });
 }
->>>>>>> 93268eea6bde1b0d3e1a0a3ac77276ceb2abbd45
+
+$(function () {
+    //tutte le volte che chiamo toastmixin devo impostare anche la posizione in cui 
+    // voglio che appaia e calcolare i px di margin in base alla grandezza o del footer 
+    //o della navbar
+    window.generalToast = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+          
+        },
+        customClass:{
+            popup:'swal2-popup-custom'
+        }
+    });
+});
