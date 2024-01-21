@@ -18,13 +18,8 @@ function gotoNewAccount() {
 $(function () {
 
     let navbarHeight = document.querySelector('#nav-menu').offsetHeight;
-    let marginTop = navbarHeight + 20; // Aggiungi 20px al margine
-    toastMixin = Swall.mixin({
-        ...window.generalToast,
-        didOpen : (toast) => {
-            document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
-        },
-    });
+    marginTop = navbarHeight + 20; // Aggiungi 20px al margine
+
 
 
 
@@ -32,17 +27,21 @@ $(function () {
     let re_pass = document.getElementById("re_pass");
     register_form = document.querySelector("#register-form");
 
-    let form_tag = "#"+register_form.id;
+    let form_tag = "#" + register_form.id;
     // aggiungo un evento al submit del form d
     $(form_tag).submit(function (event) {
         event.preventDefault(); // previene l'invio del form
         if (pass.value === re_pass.value) {
-            registerRequest($("#name").val(),$("#surname").val(),$("#email").val(),$("#re_pass").val());
+            registerRequest($("#name").val(), $("#surname").val(), $("#email").val(), $("#re_pass").val());
         } else {
-            toastMixin.fire({
+
+            window.generalToast.fire({
                 title: 'password not matching',
-                icon: 'error'
-            });
+                icon: 'error',
+                didOpen: (toast) => {
+                    document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                }
+            })
         }
     });
 
@@ -50,8 +49,8 @@ $(function () {
     let email = document.getElementById("your_name");
     login_form = document.querySelector("#login-form");
 
-    let login_tag = "#"+login_form.id;
-    $(login_tag).submit(function (event){
+    let login_tag = "#" + login_form.id;
+    $(login_tag).submit(function (event) {
         event.preventDefault();
         loginRequest(email.value, password.value);
     })
@@ -77,31 +76,45 @@ function registerRequest(name, surname, email, pass) {
             success: function (data) {
                 console.log(data);
                 if (data.result) {
-                    toastMixin.fire({
+
+                    window.generalToast.fire({
                         animation: true,
-                        title: data.messagge
-                    });
+                        title: data.messagge,
+                        didOpen: (toast) => {
+                            document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                        }
+                    })
                 } else {
-                    toastMixin.fire({
+
+                    window.generalToast.fire({
                         title: data.error,
-                        icon: 'error'
-                    });
+                        icon: 'error',
+                        didOpen: (toast) => {
+                            document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                        }
+                    })
                 }
             },
             error: function (data, status, error) {
-                toastMixin.fire({
+                window.generalToast.fire({
                     title: 'Il server non risponde',
-                    icon: 'error'
-                });
+                    icon: 'error',
+                    didOpen: (toast) => {
+                        document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                    }
+                })
                 console.log(error);
             }
         });
     } else {
         // Se uno o più dati sono mancanti, mostra un messaggio di errore
-        toastMixin.fire({
+        window.generalToast.fire({
             title: 'Assicurati di inserire tutti i dati',
-            icon: 'error'
-        });
+            icon: 'error',
+            didOpen: (toast) => {
+                document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+            }
+        })
     }
 }
 
@@ -120,23 +133,34 @@ function loginRequest(email, pass) {
         success: function (data) {
             console.log(data);
             if (data.result) {
-                toastMixin.fire({
+                window.generalToast.fire({
                     animation: true,
-                    title: data.messagge
+                    title: data.messagge,
+                    didOpen: (toast) => {
+                        document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                    },
+                    didClose: () => {
+                        window.location.href = "index.php?page=mainpage";
+                    }
                 });
-                window.location.href = "index.php?page=mainpage";
             } else {
-                toastMixin.fire({
+                window.generalToast.fire({
                     title: data.error,
-                    icon: 'error'
-                });
+                    icon: 'error',
+                    didOpen: (toast) => {
+                        document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                    }
+                })
             }
         },
         error: function (data, status, error) {
-            toastMixin.fire({
+            window.generalToast.fire({
                 title: 'Il server non risponde',
-                icon: 'error'
-            });
+                icon: 'error',
+                didOpen: (toast) => {
+                    document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                }
+            })
             console.log(error);
         }
     });
