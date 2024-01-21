@@ -22,6 +22,7 @@
                     <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=mainpage"?>">main page</a>
                 </li>
                 <?php
+<<<<<<< HEAD
                     if (isset($_SESSION['username'])) {
                         $htm = "<li class=\"navbar-nav\">
                         <a class=\"nav-link\" onclick =\"confirmLogOut()\">logout</a>
@@ -29,6 +30,13 @@
                         print($htm);
                     }
                 
+=======
+                    if(isset($_SESSION['username'])){
+                        print("<li class=\"navbar-nav\">
+                            <a id=\"logOut\" class=\"nav-link\"  onclick=\"logOut()\">logOut</a>
+                        </li>");
+                    }
+>>>>>>> 93268eea6bde1b0d3e1a0a3ac77276ceb2abbd45
                 ?>
             </ul>
         </div>

@@ -11,7 +11,13 @@ footer a i {
     color: black;
 }
 
+<<<<<<< HEAD
 
 .swal2-popup-custom{
     position: relative;
   }
+=======
+#logOut{
+    cursor: pointer;
+}
+>>>>>>> 93268eea6bde1b0d3e1a0a3ac77276ceb2abbd45

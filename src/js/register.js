@@ -136,7 +136,7 @@ function loginRequest(email, pass) {
                     animation: true,
                     title: data.messagge
                 });
-                
+                window.location.href = "index.php?page=mainpage";
             } else {
                 toastMixin.fire({
                     title: data.error,

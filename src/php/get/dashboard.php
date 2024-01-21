@@ -1,48 +1,39 @@
 <?php
-// Credenziali di accesso al database
-$host = "localhost"; // Può variare in base al tuo server
-$nome_database = "my_unibowebprogramming";
-$nome_utente = "unibowebprogramming";
-$password_db = "aU74pudmHUeD";
-
 // Connessione al database
-$conn = new mysqli($host, $nome_utente, $password_db, $nome_database);
+$conn = new mysqli($GLOBALS['host'], $GLOBALS['utente'], $GLOBALS['password'], $GLOBALS['database']);
 
 // Verifica della connessione
 if ($conn->connect_error) {
-    die("Connessione al database fallita: " . $conn->connect_error);
+    die(json_encode(["result"=>false,"error"=>"connessione non riuscita". $connessione->connect_error]));
 }
 
-// Query per ottenere i dati
-$query_seguiti = "SELECT utente2 FROM SEGUITI";
-$result_seguiti = $conn->query($query_seguiti);
+// Ottieni l'username dalla variabile di sessione
+$username = $_SESSION['username'];
 
-$query_post = "SELECT id_post FROM POST";
-$result_post = $conn->query($query_post);
+// Query per ottenere i post dell'utente
+$query = "SELECT * FROM POST WHERE utente = ?";
+$stmt = $connessione->prepare($query);
 
-$query_seguaci = "SELECT utente1 FROM SEGUITI";
-$result_seguaci = $conn->query($query_seguaci);
+// Lega i parametri
+$stmt->bind_param("s", $username);
 
-// Estrarre i risultati
-if ($result_seguiti->num_rows > 0) {
-    $row = $result_seguiti->fetch_assoc();
-    $num_followers = $row['utente2'];
+// Esegui la query
+$stmt->execute();
+
+// Ottieni i risultati
+$result = $stmt->get_result();
+
+
+// Verifica se ci sono risultati
+if ($result) {
+    $posts = [];
+    // Stampa i risultati
+    while ($row = $result->fetch_assoc()) {
+        $posts[] = $row;
+    }
+    die(json_encode(["result"=>true, "posts"=> $posts]));
 } else {
-    $num_followers = 0;
-}
-
-if ($result_post->num_rows > 0) {
-    $row = $result_post->fetch_assoc();
-    $num_posts = $row['id_post'];
-} else {
-    $num_posts = 0;
-}
-
-if ($result_seguaci->num_rows > 0) {
-    $row = $result_seguaci->fetch_assoc();
-    $num_following = $row['utente1'];
-} else {
-    $num_following = 0;
+    die(json_encode(["result"=>false, "error"=>"Nessun post trovato per l'utente"]));
 }
 
 $conn->close();

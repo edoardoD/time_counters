@@ -13,24 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-/* function createPostMarkup(post) {
-  return `
-      <div class="post">
-          <img src="https://via.placeholder.com/50" alt="${post.username}" class="profile-image">
-          <div class="post-content">
-              <h4 class="mb-3">${post.username}</h4>
-              <p>${post.text}</p>
-              <div class="actions">
-                  <div class="action-icons">
-                      <span class="like-button"><i class="fas fa-heart"></i></span>
-                      <span><i class="far fa-comment"></i></span>
-                      <span><i class="far fa-bookmark"></i></span>
-                  </div>
-              </div>
-          </div>
-      </div>
-  `;
-} */
 
 function createPostMarkup(post) {
   return `
@@ -178,48 +160,32 @@ $(function () {
 
 });
 
-/*
-function popUpFunction() {
-  if (confirm("Utente non loggato")) {
-    $.get("index.php", { page: "register" })
-  } else {
-    $.get("index.php", { page: "home" })
-  }
-} 
-*/
 
-function popUpFunction() {
-  if (confirm("Utente non loggato")) {
-    $.ajax({
-      url: "index.php",
-      data: { page: "register" },
-      success: function(response) {
-        // Operazioni da eseguire in caso di successo, se necessario
-        console.log("Success");
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.error("Error", textStatus, errorThrown);
-      }
-    });
-  } else {
-    $.ajax({
-      url: "index.php",
-      data: { page: "home" },
-      success: function(response) {
-        // Operazioni da eseguire in caso di successo, se necessario
-        console.log("Success");
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.error("Error", textStatus, errorThrown);
-      }
-    });
-  }
+
+function popUpFunction(msg) {
+  Swal.fire({
+    title: 'Utente non registrato',
+    text:''+msg,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'OK',
+    cancelButtonText: 'Annulla',
+  }).then((result) => {
+    if (result.isConfirmed) {
+        // Azione da eseguire se l'utente clicca su OK
+        
+        window.location.href = "index.php?page=register";
+        
+        
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // Azione da eseguire se l'utente clicca su Annulla
+        window.location.href = "index.php?page=home";
+    }
+  });
 }
 
 
-
-
- $(function () {
+$(function () {
    $.ajax({
      type: 'GET',
      dataType: "json",
@@ -231,7 +197,7 @@ function popUpFunction() {
        if (data.result) {
          post = data.posts
        } else {
-         popUpFunction();
+         popUpFunction(data.error);
        }
      },
      error: function (error) {
@@ -242,4 +208,4 @@ function popUpFunction() {
          console.log(error);
      }
    });
- });
+});
