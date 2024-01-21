@@ -19,23 +19,11 @@ $(function () {
 
     let navbarHeight = document.querySelector('#nav-menu').offsetHeight;
     let marginTop = navbarHeight + 20; // Aggiungi 20px al margine
-    toastMixin = Swal.mixin({
-        toast: true,
-        icon: 'success',
-        title: 'General Title',
-        animation: false,
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-          document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+    toastMixin = Swall.mixin({
+        ...window.generalToast,
+        didOpen : (toast) => {
+            document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
         },
-        customClass:{
-            popup:'swal2-popup-custom'
-        }
     });
 
 
