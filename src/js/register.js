@@ -17,11 +17,8 @@ function gotoNewAccount() {
 //document.querySelector("register-form")=> cerca un elemento <register-form>
 $(function () {
 
-    let navbarHeight = document.querySelector('#nav-menu').offsetHeight;
-    marginTop = navbarHeight + 20; // Aggiungi 20px al margine
-
-
-
+    
+    marginTop = window.navbarHeight + 20; // Aggiungi 20px al margine
 
     let pass = document.getElementById("pass");
     let re_pass = document.getElementById("re_pass");
@@ -76,7 +73,6 @@ function registerRequest(name, surname, email, pass) {
             success: function (data) {
                 console.log(data);
                 if (data.result) {
-
                     window.generalToast.fire({
                         animation: true,
                         title: data.messagge,
