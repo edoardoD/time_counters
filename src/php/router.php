@@ -11,6 +11,7 @@ $get_requests = [
 $post_requests = [
     'login' => 'post/login.php',
     'register' => 'post/register.php',
+    'chargePost' => 'post/chargePost.php',
 ];
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
