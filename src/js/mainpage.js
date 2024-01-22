@@ -163,14 +163,6 @@ function renderPosts() {
 posts = [];
 
 
-$(function () {
-
-  bottomPosition = window.footerHeigt + 10;
-
-
-
-});
-
 
 
 function popUpFunction(msg) {
