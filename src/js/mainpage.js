@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
-  
+
 
   postsContainer.addEventListener('click', function (event) {
     const likeButton = event.target.closest('.like-button');
@@ -91,7 +91,7 @@ function openNewPostForm() {
                   btnOuter.removeClass("file_uploading");
                   btnOuter.removeClass("file_uploaded");
                 }
-                
+
               });
             }, 3500);
 
@@ -108,11 +108,39 @@ function openNewPostForm() {
       fileArray.forEach(function (file, index) {
         formData.append('file' + index, file);
       });
-      return { formData, text };
+      formData.append('text', text);
+      formData.append('arrayLength', fileArray.length);
+      return { formData };
     }
   }).then((result) => {
     if (result.value) {
-      console.log(result.value);
+      for (let [nomeCampo, valore] of result.value.formData.entries()) {
+        console.log(`${nomeCampo} = ${valore}`); // Stampa 'nome = Luigi'
+      }
+      // Invia formData con AJAX
+      $.ajax({
+        url: 'router.php', // Sostituisci con l'URL del tuo script PHP
+        type: 'POST',
+        data: formData,
+        processData: false, // Imposta su false per impedire a jQuery di trasformare i dati in una stringa di query
+        contentType: false, // Imposta su false per rimuovere l'intestazione 'Content-Type' (necessario per 'multipart/form-data')
+        success: function (data) {
+          if(data.result){
+            let  marginBotn = window.footerHeigt + 10;
+            window.generalToast.fire({
+              title: data.messagge,
+              icon: 'success',
+              position: 'bottom',
+              didOpen: (toast) => {
+                document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
+              }
+            });
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log('Errore nell\'invio dei dati: ' + textStatus);
+        }
+      });
     }
   });
 
@@ -135,28 +163,10 @@ posts = [];
 
 
 $(function () {
-  footerHeigt = document.querySelector('footer').offsetHeight;
-  var bottomPosition = footerHeigt + 10;
 
-  //allert più figo per quando si faranno i post
-  postAlert = Swal.mixin({
-    toast: true,
-    icon: 'success',
-    title: 'Posted successfully',
-    animation: false,
-    position: 'bottom',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-      document.querySelector('.swall-alert-postInfo').style.marginBottom = bottomPosition + 'px';
-    },
-    customClass: {
-      popup: '.swall-alert-postInfo'
-    }
-  });
+  bottomPosition = window.footerHeigt + 10;
+
+
 
 });
 
@@ -165,47 +175,51 @@ $(function () {
 function popUpFunction(msg) {
   Swal.fire({
     title: 'Utente non registrato',
-    text:''+msg,
+    text: '' + msg,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'OK',
     cancelButtonText: 'Annulla',
   }).then((result) => {
     if (result.isConfirmed) {
-        // Azione da eseguire se l'utente clicca su OK
-        
-        window.location.href = "index.php?page=register";
-        
-        
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Azione da eseguire se l'utente clicca su Annulla
-        window.location.href = "index.php?page=home";
+      // Azione da eseguire se l'utente clicca su OK
+
+      window.location.href = "index.php?page=register";
+
+
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // Azione da eseguire se l'utente clicca su Annulla
+      window.location.href = "index.php?page=home";
     }
   });
 }
 
 
 $(function () {
-   $.ajax({
-     type: 'GET',
-     dataType: "json",
-     url: "php/router.php",
-     data: {
-       request: 'loadPosts'
-     },
-     success: function (data) {
-       if (data.result) {
-         post = data.posts
-       } else {
-         popUpFunction(data.error);
-       }
-     },
-     error: function (error) {
-       toastMixin.fire({
-         title: 'Il server non risponde',
-         icon: 'error'
-       });
-         console.log(error);
-     }
-   });
+  $.ajax({
+    type: 'GET',
+    dataType: "json",
+    url: "php/router.php",
+    data: {
+      request: 'loadPosts'
+    },
+    success: function (data) {
+      if (data.result) {
+        post = data.posts
+      } else {
+        popUpFunction(data.error);
+      }
+    },
+    error: function (error) {
+      let marginTop = window.navbarHeight + 20;
+      window.generalToast.fire({
+        title: 'Il server non risponde',
+        icon: 'error',
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+        }
+      });
+      console.log(error);
+    }
+  });
 });
