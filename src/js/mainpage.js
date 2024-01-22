@@ -110,6 +110,7 @@ function openNewPostForm() {
       });
       formData.append('text', text);
       formData.append('arrayLength', fileArray.length);
+      formData.append('request', 'chargePost');
       return { formData };
     }
   }).then((result) => {
