@@ -33,6 +33,8 @@ function createPostMarkup(post) {
   `;
 }
 
+let formData;
+
 function openNewPostForm() {
   let fileArray = [];
   Swal.fire({
@@ -102,7 +104,7 @@ function openNewPostForm() {
 
     },
     preConfirm: () => {
-      let formData = new FormData();
+      formData = new FormData();
       let text = $("#textUpload").val();
 
       fileArray.forEach(function (file, index) {
@@ -120,7 +122,7 @@ function openNewPostForm() {
       }
       // Invia formData con AJAX
       $.ajax({
-        url: 'router.php', // Sostituisci con l'URL del tuo script PHP
+        url: 'php/router.php', // Sostituisci con l'URL del tuo script PHP
         type: 'POST',
         data: formData,
         processData: false, // Imposta su false per impedire a jQuery di trasformare i dati in una stringa di query
