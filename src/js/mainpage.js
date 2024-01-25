@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
 
@@ -32,8 +30,6 @@ function createPostMarkup(post) {
       </div>
   `;
 }
-
-let formData = new FormData();
 
 function openNewPostForm() {
   let fileArray = [];
@@ -100,11 +96,9 @@ function openNewPostForm() {
           });
         }
       });
-
-
     },
     preConfirm: () => {
-      formData = new FormData();
+      let formData = new FormData();
       let text = $("#textUpload").val();
 
       fileArray.forEach(function (file, index) {
@@ -120,35 +114,28 @@ function openNewPostForm() {
       for (let [nomeCampo, valore] of result.value.formData.entries()) {
         console.log(`${nomeCampo} = ${valore}`); // Stampa 'nome = Luigi'
       }
-      // Invia formData con AJAX
-      // Invia formData con AJAX
-$.ajax({
-  url: 'php/router.php', // Sostituisci con l'URL del tuo script PHP
-  type: 'POST',
-  data: formData,
-  processData: false,
-  contentType: false,
-  success: function (data) {
-    if (data && data.result) {
-      let marginBotn = window.footerHeigt + 10;
-      window.generalToast.fire({
-        title: data.messagge,
-        icon: 'success',
-        position: 'bottom',
-        didOpen: (toast) => {
-          document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
-        }
-      });
-    } else {
-      console.error('Dati non validi o mancanti nella risposta del server: ', data.error);
-    }
-  },
-  error: function (jqXHR, textStatus, errorThrown) {
-    console.error('Errore nell\'invio dei dati:', textStatus);
-    console.error('Dettagli dell\'errore:', jqXHR.responseText);
-  }
-});
-
+      // Invia formData con Fetch
+      fetch('php/router.php', { // Sostituisci con l'URL del tuo script PHP
+        method: 'POST',
+        body: result.value.formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.result) {
+            let marginBotn = window.footerHeigt + 10;
+            window.generalToast.fire({
+              title: data.messagge,
+              icon: 'success',
+              position: 'bottom',
+              didOpen: (toast) => {
+                document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          console.log('Errore nell\'invio dei dati: ', error);
+        });
     }
   });
 
@@ -169,14 +156,6 @@ function renderPosts() {
 
 posts = [];
 
-
-$(function () {
-
-  bottomPosition = window.footerHeigt + 10;
-
-
-
-});
 
 
 
@@ -213,40 +192,21 @@ $(function () {
     },
     success: function (data) {
       if (data.result) {
-        post = data.posts;
+        post = data.posts
       } else {
         popUpFunction(data.error);
       }
     },
-    error: function (xhr, textStatus, errorThrown) {
+    error: function (error) {
       let marginTop = window.navbarHeight + 20;
-      let errorMessage = "Errore sconosciuto";
-
-      if (xhr.responseText) {
-        try {
-          // Prova a interpretare la risposta come JSON
-          let errorData = JSON.parse(xhr.responseText);
-          if (errorData.error) {
-            errorMessage = errorData.error;
-          }
-        } catch (e) {
-          // Se non riesci a parsificare la risposta JSON, usa il testo di risposta diretto
-          errorMessage = xhr.responseText;
-        }
-      }
-
       window.generalToast.fire({
-        title: 'Errore nella richiesta Ajax',
-        text: errorMessage,
+        title: 'Il server non risponde',
         icon: 'error',
         didOpen: (toast) => {
           document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
         }
       });
-
-      console.log("XHR status: " + xhr.status);
-      console.log("Text status: " + textStatus);
-      console.log("Error thrown: " + errorThrown);
+      console.log(error);
     }
   });
 });
