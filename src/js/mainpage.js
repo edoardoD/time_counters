@@ -98,8 +98,6 @@ function openNewPostForm() {
           });
         }
       });
-
-
     },
     preConfirm: () => {
       let formData = new FormData();
@@ -118,16 +116,15 @@ function openNewPostForm() {
       for (let [nomeCampo, valore] of result.value.formData.entries()) {
         console.log(`${nomeCampo} = ${valore}`); // Stampa 'nome = Luigi'
       }
-      // Invia formData con AJAX
-      $.ajax({
-        url: 'router.php', // Sostituisci con l'URL del tuo script PHP
-        type: 'POST',
-        data: formData,
-        processData: false, // Imposta su false per impedire a jQuery di trasformare i dati in una stringa di query
-        contentType: false, // Imposta su false per rimuovere l'intestazione 'Content-Type' (necessario per 'multipart/form-data')
-        success: function (data) {
-          if(data.result){
-            let  marginBotn = window.footerHeigt + 10;
+      // Invia formData con Fetch
+      fetch('PHP/router.php', { // Sostituisci con l'URL del tuo script PHP
+        method: 'POST',
+        body: result.value.formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.result) {
+            let marginBotn = window.footerHeigt + 10;
             window.generalToast.fire({
               title: data.messagge,
               icon: 'success',
@@ -137,11 +134,10 @@ function openNewPostForm() {
               }
             });
           }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.log('Errore nell\'invio dei dati: ' + textStatus);
-        }
-      });
+        })
+        .catch((error) => {
+          console.log('Errore nell\'invio dei dati: ', error);
+        });
     }
   });
 
