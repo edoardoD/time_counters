@@ -140,7 +140,7 @@ $.ajax({
         }
       });
     } else {
-      console.error('Dati non validi o mancanti nella risposta del server.');
+      console.error('Dati non validi o mancanti nella risposta del server: ', data.error);
     }
   },
   error: function (jqXHR, textStatus, errorThrown) {

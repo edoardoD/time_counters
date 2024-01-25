@@ -17,22 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Fai qualcosa con $text
     }
 
-    // Esegui la query per ottenere l'ultimo id_post dalla tabella POST
-    $query = "SELECT MAX(id_post) as maxId FROM POST";
-    $result = $connessione->query($query);
-    if ($result) {
-        $row = $result->fetch_assoc();
-        $lastId = $row['maxId'];
-        $newId = $lastId + 1;
-        $result->free();
-    } else {
-        die(json_encode(["result" => false, "error" => $connessione->error]));
-    }
-
     // Esegui l'inserimento nella tabella POST utilizzando prepared statement
-    $query = "INSERT INTO POST (id_post, descrizione, utente) VALUES (?, ?, ?)";
+    $query = "INSERT INTO POST (descrizione, utente) VALUES (?, ?)";
     $stmt = $connessione->prepare($query);
-    $stmt->bind_param("iss",$lastId, $text, $username); // Nota: la variabile $text era precedentemente non definita
+    $stmt->bind_param("ss", $text, $username); // Nota: la variabile $text era precedentemente non definita
     
     if ($stmt->execute()) {
         $lastInsertedId = $connessione->insert_id;
@@ -61,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($stmtImg->execute()) {
                         $stmtImg->close();
                     } else {
-                        die(json_encode(["result" => false, "error" => "Errore nel caricamento del file " . $fileName]));
+                        die(json_encode(["result" => false, "error" => "Errore1 nel caricamento del file " . $fileName]));
                     }
                 } else {
-                    die(json_encode(["result" => false, "error" => "Errore nel caricamento del file " . $fileName]));
+                    die(json_encode(["result" => false, "error" => "Errore2 nel caricamento del file " . $fileName]));
                 }
             } else {
-                die(json_encode(["result" => false, "error" => "Errore nel caricamento del file " . $fileName]));
+                die(json_encode(["result" => false, "error" => "Errore3 nel caricamento del file " . $fileName]));
             }
         }
         
