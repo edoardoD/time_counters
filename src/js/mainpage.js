@@ -213,21 +213,40 @@ $(function () {
     },
     success: function (data) {
       if (data.result) {
-        post = data.posts
+        post = data.posts;
       } else {
         popUpFunction(data.error);
       }
     },
-    error: function (error) {
+    error: function (xhr, textStatus, errorThrown) {
       let marginTop = window.navbarHeight + 20;
+      let errorMessage = "Errore sconosciuto";
+
+      if (xhr.responseText) {
+        try {
+          // Prova a interpretare la risposta come JSON
+          let errorData = JSON.parse(xhr.responseText);
+          if (errorData.error) {
+            errorMessage = errorData.error;
+          }
+        } catch (e) {
+          // Se non riesci a parsificare la risposta JSON, usa il testo di risposta diretto
+          errorMessage = xhr.responseText;
+        }
+      }
+
       window.generalToast.fire({
-        title: 'Il server non risponde',
+        title: 'Errore nella richiesta Ajax',
+        text: errorMessage,
         icon: 'error',
         didOpen: (toast) => {
           document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
         }
       });
-      console.log(error);
+
+      console.log("XHR status: " + xhr.status);
+      console.log("Text status: " + textStatus);
+      console.log("Error thrown: " + errorThrown);
     }
   });
 });
