@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
 
@@ -117,7 +115,7 @@ function openNewPostForm() {
         console.log(`${nomeCampo} = ${valore}`); // Stampa 'nome = Luigi'
       }
       // Invia formData con Fetch
-      fetch('PHP/router.php', { // Sostituisci con l'URL del tuo script PHP
+      fetch('php/router.php', { // Sostituisci con l'URL del tuo script PHP
         method: 'POST',
         body: result.value.formData
       })
