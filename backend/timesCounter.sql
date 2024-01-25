@@ -30,13 +30,13 @@ create table COMBINAZIONI (
 
 create table COMMENTI (
      testo char(200) not null,
-     id int not null,
+     id int not null AUTO_INCREMENT,
      utente varchar(40) not null,
      id_post int not null,
      constraint IDCOMMENTO primary key (id))ENGINE=InnoDB;
 
 create table CONVERSAZIONI (
-     id_risposta int not null,
+     id_risposta int not null ,
      id_commento int not null,
      constraint IDCONVERSAZIONE primary key (id_risposta, id_commento))ENGINE=InnoDB;
 
@@ -65,7 +65,7 @@ create table OROLOGI (
      constraint IDOROLOGIO primary key (referenza))ENGINE=InnoDB;
 
 create table POST (
-     id_post int not null,
+     id_post int not null AUTO_INCREMENT,
      descrizione char(100) not null,
      utente varchar(40) not null,
      constraint IDPOST_ID primary key (id_post))ENGINE=InnoDB;
