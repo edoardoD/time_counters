@@ -18,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Esegui l'inserimento nella tabella POST utilizzando prepared statement
-    $query = "INSERT INTO POST (descrizione, utente) VALUES (?, ?)";
+    $query = "INSERT INTO POST (id_post, descrizione, utente) VALUES (NULL, ?, ?)";
     $stmt = $connessione->prepare($query);
     $stmt->bind_param("ss", $text, $username); // Nota: la variabile $text era precedentemente non definita
-
+    
     if ($stmt->execute()) {
         $lastInsertedId = $connessione->insert_id;
         

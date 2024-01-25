@@ -33,7 +33,7 @@ function createPostMarkup(post) {
   `;
 }
 
-let formData;
+let formData = new FormData();
 
 function openNewPostForm() {
   let fileArray = [];
@@ -121,29 +121,34 @@ function openNewPostForm() {
         console.log(`${nomeCampo} = ${valore}`); // Stampa 'nome = Luigi'
       }
       // Invia formData con AJAX
-      $.ajax({
-        url: 'php/router.php', // Sostituisci con l'URL del tuo script PHP
-        type: 'POST',
-        data: formData,
-        processData: false, // Imposta su false per impedire a jQuery di trasformare i dati in una stringa di query
-        contentType: false, // Imposta su false per rimuovere l'intestazione 'Content-Type' (necessario per 'multipart/form-data')
-        success: function (data) {
-          if(data.result){
-            let  marginBotn = window.footerHeigt + 10;
-            window.generalToast.fire({
-              title: data.messagge,
-              icon: 'success',
-              position: 'bottom',
-              didOpen: (toast) => {
-                document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
-              }
-            });
-          }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.log('Errore nell\'invio dei dati: ' + textStatus);
+      // Invia formData con AJAX
+$.ajax({
+  url: 'php/router.php', // Sostituisci con l'URL del tuo script PHP
+  type: 'POST',
+  data: formData,
+  processData: false,
+  contentType: false,
+  success: function (data) {
+    if (data && data.result) {
+      let marginBotn = window.footerHeigt + 10;
+      window.generalToast.fire({
+        title: data.messagge,
+        icon: 'success',
+        position: 'bottom',
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
         }
       });
+    } else {
+      console.error('Dati non validi o mancanti nella risposta del server.');
+    }
+  },
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.error('Errore nell\'invio dei dati:', textStatus);
+    console.error('Dettagli dell\'errore:', jqXHR.responseText);
+  }
+});
+
     }
   });
 
