@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ss", $text, $username); // Nota: la variabile $text era precedentemente non definita
     
     if ($stmt->execute()) {
-        $lastInsertedId = $connessione->insert_id;
+        //$lastInsertedId = $connessione->insert_id;
         
         // Gestisci i file inviati (immagini associate al post)
         for ($i = 0; isset($_FILES['file' . $i]); $i++) {
@@ -37,14 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fileType = $file['type'];
 
                 // Sposta il file nella cartella img
-                $uploadDir = '/path/to/img'; // Imposta il percorso corretto
+                $uploadDir = '../../img'; // Imposta il percorso corretto
                 $destination = $uploadDir . '/' . $fileName;
 
                 if (move_uploaded_file($fileTmpName, $destination)) {
                     // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
-                    $query = "INSERT INTO IMMAGINI (id_post, ref_img) VALUES (?, ?)";
+                    $query = "INSERT INTO IMMAGINI (ref_img) VALUES (?)";
                     $stmtImg = $connessione->prepare($query);
-                    $stmtImg->bind_param("is", $lastInsertedId, $fileName);
+                    $stmtImg->bind_param("b", $fileName);
 
                     if ($stmtImg->execute()) {
                         $stmtImg->close();
