@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         for ($i = 0; isset($_FILES['file' . $i]); $i++) {
             $file = $_FILES['file' . $i];
 
-            // Controlla sce il file è stato caricato senza errori
+            // Controlla se il file è stato caricato senza errori
             if ($file['error'] == 0) {
                 $fileName = $file['name'];
                 $fileTmpName = $file['tmp_name'];
@@ -52,10 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $idpost = $row['id_post'];
                 }
 
+                // Leggi il contenuto del file come BLOB
+                $fileImmagine = file_get_contents($fileTmpName);
+
                 // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
-                $query = "INSERT INTO IMMAGINI (id_post, ref_img) VALUES (?,?)";
+                $query = "INSERT INTO IMMAGINI (num_img, id_post, ref_img) VALUES (?,?,?)";
                 $stmtImg = $connessione->prepare($query);
-                $stmtImg->bind_param("ib",$idpost ,$fileName);
+                $stmtImg->bind_param("iib", $i, $idpost, $fileImmagine);
 
                 if ($stmtImg->execute()) {
                     $stmtImg->close();
