@@ -110,6 +110,7 @@ function openNewPostForm() {
       return { formData };
     }
   }).then((result) => {
+    //console.log(result);
     if (result.value) {
       for (let [nomeCampo, valore] of result.value.formData.entries()) {
         console.log(`${nomeCampo} = ${valore}`); // Stampa 'nome = Luigi'
