@@ -125,13 +125,15 @@ function openNewPostForm() {
           if (data.result) {
             let marginBotn = window.footerHeigt + 10;
             window.generalToast.fire({
-              title: data.messagge,
+              title: data.message,
               icon: 'success',
               position: 'bottom',
               didOpen: (toast) => {
                 document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
               }
             });
+          }else{
+            console.log(data);
           }
         })
         .catch((error) => {
