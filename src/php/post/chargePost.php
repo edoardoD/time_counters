@@ -39,32 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fileSize = $file['size'];
                 $fileType = $file['type'];
 
-                // Query per ottenere l'ultimo id_post inserito
-                $sql = "SELECT id_post FROM POST ORDER BY id_post DESC LIMIT 1";
-                $result = $connessione->query($sql);
-
-                // Verifica se la query ha restituito risultati
-                if ($result->num_rows > 0) {
-                    // Ottieni il risultato come array associativo
-                    $row = $result->fetch_assoc();
-                    
-                    // Recupera l'id_post
-                    $idpost = $row['id_post'];
-                }
-
-                // Leggi il contenuto del file come BLOB
-                $fileImmagine = file_get_contents($fileTmpName);
-
-                // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
-                $query = "INSERT INTO IMMAGINI (num_img, id_post, ref_img) VALUES (?,?,?)";
-                $stmtImg = $connessione->prepare($query);
-                $stmtImg->bind_param("iib", $i, $idpost, $fileImmagine);
-
-                // Sposta il file nella cartella img
-                $uploadDir = '/path/to/img'; // Imposta il percorso corretto
+                $uploadDir = ''; //path to folder img
                 $destination = $uploadDir . '/' . $fileName;
 
                 if (move_uploaded_file($fileTmpName, $destination)) {
+
+                    // Query per ottenere l'ultimo id_post inserito
+                    $sql = "SELECT id_post FROM POST ORDER BY id_post DESC LIMIT 1";
+                    $result = $connessione->query($sql);
+
+                    // Verifica se la query ha restituito risultati
+                    if ($result->num_rows > 0) {
+                        // Ottieni il risultato come array associativo
+                        $row = $result->fetch_assoc();
+                        
+                        // Recupera l'id_post
+                        $idpost = $row['id_post'];
+                    }
+
+                    // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
+                    $query = "INSERT INTO IMMAGINI (num_img, id_post, path_img) VALUES (?,?,?)";
+                    $stmtImg = $connessione->prepare($query);
+                    $stmtImg->bind_param("iis", $i, $idpost, $destination);
+                    
                     if ($stmtImg->execute()) {
                         $stmtImg->close();
                     } else {
@@ -79,11 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         die(json_encode(["result" => true, "message" => "Post caricato con successo."]));
     } else {
-        die(json_encode(["result" => false, "error" => "Errore caricamento statement."]));
+        die(json_encode(["result" => false, "error" => "Errore caricamento nella tabella POST."]));
     }
 
     $stmt->close();
     // Chiudi la connessione al database
     $connessione->close();
 }
-?>
