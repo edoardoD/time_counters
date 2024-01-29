@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         // Recupera l'id_post
                         $idpost = $row['id_post'];
                     }
-
+                    //ciao
                     $dest_string = strval($destination);
 
                     // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
