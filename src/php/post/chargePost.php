@@ -26,14 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ss", $text, $username); // Nota: la variabile $text era precedentemente non definita
     
     if ($stmt->execute()) {
-        //$lastInsertedId = $connessione->insert_id;
-        
+    
         // Gestisci i file inviati (immagini associate al post)
         for ($i = 0; isset($_FILES['file' . $i]); $i++) {
             $file = $_FILES['file' . $i];
             
-            //die(json_encode(["result" => false, "error" => "Errore: gestione file"]));
-
             // Controlla se il file è stato caricato senza errori
             if ($file['error'] == 0) {
                 $fileName = $file['name'];
@@ -41,11 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fileSize = $file['size'];
                 $fileType = $file['type'];
 
-                $destination = $_SERVER['SERVER_NAME'].'\/images/' . $fileName;
+                $destination = $_SERVER['SERVER_NAME'] . '\/images/' . $fileName;
 
                 if (move_uploaded_file($fileTmpName, $destination)) {
-
-                    
 
                     // Query per ottenere l'ultimo id_post inserito
                     $sql = "SELECT id_post FROM POST ORDER BY id_post DESC LIMIT 1";
@@ -60,10 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $idpost = $row['id_post'];
                     }
 
+                    $dest_string = strval($destination);
+
                     // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
                     $query = "INSERT INTO IMMAGINI (num_img, id_post, path_img) VALUES (?,?,?)";
                     $stmtImg = $connessione->prepare($query);
-                    $stmtImg->bind_param("iis", $i, $idpost, $destination);
+                    $stmtImg->bind_param("iis", $i, $idpost, $dest_string);
                     
                     if ($stmtImg->execute()) {
                         $stmtImg->close();
