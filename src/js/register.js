@@ -75,7 +75,7 @@ function registerRequest(name, surname, email, pass) {
                 if (data.result) {
                     window.generalToast.fire({
                         animation: true,
-                        title: data.messagge,
+                        title: data.message,
                         didOpen: (toast) => {
                             document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
                         }
