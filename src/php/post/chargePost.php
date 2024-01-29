@@ -41,13 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fileSize = $file['size'];
                 $fileType = $file['type'];
 
-                $destination = 'images/' . $fileName;
+                $destination = $_SERVER['SERVER_NAME'].'\/images/' . $fileName;
 
                 if (move_uploaded_file($fileTmpName, $destination)) {
 
-                    if (is_uploaded_file($_FILES['userfile']['tmp_name'])) {
-                        die(json_encode(["result" => false, "error" => "File ". $_FILES['userfile']['name'] ." uploaded successfully.\n"]));;
-                     }
+                    
 
                     // Query per ottenere l'ultimo id_post inserito
                     $sql = "SELECT id_post FROM POST ORDER BY id_post DESC LIMIT 1";
