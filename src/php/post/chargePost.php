@@ -60,10 +60,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmtImg = $connessione->prepare($query);
                 $stmtImg->bind_param("iib", $i, $idpost, $fileImmagine);
 
-                if ($stmtImg->execute()) {
-                    $stmtImg->close();
+                // Sposta il file nella cartella img
+                $uploadDir = '/path/to/img'; // Imposta il percorso corretto
+                $destination = $uploadDir . '/' . $fileName;
+
+                if (move_uploaded_file($fileTmpName, $destination)) {
+                    if ($stmtImg->execute()) {
+                        $stmtImg->close();
+                    } else {
+                        die(json_encode(["result" => false, "error" => "Errore1 nel caricamento del file " . $fileName]));
+                    }
                 } else {
-                    die(json_encode(["result" => false, "error" => "Errore1 nel caricamento del file " . $fileName]));
+                    die(json_encode(["result" => false, "error" => "Errore2 nel caricamento del file " . $fileName]));
                 }
             } else {
                 die(json_encode(["result" => false, "error" => "Errore3 nel caricamento del file " . $fileName]));
