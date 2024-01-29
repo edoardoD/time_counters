@@ -38,7 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fileSize = $file['size'];
                 $fileType = $file['type'];
 
-                $destination = $_SERVER['SERVER_NAME'] . '\/images/' . $fileName;
+                $destination = "../postImages/" . $fileName;
+                
+               
 
                 if (move_uploaded_file($fileTmpName, $destination)) {
 
@@ -65,10 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($stmtImg->execute()) {
                         $stmtImg->close();
                     } else {
-                        die(json_encode(["result" => false, "error" => "Errore1 nel caricamento del file " . $fileName]));
+                        die(json_encode(["result" => false, "error" => "Errore nell'esecuzione della query " . $fileName]));
                     }
                 } else {
-                    die(json_encode(["result" => false, "error" => "Errore2 nel caricamento del file " . $fileName]));
+                    die(json_encode(["result" => false, "error" => "Errore  move_uploaded_file " . $_FILES["file".$i]["error"]]));
                 }
             } else {
                 die(json_encode(["result" => false, "error" => "Errore3 nel caricamento del file " . $fileName]));
