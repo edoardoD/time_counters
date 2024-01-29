@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Gestisci i file inviati (immagini associate al post)
         for ($i = 0; isset($_FILES['file' . $i]); $i++) {
             $file = $_FILES['file' . $i];
+            
+            //die(json_encode(["result" => false, "error" => "Errore: gestione file"]));
 
             // Controlla se il file è stato caricato senza errori
             if ($file['error'] == 0) {
@@ -39,10 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fileSize = $file['size'];
                 $fileType = $file['type'];
 
-                $uploadDir = ''; //path to folder img
-                $destination = $uploadDir . '/' . $fileName;
+                $destination = 'images/' . $fileName;
 
                 if (move_uploaded_file($fileTmpName, $destination)) {
+
+                    if (is_uploaded_file($_FILES['userfile']['tmp_name'])) {
+                        die(json_encode(["result" => false, "error" => "File ". $_FILES['userfile']['name'] ." uploaded successfully.\n"]));;
+                     }
 
                     // Query per ottenere l'ultimo id_post inserito
                     $sql = "SELECT id_post FROM POST ORDER BY id_post DESC LIMIT 1";
