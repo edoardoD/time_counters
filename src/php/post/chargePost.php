@@ -27,6 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     if ($stmt->execute()) {
     
+        // Query per ottenere l'ultimo id_post inserito
+        $sql = "SELECT id_post FROM POST ORDER BY id_post DESC LIMIT 1";
+        $result = $connessione->query($sql);
+
+        // Verifica se la query ha restituito risultati
+        if ($result->num_rows > 0) {
+            // Ottieni il risultato come array associativo
+            $row = $result->fetch_assoc();
+            
+            // Recupera l'id_post
+            $idpost = $row['id_post'];
+        }
+
         // Gestisci i file inviati (immagini associate al post)
         for ($i = 0; isset($_FILES['file' . $i]); $i++) {
             $file = $_FILES['file' . $i];
@@ -41,23 +54,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $targhetFile = "./postImages/";
                 $dest_string = $targhetFile.$fileName;
 
+                // Controlla se l'immagine è già presente nella tabella IMMAGINI
+                $checkQuery = "SELECT id_post FROM IMMAGINI WHERE path_img = ?";
+                $checkStmt = $connessione->prepare($checkQuery);
+                $checkStmt->bind_param("s", $dest_string);
+                $checkStmt->execute();
+                $checkStmt->store_result();
                 
-                if (!move_uploaded_file($fileTmpName, $dest_string )) {
-                    die(json_encode(["result" => false, "error" => "Errore  move_uploaded_file " . $targhetFile]));                    
+                if ($checkStmt->num_rows > 0) {
+                    // L'immagine è già presente, quindi annulla l'inserimento del post
+                    $stmt->close();
+                    $connessione->query("DELETE FROM POST WHERE id_post = $idpost");
+                    die(json_encode(["result" => false, "error" => "Immagine già presente nella tabella IMMAGINI."]));
                 }
-                // Query per ottenere l'ultimo id_post inserito
-                $sql = "SELECT id_post FROM POST ORDER BY id_post DESC LIMIT 1";
-                $result = $connessione->query($sql);
 
-                // Verifica se la query ha restituito risultati
-                if ($result->num_rows > 0) {
-                    // Ottieni il risultato come array associativo
-                    $row = $result->fetch_assoc();
-                    
-                    // Recupera l'id_post
-                    $idpost = $row['id_post'];
+                if (!move_uploaded_file($fileTmpName, $dest_string )) {
+                    // Se il caricamento dell'immagine fallisce, annulla l'inserimento del post
+                    $stmt->close();
+                    $connessione->query("DELETE FROM POST WHERE id_post = $idpost");
+                    die(json_encode(["result" => false, "error" => "Errore move_uploaded_file " . $targhetFile]));                    
                 }
-                //ciao
 
                 // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
                 $query = "INSERT INTO IMMAGINI (num_img, id_post, path_img) VALUES (?,?,?)";
@@ -67,10 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($stmtImg->execute()) {
                     $stmtImg->close();
                 } else {
+                    // Se l'inserimento dell'immagine fallisce, annulla l'inserimento del post
+                    $stmt->close();
+                    $connessione->query("DELETE FROM POST WHERE id_post = $idpost");
                     die(json_encode(["result" => false, "error" => "Errore nell'esecuzione della query " . $fileName]));
                 }
             } else {
-                die(json_encode(["result" => false, "error" => "Errore3 nel caricamento del file " . $fileName]));
+                // Se c'è un errore nel caricamento del file, annulla l'inserimento del post
+                $stmt->close();
+                $connessione->query("DELETE FROM POST WHERE id_post = $idpost");
+                die(json_encode(["result" => false, "error" => "Errore nel caricamento del file " . $fileName]));
             }
         }
         die(json_encode(["result" => true, "message" => "Post caricato con successo."]));
@@ -82,3 +104,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Chiudi la connessione al database
     $connessione->close();
 }
+?>
