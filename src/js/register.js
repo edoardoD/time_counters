@@ -78,6 +78,9 @@ function registerRequest(name, surname, email, pass) {
                         title: data.message,
                         didOpen: (toast) => {
                             document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+                        },
+                        didClose: () => {
+                            scrolToLog();
                         }
                     })
                 } else {
@@ -85,7 +88,7 @@ function registerRequest(name, surname, email, pass) {
                     window.generalToast.fire({
                         title: data.error,
                         icon: 'error',
-                        didOpen: (toast) => {
+                        didOpen: () => {
                             document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
                         }
                     })
