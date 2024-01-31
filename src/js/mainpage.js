@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function createPostMarkup(post) {
   return `
       <div class="post">
-          <img src="${post.profileImage}" alt="${post.username}" class="profile-image">
+          <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
           <div class="post-content">
-              <h4 class="mb-3">${post.username}</h4>
-              <p>${post.text}</p>
+              <h4 class="mb-3">${post.nome}</h4>
+              <p>${post.descrizione}</p>
               <div class="actions">
                   <div class="action-icons">
                       <span class="like-button"><i class="fas fa-heart"></i></span>
@@ -110,6 +110,7 @@ function openNewPostForm() {
       return { formData };
     }
   }).then((result) => {
+    //console.log(result);
     if (result.value) {
       for (let [nomeCampo, valore] of result.value.formData.entries()) {
         console.log(`${nomeCampo} = ${valore}`); // Stampa 'nome = Luigi'
@@ -124,13 +125,15 @@ function openNewPostForm() {
           if (data.result) {
             let marginBotn = window.footerHeigt + 10;
             window.generalToast.fire({
-              title: data.messagge,
+              title: data.message,
               icon: 'success',
               position: 'bottom',
               didOpen: (toast) => {
                 document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
               }
             });
+          }else{
+            console.log(data.error);
           }
         })
         .catch((error) => {

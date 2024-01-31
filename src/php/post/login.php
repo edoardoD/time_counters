@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
 
     // Associazione dei risultati della query a delle variabili
-    $stmt->bind_result($col1, $col2, $col3, $col4);
+    $stmt->bind_result($col1, $col2, $col3, $col4, $col5);
 
     // Recupero dei risultati
     $stmt->fetch();
