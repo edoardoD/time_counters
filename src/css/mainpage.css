@@ -32,9 +32,10 @@ body {
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   position: relative;
 }
+
 
 .profile-image {
   width: 50px;
@@ -44,6 +45,7 @@ body {
 }
 
 .post-content {
+  align-items: center;
   flex: 1;
 }
 
@@ -226,4 +228,15 @@ body {
 .error_msg {
   text-align: center;
   color: #f00
+}
+
+a{
+  color: black;
+}
+
+
+.facebook-comment{
+  color: #686868;
+  margin-left: 170px;
+  text-decoration: none; 
 }
