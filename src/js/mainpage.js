@@ -11,23 +11,69 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-
+{/* <img src="${post.profileImage}" alt="${post.username}" class="profile-image"></img> */}
 function createPostMarkup(post) {
+  let commentId = ("" + post.username + post.id).replace(/\s/g, '');
+  
+  
   return `
       <div class="post">
-          <img src="${post.profileImage}" alt="${post.username}" class="profile-image">
-          <div class="post-content">
-              <h4 class="mb-3">${post.username}</h4>
-              <p>${post.text}</p>
-              <div class="actions">
-                  <div class="action-icons">
-                      <span class="like-button"><i class="fas fa-heart"></i></span>
-                      <span><i class="far fa-comment"></i> ${post.comments}</span>
-                      <span><i class="far fa-bookmark"></i> ${post.likes}</span>
-                  </div>
+        <div class="post-content">
+            <h4 class="mb-3">${post.username}</h4>
+            <p>${post.text}</p>
+            <div class="actions">
+                <div class="action-icons">
+                    <p>${post.likes}</p><span class="like-button"><i class="fas fa-heart"></i></span>
+                    <p>${post.comments}</p>
+                    <a
+                      id="faceCollapse"
+                      class=" collapsed"
+                      data-bs-toggle="collapse"
+                      href="#${commentId}"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="collapseExample"
+                    ><span><i class="fa-regular fa-comment"></i></span></a>
+                    <span><i class="far fa-bookmark"></i> </span>
+                </div>
+            </div>
+        </div>
+        <div>
+          <input class="facebook-comment-input" type="text" placeholder="Write a comment..."/>
+        </div>
+        <div id="${commentId}" class="collapse">
+          <div class="bg-red">
+            <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
+              <div class="d-flex flex-column m-1">
+                <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
+                <span class="m-0 p-0 text-dark ">sto impazzendo</span>
               </div>
+            </div>
+            <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
+              <div class="mx-2 fw-bold" type="button">Like</div>
+              <div class="mx-2 fw-bold" type="button">Reply</div>
+              <div class="mx-2 fw-bold" type="button">Share</div>
+              <div class="mx-2" type="button">1d</div>
+            </div>
           </div>
+          <div class="bg-red">
+            <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
+              <div class="d-flex flex-column m-1">
+                <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
+                <span class="m-0 p-0 text-dark ">LOLLONEEEEEE</span>
+              </div>
+            </div>
+            <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
+              <div class="mx-2 fw-bold" type="button">Like</div>
+              <div class="mx-2 fw-bold" type="button">Reply</div>
+              <div class="mx-2 fw-bold" type="button">Share</div>
+              <div class="mx-2" type="button">1d</div>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      
   `;
 }
 
@@ -145,7 +191,8 @@ function openNewPostForm() {
 }
 
 function renderPosts() {
-  const postsContainer = document.getElementById('posts-container');
+  
+  const postsContainer = document.getElementById('post-section');
   const fragment = document.createDocumentFragment();
 
   posts.forEach(post => {
@@ -157,9 +204,36 @@ function renderPosts() {
   postsContainer.appendChild(fragment); // Aggiunge il fragment al container
 }
 
-posts = [];
-
-
+posts = [
+  {
+    username: "utente 1",
+    text: 'First Post',
+    id : 1,
+    comments: 2,
+    likes: 5,
+  },
+  {
+    username: "utente 1",
+    text: 'First Post',
+    id : 3,
+    comments: 2,
+    likes: 5,
+  },
+  {
+    id: 2,
+    title: 'Second Post',
+    content: 'This is the second post.',
+    comments: 2,
+    likes: 5,
+  },
+  {
+    id: 3,
+    title: 'Third Post',
+    content: 'This is the third post.',
+    comments: 2,
+    likes: 5,
+  },
+];
 
 
 function popUpFunction(msg) {
@@ -186,6 +260,7 @@ function popUpFunction(msg) {
 
 
 $(function () {
+  
   $.ajax({
     type: 'GET',
     dataType: "json",
@@ -195,7 +270,8 @@ $(function () {
     },
     success: function (data) {
       if (data.result) {
-        post = data.posts
+        // post = data.posts
+        renderPosts();
       } else {
         popUpFunction(data.error);
       }
