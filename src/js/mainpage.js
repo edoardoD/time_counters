@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function createPostMarkup(post) {
   return `
       <div class="post">
-          <img src="${post.profileImage}" alt="${post.username}" class="profile-image">
+          <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
           <div class="post-content">
-              <h4 class="mb-3">${post.username}</h4>
-              <p>${post.text}</p>
+              <h4 class="mb-3">${post.nome}</h4>
+              <p>${post.descrizione}</p>
               <div class="actions">
                   <div class="action-icons">
                       <span class="like-button"><i class="fas fa-heart"></i></span>
