@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-{/* <img src="${post.profileImage}" alt="${post.username}" class="profile-image"></img> */}
+{/* <img src="${post.profileImage}" alt="${post.username}" class="profile-image"></img> */ }
 function createPostMarkup(post) {
   let commentId = ("" + post.username + post.id).replace(/\s/g, '');
-  
-  
+
+
   return `
       <div class="post">
         <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
@@ -48,66 +48,8 @@ function createPostMarkup(post) {
                 </span>
         </div>
         <div id="${commentId}" class="collapse mt-3 scrollable">
-          <div class="bg-red">
-            <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
-              <div class="d-flex flex-column m-1">
-                <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
-                <span class="m-0 p-0 text-dark ">sto impazzendo</span>
-              </div>
-            </div>
-            <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
-              <div class="mx-2 fw-bold" type="button">Like</div>
-              <div class="mx-2 fw-bold" type="button">Reply</div>
-              <div class="mx-2 fw-bold" type="button">Share</div>
-              <div class="mx-2" type="button">1d</div>
-            </div>
-          </div>
-          <div class="bg-red">
-            <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
-              <div class="d-flex flex-column m-1">
-                <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
-                <span class="m-0 p-0 text-dark ">sto impazzendo</span>
-              </div>
-            </div>
-            <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
-              <div class="mx-2 fw-bold" type="button">Like</div>
-              <div class="mx-2 fw-bold" type="button">Reply</div>
-              <div class="mx-2 fw-bold" type="button">Share</div>
-              <div class="mx-2" type="button">1d</div>
-            </div>
-          </div>
-          <div class="bg-red">
-            <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
-              <div class="d-flex flex-column m-1">
-                <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
-                <span class="m-0 p-0 text-dark ">sto impazzendo</span>
-              </div>
-            </div>
-            <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
-              <div class="mx-2 fw-bold" type="button">Like</div>
-              <div class="mx-2 fw-bold" type="button">Reply</div>
-              <div class="mx-2 fw-bold" type="button">Share</div>
-              <div class="mx-2" type="button">1d</div>
-            </div>
-          </div>
-          <div class="bg-red">
-            <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
-              <div class="d-flex flex-column m-1">
-                <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
-                <span class="m-0 p-0 text-dark ">LOLLONEEEEEE</span>
-              </div>
-            </div>
-            <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
-              <div class="mx-2 fw-bold" type="button">Like</div>
-              <div class="mx-2 fw-bold" type="button">Reply</div>
-              <div class="mx-2 fw-bold" type="button">Share</div>
-              <div class="mx-2" type="button">1d</div>
-            </div>
-          </div>
         </div>
       </div>
-      
-      
   `;
 }
 
@@ -212,7 +154,7 @@ function openNewPostForm() {
                 document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
               }
             });
-          }else{
+          } else {
             console.log(data.error);
           }
         })
@@ -224,8 +166,8 @@ function openNewPostForm() {
 
 }
 
-function renderPosts() {
-  
+function renderPosts(posts) {
+
   const postsContainer = document.getElementById('post-section');
   const fragment = document.createDocumentFragment();
 
@@ -238,53 +180,50 @@ function renderPosts() {
   postsContainer.appendChild(fragment); // Aggiunge il fragment al container
 }
 
-posts = [
-  {
-    username: "utente 1",
-    text: 'First Post',
-    id : 1,
-    comments: 2,
-    likes: 5,
-  },
-  {
-    username: "utente 1",
-    text: 'First Post',
-    id : 3,
-    comments: 2,
-    likes: 5,
-  },
-  {
-    id: 2,
-    title: 'Second Post',
-    content: 'This is the second post.',
-    comments: 2,
-    likes: 5,
-  },
-  {
-    id: 3,
-    title: 'Third Post',
-    content: 'This is the third post.',
-    comments: 2,
-    likes: 5,
-  },
-];
+// posts = [
+//   {
+//     username: "utente 1",
+//     text: 'First Post',
+//     id : 1,
+//     comments: 2,
+//     likes: 5,
+//   },
+//   {
+//     username: "utente 1",
+//     text: 'First Post',
+//     id : 3,
+//     comments: 2,
+//     likes: 5,
+//   },
+//   {
+//     id: 2,
+//     title: 'Second Post',
+//     content: 'This is the second post.',
+//     comments: 2,
+//     likes: 5,
+//   },
+//   {
+//     id: 3,
+//     title: 'Third Post',
+//     content: 'This is the third post.',
+//     comments: 2,
+//     likes: 5,
+//   },
+// ];
 
 
 function popUpFunction(msg) {
   Swal.fire({
-    title: 'Utente non registrato',
+    title: 'ATTENZIONE',
     text: '' + msg,
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'OK',
-    cancelButtonText: 'Annulla',
+    confirmButtonText: 'registrati o esegui il login',
+    cancelButtonText: 'continua in anonimato',
   }).then((result) => {
     if (result.isConfirmed) {
       // Azione da eseguire se l'utente clicca su OK
-
       window.location.href = "index.php?page=register";
-
-
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       // Azione da eseguire se l'utente clicca su Annulla
       window.location.href = "index.php?page=home";
@@ -294,7 +233,7 @@ function popUpFunction(msg) {
 
 
 $(function () {
-  
+
   $.ajax({
     type: 'GET',
     dataType: "json",
@@ -303,9 +242,9 @@ $(function () {
       request: 'loadPosts'
     },
     success: function (data) {
+      console.log(data);
       if (data.result) {
-        // post = data.posts
-        renderPosts();
+        renderPosts(data.posts);
       } else {
         popUpFunction(data.error);
       }
@@ -323,3 +262,20 @@ $(function () {
     }
   });
 });
+
+
+
+{/* <div class="bg-red">
+  <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
+    <div class="d-flex flex-column m-1">
+      <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
+      <span class="m-0 p-0 text-dark ">sto impazzendo</span>
+    </div>
+  </div>
+  <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
+    <div class="mx-2 fw-bold" type="button">Like</div>
+    <div class="mx-2 fw-bold" type="button">Reply</div>
+    <div class="mx-2 fw-bold" type="button">Share</div>
+    <div class="mx-2" type="button">1d</div>
+  </div>
+</div> */}
