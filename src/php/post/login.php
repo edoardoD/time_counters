@@ -32,7 +32,7 @@
         session_destroy();
         session_start();
         $_SESSION['username'] = $email;
-        die(json_encode(["result"=>true, "messagge"=>"Utente loggato correttamente"]));
+        die(json_encode(["result"=>true, "message"=>"Utente loggato correttamente"]));
     } else {
         // Credenziali non valide, mostra un messaggio di errore
         die(json_encode(["result"=>false, "error"=>"Utente non loggato"]));
