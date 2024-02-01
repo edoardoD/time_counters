@@ -234,9 +234,19 @@ a{
   color: black;
 }
 
+.facebook-comment-input{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border: .5px solid silver;
+  margin-left: 10px;
+  border-radius: 15px;
+  align-items: center;
+  width: 75%;
+  padding-left: 13px;
+}
 
-.facebook-comment{
-  color: #686868;
-  margin-left: 170px;
-  text-decoration: none; 
+.scrollable{
+  width: 200px; 
+  height: 100px; 
+  overflow: auto
 }
