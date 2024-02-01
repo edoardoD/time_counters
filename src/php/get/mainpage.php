@@ -2,7 +2,7 @@
 
 // Controlla se l'utente è autenticato
 if (!isset($_SESSION['username'])) {
-    die(json_encode(["result" => false, "error" => "Utente non loggato"]));
+    die(json_encode(["result" => false, "error" => "Utente non loggato, impossibile caricare i post"]));
 }
 
 try {
@@ -18,13 +18,12 @@ try {
 
     // Query per ottenere i post dell'utente con commenti
     $query = "SELECT p.*, u.nome AS nome_utente, u.cognome AS cognome_utente, u.profileImage, i.path_img, COUNT(c.id) AS comments
-              FROM POST p
-              JOIN SEGUITI s ON p.utente = s.utente2
-              JOIN UTENTI u ON s.utente1 = u.email
-              LEFT JOIN IMMAGINI i ON p.id_post = i.id_post
-              LEFT JOIN COMMENTI c ON p.id_post = c.id_post
-              WHERE u.email = ?
-              GROUP BY p.id_post, u.nome, u.cognome, u.profileImage, i.path_img;"; // Modificato GROUP BY
+    FROM POST p
+    JOIN UTENTI u ON p.utente = u.email
+    LEFT JOIN IMMAGINI i ON p.id_post = i.id_post
+    LEFT JOIN COMMENTI c ON p.id_post = c.id_post
+    WHERE p.utente IN (SELECT SEGUITI.utente2 FROM SEGUITI WHERE SEGUITI.utente1 = ?)
+    GROUP BY p.id_post, u.nome, u.cognome, u.profileImage, i.path_img;"; // Modificato GROUP BY
     $stmt = $connessione->prepare($query);
 
     // Verifica la preparazione della query
