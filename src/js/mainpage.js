@@ -11,22 +11,44 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-
+{/* <img src="${post.profileImage}" alt="${post.username}" class="profile-image"></img> */ }
 function createPostMarkup(post) {
+  let commentId = ("" + post.username + post.id).replace(/\s/g, '');
+
+
   return `
       <div class="post">
-          <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
-          <div class="post-content">
-              <h4 class="mb-3">${post.nome}</h4>
-              <p>${post.descrizione}</p>
-              <div class="actions">
-                  <div class="action-icons">
-                      <span class="like-button"><i class="fas fa-heart"></i></span>
-                      <span><i class="far fa-comment"></i> ${post.comments}</span>
-                      <span><i class="far fa-bookmark"></i> ${post.likes}</span>
-                  </div>
-              </div>
-          </div>
+        <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
+        <div class="post-content">
+            <h4 class="mb-3">${post.nome}</h4>
+            <p>${post.descrizione}</p>
+            <div class="actions">
+                <div class="action-icons">
+                    <p>${post.likes}</p><span class="like-button"><i class="fas fa-heart"></i></span>
+                    <p>${post.comments}</p>
+                    <a
+                      id="faceCollapse"
+                      class=" collapsed"
+                      data-bs-toggle="collapse"
+                      href="#${commentId}"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="collapseExample"
+                    ><span><i class="fa-regular fa-comment"></i></span></a>
+                    <span><i class="far fa-bookmark"></i> </span>
+                </div>
+            </div>
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="inserisci un commento" aria-label="Input group example" aria-describedby="basic-addon1">
+                <span class="input-group-text" id="basic-addon1" style="cursor:pointer;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+          <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+          </svg>
+                </span>
+        </div>
+        <div id="${commentId}" class="collapse mt-3 scrollable">
+        </div>
       </div>
   `;
 }
@@ -132,7 +154,7 @@ function openNewPostForm() {
                 document.querySelector('.swal2-popup-custom').style.marginBotton = marginBotn + 'px';
               }
             });
-          }else{
+          } else {
             console.log(data.error);
           }
         })
@@ -144,8 +166,9 @@ function openNewPostForm() {
 
 }
 
-function renderPosts() {
-  const postsContainer = document.getElementById('posts-container');
+function renderPosts(posts) {
+
+  const postsContainer = document.getElementById('post-section');
   const fragment = document.createDocumentFragment();
 
   posts.forEach(post => {
@@ -157,26 +180,50 @@ function renderPosts() {
   postsContainer.appendChild(fragment); // Aggiunge il fragment al container
 }
 
-posts = [];
-
-
+// posts = [
+//   {
+//     username: "utente 1",
+//     text: 'First Post',
+//     id : 1,
+//     comments: 2,
+//     likes: 5,
+//   },
+//   {
+//     username: "utente 1",
+//     text: 'First Post',
+//     id : 3,
+//     comments: 2,
+//     likes: 5,
+//   },
+//   {
+//     id: 2,
+//     title: 'Second Post',
+//     content: 'This is the second post.',
+//     comments: 2,
+//     likes: 5,
+//   },
+//   {
+//     id: 3,
+//     title: 'Third Post',
+//     content: 'This is the third post.',
+//     comments: 2,
+//     likes: 5,
+//   },
+// ];
 
 
 function popUpFunction(msg) {
   Swal.fire({
-    title: 'Utente non registrato',
+    title: 'ATTENZIONE',
     text: '' + msg,
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'OK',
-    cancelButtonText: 'Annulla',
+    confirmButtonText: 'registrati o esegui il login',
+    cancelButtonText: 'continua in anonimato',
   }).then((result) => {
     if (result.isConfirmed) {
       // Azione da eseguire se l'utente clicca su OK
-
       window.location.href = "index.php?page=register";
-
-
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       // Azione da eseguire se l'utente clicca su Annulla
       window.location.href = "index.php?page=home";
@@ -186,6 +233,7 @@ function popUpFunction(msg) {
 
 
 $(function () {
+
   $.ajax({
     type: 'GET',
     dataType: "json",
@@ -194,8 +242,9 @@ $(function () {
       request: 'loadPosts'
     },
     success: function (data) {
+      console.log(data);
       if (data.result) {
-        post = data.posts
+        renderPosts(data.posts);
       } else {
         popUpFunction(data.error);
       }
@@ -213,3 +262,20 @@ $(function () {
     }
   });
 });
+
+
+
+{/* <div class="bg-red">
+  <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
+    <div class="d-flex flex-column m-1">
+      <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
+      <span class="m-0 p-0 text-dark ">sto impazzendo</span>
+    </div>
+  </div>
+  <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
+    <div class="mx-2 fw-bold" type="button">Like</div>
+    <div class="mx-2 fw-bold" type="button">Reply</div>
+    <div class="mx-2 fw-bold" type="button">Share</div>
+    <div class="mx-2" type="button">1d</div>
+  </div>
+</div> */}

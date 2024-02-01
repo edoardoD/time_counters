@@ -1,6 +1,6 @@
 <?php
 // Verifica se il modulo è stato inviato
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Recupera i dati dal modulo
     $email = $_POST["email"];
     $password = $_POST["pass"];
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         session_destroy();
         session_start();
         $_SESSION['username'] = $email;
-        die(json_encode(["result"=>true, "messagge"=>"Utente loggato correttamente"]));
+        die(json_encode(["result"=>true, "message"=>"Utente loggato correttamente"]));
     } else {
         // Credenziali non valide, mostra un messaggio di errore
         die(json_encode(["result"=>false, "error"=>"Utente non loggato"]));
@@ -43,6 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Chiudi la connessione al database
     $connessione->close();
-}
+
 ?>
 

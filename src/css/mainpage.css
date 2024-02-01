@@ -32,9 +32,10 @@ body {
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   position: relative;
 }
+
 
 .profile-image {
   width: 50px;
@@ -44,6 +45,7 @@ body {
 }
 
 .post-content {
+  align-items: center;
   flex: 1;
 }
 
@@ -226,4 +228,25 @@ body {
 .error_msg {
   text-align: center;
   color: #f00
+}
+
+a{
+  color: black;
+}
+
+.facebook-comment-input{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border: .5px solid silver;
+  margin-left: 10px;
+  border-radius: 15px;
+  align-items: center;
+  width: 75%;
+  padding-left: 13px;
+}
+
+.scrollable{
+  width: auto; 
+  height: 150px; 
+  overflow: auto;
 }
