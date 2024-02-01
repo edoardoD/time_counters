@@ -1,6 +1,6 @@
 <?php
 // Verifica se il modulo è stato inviato
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Recupera i dati dal modulo
     $email = $_POST["email"];
     $password = $_POST["pass"];
@@ -43,6 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Chiudi la connessione al database
     $connessione->close();
-}
+
 ?>
 
