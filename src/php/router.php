@@ -5,7 +5,8 @@ session_start();
 
 $get_requests = [
     'loadPosts' => 'get/mainpage.php',
-    'logOut' => 'get/logout.php'
+    'logOut' => 'get/logout.php',
+    'dashboard' =>  'get/dashboard.php'
 ];
 
 $post_requests = [

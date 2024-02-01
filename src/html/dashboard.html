@@ -1,59 +1,37 @@
+<script src="js/dashboard.js"></script>
 <link rel="stylesheet" href="css/dashboard.css">
 </head>
+<!-- Aggiorna questo codice HTML -->
 <body class="content">
-  <?php
-  include('php/dashboard.php');
-  ?>
-  <h1>Welcome to the Dashboard</h1>
-  <div class="container db-social">
-    <div class="jumbotron jumbotron-fluid"></div>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-xl-11">
-                <div class="widget head-profile has-shadow">
-                    <div class="widget-body pb-0">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-xl-4 col-md-4 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
-                                <ul>
-                                    <li>
-                                        <div class="counter"> <?php echo $num_posts; ?></div>
-                                        <div class="heading">post</div>
-                                    </li>
-                                    <li>
-                                        <div class="counter"> <?php echo $num_followers; ?></div>
-                                        <div class="heading">follower</div>
-                                    </li>
-                                    <li>
-                                        <div class="counter"> <?php echo $num_following; ?></div>
-                                        <div class="heading">account seguiti</div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-xl-4 col-md-4 d-flex justify-content-center">
-                                <div class="image-default">
-                                    <img class="rounded-circle" src="img/foto_portfolio.jpg" alt="...">
-                                </div>
-                                <div class="infos">
-                                    <h2>Martini Alessandro</h2>
-                                
-                                </div>
-                            </div>
-  
+    <h1>Welcome to the Dashboard</h1>
+    <div class="container db-social">
+        <div class="jumbotron jumbotron-fluid"></div>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xl-11">
+                    <div class="widget head-profile has-shadow">
+                        <div class="widget-body pb-0">
+                            <!-- Aggiorna i seguenti elementi con gli ID corrispondenti -->
+                            <ul>
+                                <li>
+                                    <div class="counter" id="num_posts">0</div>
+                                    <div class="heading">post</div>
+                                </li>
+                                <li>
+                                    <div class="counter" id="num_followers">0</div>
+                                    <div class="heading">follower</div>
+                                </li>
+                                <li>
+                                    <div class="counter" id="num_following">0</div>
+                                    <div class="heading">account seguiti</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row mt-3" id="user_images">
+                            <!-- Immagini e post saranno inseriti qui dinamicamente -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-<!-- Aggiungi la griglia di immagini -->
-<div class="row mt-3">
-    <?php foreach ($user_images as $image): ?>
-        <div class="col-md-4 mb-3">
-            <img class="img-fluid rounded" src="<?php echo $image; ?>" alt="User Image">
-        </div>
-    <?php endforeach; ?>
-</div>
-
     </div>
-</div>
-
