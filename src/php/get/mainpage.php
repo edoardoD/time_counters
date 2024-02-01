@@ -17,14 +17,14 @@ try {
     $username = $_SESSION['username'];
 
     // Query per ottenere i post dell'utente con commenti
-    $query = "SELECT p.*, u.nome AS nome_utente, u.cognome AS cognome_utente, u.profileImage, i.path_img, COUNT(c.id) AS comments
-              FROM POST p
-              JOIN SEGUITI s ON p.utente = s.utente2
-              JOIN UTENTI u ON s.utente1 = u.email
-              LEFT JOIN IMMAGINI i ON p.id_post = i.id_post
-              LEFT JOIN COMMENTI c ON p.id_post = c.id_post
-              WHERE u.email = ?
-              GROUP BY p.id_post, u.nome, u.cognome, u.profileImage, i.path_img;"; // Modificato GROUP BY
+    $query = "SELECT p.*, u.nome AS nome_utente, u.cognome AS cognome_utente, u.profileImage, i.path_img, COUNT(c.id) AS comments, s.utente1 AS utente_riferito
+    FROM POST p
+    JOIN UTENTI u ON p.utente = u.email
+    LEFT JOIN IMMAGINI i ON p.id_post = i.id_post
+    LEFT JOIN COMMENTI c ON p.id_post = c.id_post
+    LEFT JOIN SEGUITI s ON p.utente = s.utente2
+    WHERE u.email = ?
+    GROUP BY p.id_post, u.nome, u.cognome, u.profileImage, i.path_img, utente_riferito;";
     $stmt = $connessione->prepare($query);
 
     // Verifica la preparazione della query
@@ -56,6 +56,7 @@ try {
                 'nome' => $row['nome_utente'],
                 'profileImage' => $row['profileImage'],
                 'comments' => $row['comments'],
+                'utente_riferito' => $row['utente_riferito'],
             ];
             $posts[] = $post;
         }
