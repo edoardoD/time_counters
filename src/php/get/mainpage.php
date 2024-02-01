@@ -16,12 +16,15 @@ try {
     // Ottieni l'username dalla variabile di sessione
     $username = $_SESSION['username'];
 
-    // Query per ottenere i post dell'utente
-    $query = "SELECT p.*
+    // Query per ottenere i post dell'utente con commenti
+    $query = "SELECT p.*, u.nome AS nome_utente, u.cognome AS cognome_utente, u.profileImage, i.path_img, COUNT(c.id) AS comments
               FROM POST p
               JOIN SEGUITI s ON p.utente = s.utente2
               JOIN UTENTI u ON s.utente1 = u.email
-              WHERE u.email = ?;";
+              LEFT JOIN IMMAGINI i ON p.id_post = i.id_post
+              LEFT JOIN COMMENTI c ON p.id_post = c.id_post
+              WHERE u.email = ?
+              GROUP BY p.id_post, u.nome, u.cognome, u.profileImage, i.path_img;"; // Modificato GROUP BY
     $stmt = $connessione->prepare($query);
 
     // Verifica la preparazione della query
@@ -45,8 +48,18 @@ try {
         $posts = [];
         // Stampa i risultati
         while ($row = $result->fetch_assoc()) {
-            $posts[] = $row;
+            $post = [
+                'id' => $row['id_post'],
+                'descrizione' => $row['descrizione'],
+                'utente' => $row['utente'],
+                'likes' => $row['likes'],
+                'nome' => $row['nome_utente'],
+                'profileImage' => $row['profileImage'],
+                'comments' => $row['comments'],
+            ];
+            $posts[] = $post;
         }
+        
         die(json_encode(["result" => true, "posts" => $posts], JSON_UNESCAPED_UNICODE));
     } else {
         die(json_encode(["result" => false, "error" => "Nessun post trovato per l'utente"]));
@@ -54,8 +67,13 @@ try {
 } catch (Exception $e) {
     die(json_encode(["result" => false, "error" => "Errore generico: " . $e->getMessage()]));
 } finally {
-    // Chiudi la connessione al database
-    $stmt->close();
-    $connessione->close();
+    // Chiudi la connessione al database solo se è stata aperta con successo
+    if (isset($stmt)) {
+        $stmt->close();
+    }
+    if (isset($connessione)) {
+        $connessione->close();
+    }
 }
+
 ?>

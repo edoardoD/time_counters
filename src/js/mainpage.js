@@ -18,9 +18,10 @@ function createPostMarkup(post) {
   
   return `
       <div class="post">
+        <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
         <div class="post-content">
-            <h4 class="mb-3">${post.username}</h4>
-            <p>${post.text}</p>
+            <h4 class="mb-3">${post.nome}</h4>
+            <p>${post.descrizione}</p>
             <div class="actions">
                 <div class="action-icons">
                     <p>${post.likes}</p><span class="like-button"><i class="fas fa-heart"></i></span>
@@ -212,7 +213,7 @@ function openNewPostForm() {
               }
             });
           }else{
-            console.log(data);
+            console.log(data.error);
           }
         })
         .catch((error) => {
