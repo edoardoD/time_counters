@@ -1,5 +1,4 @@
 let html = `
-
 <div class="bg-red">
         <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
           <div class="d-flex flex-column m-1">
@@ -15,3 +14,44 @@ let html = `
         </div>
       </div>
 </div>`;
+
+
+function chargeComment(divId) {
+  let user_id = divId.split("_");
+
+  /*per il testo del commento prendo l'elemento con id passato e 
+  poi prendo l'input e il suo valore */
+  console.log(divId);
+  div = document.getElementById(userd);
+  input = div.querySelector('input'); 
+  
+  $.get('php/router.php', {
+    request: 'loadComments',
+    textMessage: input.value,
+    user: user_id[0],
+    postId: user_id[1]
+  })
+  .done(function(data) {
+    console.log(data);
+    if (data.result) {
+      window.generalToast.fire({
+        animation: true,
+        title: data.message,
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+        }
+      });
+    } else {
+      window.generalToast.fire({
+        animation: true,
+        title: data.error,
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+        }
+      });
+    }
+  })
+  .fail(function() {
+    console.log('Error occurred during the AJAX request');
+  });
+};
