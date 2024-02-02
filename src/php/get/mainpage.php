@@ -51,12 +51,11 @@ try {
             $post = [
                 'id' => $row['id_post'],
                 'descrizione' => $row['descrizione'],
-                'utente' => $row['utente'],
+                'username' => $row['utente'],
                 'likes' => $row['likes'],
                 'nome' => $row['nome_utente'],
                 'profileImage' => $row['profileImage'],
                 'comments' => $row['comments'], 
-                'username' => $row['utente'],
             ];
             $posts[] = $post;
         }
