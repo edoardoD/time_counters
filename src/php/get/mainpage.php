@@ -23,7 +23,8 @@ try {
     LEFT JOIN IMMAGINI i ON p.id_post = i.id_post
     LEFT JOIN COMMENTI c ON p.id_post = c.id_post
     WHERE p.utente IN (SELECT SEGUITI.utente2 FROM SEGUITI WHERE SEGUITI.utente1 = ?)
-    GROUP BY p.id_post, u.nome, u.cognome, u.profileImage, i.path_img;"; 
+    GROUP BY p.id_post, u.nome, u.cognome, u.profileImage, i.path_img, p.utente;
+    "; 
     $stmt = $connessione->prepare($query);
 
     // Verifica la preparazione della query
@@ -54,7 +55,8 @@ try {
                 'likes' => $row['likes'],
                 'nome' => $row['nome_utente'],
                 'profileImage' => $row['profileImage'],
-                'comments' => $row['comments'],
+                'comments' => $row['comments'], 
+                'username' => $row['utente'],
             ];
             $posts[] = $post;
         }
