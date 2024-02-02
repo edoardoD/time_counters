@@ -61,7 +61,7 @@ if ($result_posts->num_rows > 0) {
         $post = [
             'id' => $row['id_post'],
             'descrizione' => $row['descrizione'],
-            'utente' => $row['utente'],
+            'username' => $row['utente'],
             'likes' => $row['likes'],
             'nome' => $row['nome_utente'],
             'profileImage' => $row['profileImage'],

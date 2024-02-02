@@ -8,6 +8,50 @@ h1 {
     /* Altri stili per l'h1 */
 }
 
+/* Add separation and styling for posts */
+.post {
+    background-color: #fff;
+    border: 1px solid #ddd; /* Add a border for separation */
+    border-radius: 8px; /* Add rounded corners */
+    margin-bottom: 20px; /* Add margin to create separation between posts */
+    padding: 15px; /* Add padding for better spacing inside the posts */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow for a card-like effect */
+}
+
+.post img.profile-image {
+    width: 50px; /* Adjust the profile image size */
+    height: 50px;
+    border-radius: 50%; /* Make the profile image rounded */
+    margin-right: 10px; /* Add margin between profile image and post content */
+}
+
+.post-content {
+    flex-grow: 1; /* Allow the post content to grow and take up the available space */
+}
+
+/* Add styling for the input group */
+.input-group {
+    margin-top: 10px; /* Add margin between posts and the input group */
+}
+
+/* Style the comment section */
+#commentID {
+    border-top: 1px solid #ddd; /* Add a border at the top of the comment section */
+    margin-top: 10px; /* Add margin at the top of the comment section */
+    padding-top: 10px; /* Add padding at the top of the comment section */
+}
+
+/* Adjust the collapse button style */
+#faceCollapse {
+    cursor: pointer;
+}
+
+/* Add margin to the bottom of the entire container */
+.container.db-social {
+    margin-bottom: 30px;
+}
+
+
 .db-social .jumbotron {
     margin: 0;
     background: linear-gradient(to bottom right, pink, yellow, pink, purple);
