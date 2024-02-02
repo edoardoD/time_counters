@@ -8,9 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
         dataType: "json",
         success: function (data) {
             if (data.result) {
-                // Aggiorna la vista generale
-                //updateView(data);
-
                 // Aggiorna la dashboard specifica
                 updateDashboard(data);
             } else {
@@ -22,25 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-function updateView(data) {
-    // Aggiorna il numero di post
-    $(".counter-posts").text(data.posts.length);
-
-    // Aggiorna il numero di follower
-    $(".counter-followers").text(data.num_followers);
-
-    // Aggiorna il numero di persone seguite
-    $(".counter-following").text(data.num_following);
-
-    // Aggiorna la griglia di immagini
-    const imagesContainer = $(".row-images");
-    imagesContainer.empty();
-    data.posts.forEach(post => {
-        const imageElement = $("<div class='col-md-4 mb-3'><img class='img-fluid rounded' src='" + post.image + "' alt='User Image'></div>");
-        imagesContainer.append(imageElement);
-    });
-}
 
 function updateDashboard(data) {
     // Aggiorna il numero dei post, follower e seguiti
