@@ -54,7 +54,7 @@ h1 {
 
 .db-social .jumbotron {
     margin: 0;
-    background: linear-gradient(to bottom right, pink, yellow, pink, purple);
+    background: linear-gradient(to bottom right, #007bff, #6c757d, #007bff, #6c757d);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
