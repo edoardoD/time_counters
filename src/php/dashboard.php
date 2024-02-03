@@ -55,7 +55,6 @@ $stmt_posts->execute();
 $result_posts = $stmt_posts->get_result();
 
 $dir = "php/postImages/";
-$fileList = [];
 // Verifica se ci sono risultati per i post
 $posts = [];
 if ($result_posts->num_rows > 0) {

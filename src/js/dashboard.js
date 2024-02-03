@@ -41,7 +41,6 @@ function updateDashboard(data) {
 function createPostMarkup(post) {
     let postKey = post.username+"_"+post.id; 
     let commentKey = post.username+""+post.id; 
-    console.log(post.path_img);
     return `
     <div class="post">
         <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">

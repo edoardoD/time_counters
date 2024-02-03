@@ -43,6 +43,7 @@ try {
     // Ottieni i risultati
     $result = $stmt->get_result();
 
+    $dir = "php/postImages/";
     // Verifica se ci sono risultati
     if ($result) {
         $posts = [];
@@ -56,6 +57,7 @@ try {
                 'nome' => $row['nome_utente'],
                 'profileImage' => $row['profileImage'],
                 'comments' => $row['comments'], 
+                'path_img' => $dir . $row['path_img'],
             ];
             $posts[] = $post;
         }

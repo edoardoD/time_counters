@@ -50,6 +50,7 @@ function createPostMarkup(post) {
   return `
       <div class="post">
         <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
+        <img src="${post.path_img}" alt="Post Image" class="post-image"> <!-- Aggiunto il tag img per l'immagine del post -->
         <div class="post-content">
             <h4 class="mb-3">${post.nome}</h4>
             <p>${post.descrizione}</p>
