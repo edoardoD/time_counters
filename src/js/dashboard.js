@@ -67,7 +67,7 @@ function createPostMarkup(post) {
           </div>
           <div id="${postKey}" class="input-group">
             <input type="text" name="textComment" class="form-control" placeholder="inserisci un commento" aria-label="Input group example" aria-describedby="basic-addon1">
-                  <span class="input-group-text" onclick="chargeComment(this.parentElement.id)" id="basic-addon1" style="cursor:pointer;">
+                  <span class="input-group-text" onclick="uploadComments(this.parentElement.id)" id="basic-addon1" style="cursor:pointer;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                       <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
                     </svg>
@@ -78,3 +78,73 @@ function createPostMarkup(post) {
         </div>
     `;
 }
+
+function uploadComments(divId) {
+    let user_id = divId.split("_");
+  
+    /*per il testo del commento prendo l'elemento con id passato e 
+    poi prendo l'input e il suo valore */
+    console.log(divId);
+    div = document.getElementById(divId);
+    input = div.querySelector('input'); 
+    
+    $.get('php/router.php', {
+      request: 'uploadComments',
+      textMessage: input.value,
+      user: user_id[0],
+      postId: user_id[1]
+    })
+    .done(function(data) {
+      console.log(data);
+      if (data.result) {
+        
+        window.generalToast.fire({
+          animation: true,
+          title: data.message,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+          },
+          didClose: (toast) => {  location.reload();}
+        });
+      } else {
+        window.generalToast.fire({
+          animation: true,
+          icon: 'error',
+          title: data.error,
+          didOpen: (toast) => {
+            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+          }
+        });
+      }
+    })
+    .fail(function() {
+      console.log('Error occurred during the AJAX request');
+    });
+  };
+  
+  function requestComments(user, postId, divid) {
+    $.get('php/router.php', {
+      request: 'loadComments',
+      user: user,
+      postId: postId
+    })
+    .done(function(data) {
+      console.log(data);
+      if (data.result) {
+        renderComments(data.comments,divid);
+      } else {
+        window.generalToast.fire({
+          animation: true,
+          title: data.error,
+          didOpen: (toast) => {
+            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+          }
+        });
+      }
+    })
+    .fail(function() {
+      console.log('Error occurred during the AJAX request');
+    });
+  }

@@ -6,7 +6,7 @@ session_start();
 $get_requests = [
     'loadPosts' => 'get/mainpage.php',
     'logOut' => 'get/logout.php',
-    'dashboard' =>  'get/dashboard.php',
+    'dashboard' =>  'dashboard.php',
     'uploadComments' => 'get/uploadComments.php',
     'loadComments' => 'get/loadComments.php',
 ];
