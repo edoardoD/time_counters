@@ -1,3 +1,34 @@
+$(function () {
+
+  $.ajax({
+    type: 'GET',
+    dataType: "json",
+    url: "php/router.php",
+    data: {
+      request: 'loadPosts'
+    },
+    success: function (data) {
+      console.log(data);
+      if (data.result) {
+        renderPosts(data.posts);
+      } else {
+        popUpFunction(data.error);
+      }
+    },
+    error: function (error) {
+      let marginTop = window.navbarHeight + 20;
+      window.generalToast.fire({
+        title: 'Il server non risponde',
+        icon: 'error',
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+        }
+      });
+      console.log(error);
+    }
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
 
@@ -185,38 +216,6 @@ function renderPosts(posts) {
   postsContainer.appendChild(fragment); // Aggiunge il fragment al container
 }
 
-// posts = [
-//   {
-//     username: "utente 1",
-//     text: 'First Post',
-//     id : 1,
-//     comments: 2,
-//     likes: 5,
-//   },
-//   {
-//     username: "utente 1",
-//     text: 'First Post',
-//     id : 3,
-//     comments: 2,
-//     likes: 5,
-//   },
-//   {
-//     id: 2,
-//     title: 'Second Post',
-//     content: 'This is the second post.',
-//     comments: 2,
-//     likes: 5,
-//   },
-//   {
-//     id: 3,
-//     title: 'Third Post',
-//     content: 'This is the third post.',
-//     comments: 2,
-//     likes: 5,
-//   },
-// ];
-
-
 function popUpFunction(msg) {
   Swal.fire({
     title: 'ATTENZIONE',
@@ -236,51 +235,61 @@ function popUpFunction(msg) {
   });
 }
 
+let html = `
+<div class="bg-red">
+        <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
+          <div class="d-flex flex-column m-1">
+            <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
+            <span class="m-0 p-0 text-dark ">Tha's Great. Keep it up.</span>
+          </div>
+        </div>
+        <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
+          <div class="mx-2 fw-bold" type="button">Like</div>
+          <div class="mx-2 fw-bold" type="button">Reply</div>
+          <div class="mx-2 fw-bold" type="button">Share</div>
+          <div class="mx-2" type="button">1d</div>
+        </div>
+      </div>
+</div>`;
 
-$(function () {
 
-  $.ajax({
-    type: 'GET',
-    dataType: "json",
-    url: "php/router.php",
-    data: {
-      request: 'loadPosts'
-    },
-    success: function (data) {
-      console.log(data);
-      if (data.result) {
-        renderPosts(data.posts);
-      } else {
-        popUpFunction(data.error);
-      }
-    },
-    error: function (error) {
-      let marginTop = window.navbarHeight + 20;
+function chargeComment(divId) {
+  let user_id = divId.split("_");
+
+  /*per il testo del commento prendo l'elemento con id passato e 
+  poi prendo l'input e il suo valore */
+  console.log(divId);
+  div = document.getElementById(divId);
+  input = div.querySelector('input'); 
+  
+  $.get('php/router.php', {
+    request: 'loadComments',
+    textMessage: input.value,
+    user: user_id[0],
+    postId: user_id[1]
+  })
+  .done(function(data) {
+    console.log(data);
+    if (data.result) {
       window.generalToast.fire({
-        title: 'Il server non risponde',
-        icon: 'error',
+        animation: true,
+        title: data.message,
         didOpen: (toast) => {
-          document.querySelector('.swal2-popup-custom').style.marginTop = marginTop + 'px';
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
         }
       });
-      console.log(error);
+    } else {
+      window.generalToast.fire({
+        animation: true,
+        title: data.error,
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+        }
+      });
     }
+  })
+  .fail(function() {
+    console.log('Error occurred during the AJAX request');
   });
-});
+};
 
-
-
-{/* <div class="bg-red">
-  <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
-    <div class="d-flex flex-column m-1">
-      <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
-      <span class="m-0 p-0 text-dark ">sto impazzendo</span>
-    </div>
-  </div>
-  <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
-    <div class="mx-2 fw-bold" type="button">Like</div>
-    <div class="mx-2 fw-bold" type="button">Reply</div>
-    <div class="mx-2 fw-bold" type="button">Share</div>
-    <div class="mx-2" type="button">1d</div>
-  </div>
-</div> */}
