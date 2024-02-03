@@ -7,6 +7,7 @@ $get_requests = [
     'loadPosts' => 'get/mainpage.php',
     'logOut' => 'get/logout.php',
     'dashboard' =>  'get/dashboard.php',
+    'uploadComments' => 'get/uploadComments.php',
     'loadComments' => 'get/loadComments.php',
 ];
 
