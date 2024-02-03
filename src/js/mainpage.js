@@ -72,7 +72,7 @@ function createPostMarkup(post) {
         </div>
         <div id="${postKey}" class="input-group">
           <input type="text" name="textComment" class="form-control" placeholder="inserisci un commento" aria-label="Input group example" aria-describedby="basic-addon1">
-                <span class="input-group-text" onclick="chargeComment(this.parentElement.id)" id="basic-addon1" style="cursor:pointer;">
+                <span class="input-group-text" onclick="uploadComments(this.parentElement.id)" id="basic-addon1" style="cursor:pointer;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
                   </svg>
@@ -208,7 +208,7 @@ function renderPosts(posts) {
     
     const myCollapsible = fragment.getElementById(post.username+""+post.id)
       myCollapsible.addEventListener('show.bs.collapse', event => {
-      console.log('collapsing');
+        requestComments(post.username, post.id, myCollapsible.id);
     })
   });
 
@@ -235,25 +235,10 @@ function popUpFunction(msg) {
   });
 }
 
-let html = `
-<div class="bg-red">
-        <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
-          <div class="d-flex flex-column m-1">
-            <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">Mark Z.</span>
-            <span class="m-0 p-0 text-dark ">Tha's Great. Keep it up.</span>
-          </div>
-        </div>
-        <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
-          <div class="mx-2 fw-bold" type="button">Like</div>
-          <div class="mx-2 fw-bold" type="button">Reply</div>
-          <div class="mx-2 fw-bold" type="button">Share</div>
-          <div class="mx-2" type="button">1d</div>
-        </div>
-      </div>
-</div>`;
 
 
-function chargeComment(divId) {
+
+function uploadComments(divId) {
   let user_id = divId.split("_");
 
   /*per il testo del commento prendo l'elemento con id passato e 
@@ -263,7 +248,7 @@ function chargeComment(divId) {
   input = div.querySelector('input'); 
   
   $.get('php/router.php', {
-    request: 'loadComments',
+    request: 'uploadComments',
     textMessage: input.value,
     user: user_id[0],
     postId: user_id[1]
@@ -271,13 +256,43 @@ function chargeComment(divId) {
   .done(function(data) {
     console.log(data);
     if (data.result) {
+      
       window.generalToast.fire({
         animation: true,
         title: data.message,
         didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+        },
+        didClose: (toast) => {  location.reload();}
+      });
+    } else {
+      window.generalToast.fire({
+        animation: true,
+        icon: 'error',
+        title: data.error,
+        didOpen: (toast) => {
           document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
         }
       });
+    }
+  })
+  .fail(function() {
+    console.log('Error occurred during the AJAX request');
+  });
+};
+
+function requestComments(user, postId, divid) {
+  $.get('php/router.php', {
+    request: 'loadComments',
+    user: user,
+    postId: postId
+  })
+  .done(function(data) {
+    console.log(data);
+    if (data.result) {
+      renderComments(data.comments,divid);
     } else {
       window.generalToast.fire({
         animation: true,
@@ -291,5 +306,38 @@ function chargeComment(divId) {
   .fail(function() {
     console.log('Error occurred during the AJAX request');
   });
-};
+}
 
+function createCommentMarkup (comment) {
+  let html = `
+<div class="bg-red">
+        <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
+          <div class="d-flex flex-column m-1">
+            <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">${comment.author}</span>
+            <span class="m-0 p-0 text-dark ">${comment.text}</span>
+          </div>
+        </div>
+        <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
+          <div class="mx-2 fw-bold" type="button">Like</div>
+          <div class="mx-2 fw-bold" type="button">Reply</div>
+          <div class="mx-2 fw-bold" type="button">Share</div>
+          <div class="mx-2" type="button">1d</div>
+        </div>
+      </div>
+</div>`;
+return html;
+}
+
+function renderComments(comments,commentsContainerId) {
+  const commentsContainer = document.getElementById(commentsContainerId);
+  const fragment = document.createDocumentFragment();
+
+  comments.forEach(comment => {
+    const commentElement = document.createRange().createContextualFragment(createCommentMarkup(comment));
+    fragment.appendChild(commentElement);
+  });
+
+  commentsContainer.innerHTML = ''; // Pulisce il contenuto del container
+  commentsContainer.appendChild(fragment); // Aggiunge il fragment al container
+
+}
