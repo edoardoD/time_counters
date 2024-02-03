@@ -15,14 +15,16 @@ try {
     }
 
     // Prepara la query da eseguire
-    $stmt = $connessione->prepare("INSERT INTO comments (testo,id_post,utente) VALUES (?,?,?)");
+    $stmt = $connessione->prepare("INSERT INTO COMMENTI (testo,id_post,utente) VALUES (?,?,?)");
     $stmt->bind_param("sis", $textMessage, $postId, $user);
     if (!$stmt->execute()) {
         die(json_encode(["result" => false, "error" => "Errore nell'esecuzione della query: " . $stmt->error]));
     }
+    // Chiudi la connessione al database 
+
     $stmt->close();
     $connessione->close();
-    die(json_encode(["result" => true, "error" => "Commento inserito correttamente"]));
+    die(json_encode(["result" => true, "message" => "Commento inserito correttamente"]));
 
 
 
