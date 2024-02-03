@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Controlla se l'immagine è già presente nella tabella IMMAGINI
                 $checkQuery = "SELECT id_post FROM IMMAGINI WHERE path_img = ?";
                 $checkStmt = $connessione->prepare($checkQuery);
-                $checkStmt->bind_param("s", $dest_string);
+                $checkStmt->bind_param("s", $fileName);
                 $checkStmt->execute();
                 $checkStmt->store_result();
                 
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Esegui l'inserimento nella tabella IMMAGINI utilizzando prepared statement
                 $query = "INSERT INTO IMMAGINI (num_img, id_post, path_img) VALUES (?,?,?)";
                 $stmtImg = $connessione->prepare($query);
-                $stmtImg->bind_param("iis", $i, $idpost, $dest_string);
+                $stmtImg->bind_param("iis", $i, $idpost, $fileName);
                 
                 if ($stmtImg->execute()) {
                     $stmtImg->close();

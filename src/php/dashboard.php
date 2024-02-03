@@ -54,29 +54,8 @@ $stmt_posts->bind_param("s", $username);
 $stmt_posts->execute();
 $result_posts = $stmt_posts->get_result();
 
-//------------------------------------------------------------//
-$dir = "postImages/";
+$dir = "php/postImages/";
 $fileList = [];
-
-if (is_dir($dir)) {
-    if ($dh = opendir($dir)) {
-        while (($file = readdir($dh)) !== false) {
-            if ($file != "." && $file != "..") {
-                $fileList[] = $baseURL . $file;
-            }
-        }
-        closedir($dh);
-    }
-} else {
-    // Stampa il risultato in formato JSON
-    die (json_encode(["result" => false, "error" => "Non esiste questa directory: " .  $dir]));
-}
-
-// Aggiungi i nomi dei file al risultato finale
-$result_data["fileList"] = $fileList;
-
-//------------------------------------------------------------//
-
 // Verifica se ci sono risultati per i post
 $posts = [];
 if ($result_posts->num_rows > 0) {
@@ -89,7 +68,7 @@ if ($result_posts->num_rows > 0) {
             'nome' => $row['nome_utente'],
             'profileImage' => $row['profileImage'],
             'comments' => $row['commento'],
-            'path_img' => $row['path_img'],
+            'path_img' => $dir . $row['path_img'],
         ];
         $posts[] = $post;
     }

@@ -18,6 +18,12 @@ h1 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow for a card-like effect */
 }
 
+.post img.post-image {
+    width: 100%; /* Fai in modo che l'immagine del post occupi il 100% della larghezza del suo contenitore */
+    height: auto; /* Impedisce il ridimensionamento della altezza mantenendo l'aspetto proporzionale */
+    border-radius: 8px; /* Puoi regolare la border-radius secondo le tue preferenze */
+}
+
 .post img.profile-image {
     width: 50px; /* Adjust the profile image size */
     height: 50px;
@@ -27,6 +33,7 @@ h1 {
 
 .post-content {
     flex-grow: 1; /* Allow the post content to grow and take up the available space */
+    margin-top: 10px;
 }
 
 /* Add styling for the input group */
