@@ -19,7 +19,7 @@ h1 {
 }
 
 .post img.post-image {
-    width: 100%; /* Fai in modo che l'immagine del post occupi il 100% della larghezza del suo contenitore */
+    width: 30%; /* Fai in modo che l'immagine del post occupi il 100% della larghezza del suo contenitore */
     height: auto; /* Impedisce il ridimensionamento della altezza mantenendo l'aspetto proporzionale */
     border-radius: 8px; /* Puoi regolare la border-radius secondo le tue preferenze */
 }
