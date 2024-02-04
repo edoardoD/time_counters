@@ -2,7 +2,7 @@
 // Your server-side code to handle the request and load the post correctly to the database
 
 $textMessage = $_GET['textMessage'];
-$user = $_GET['user'];
+$user = $_SESSION['username'];
 $postId = $_GET['postId'];
 
 // Perform the necessary operations to load the post correctly to the database

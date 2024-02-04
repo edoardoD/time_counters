@@ -275,7 +275,6 @@ function uploadComments(divId) {
   $.get('php/router.php', {
     request: 'uploadComments',
     textMessage: input.value,
-    user: user_id[0],
     postId: user_id[1]
   })
   .done(function(data) {
@@ -311,7 +310,6 @@ function uploadComments(divId) {
 function requestComments(user, postId, divid) {
   $.get('php/router.php', {
     request: 'loadComments',
-    user: user,
     postId: postId
   })
   .done(function(data) {
