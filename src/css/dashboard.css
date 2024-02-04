@@ -3,9 +3,13 @@ body{
     background:#eee;
 }
 
+#nomeCognome {
+    text-decoration: none;
+  }  
+
 .avatar-xxl {
-    width: 150px; /* Imposta la larghezza desiderata */
-    height: 150px; /* Imposta l'altezza desiderata */
+    width: 50px; /* Imposta la larghezza desiderata */
+    height: 50px; /* Imposta l'altezza desiderata */
 }
 
 /* Add separation and styling for posts */
@@ -25,8 +29,8 @@ body{
 }
 
 .post img.profile-image {
-    width: 50px; /* Adjust the profile image size */
-    height: 50px;
+    width: 120px; /* Adjust the profile image size */
+    height: 100px;
     border-radius: 50%; /* Make the profile image rounded */
     margin-right: 10px; /* Add margin between profile image and post content */
 }

@@ -49,7 +49,10 @@ function updateDashboard(data) {
   $("#num_following").text(data.num_following);
   // Aggiorna l'immagine del profilo
   $("#profileImage").attr("src", data.profileImage);
+  // Aggiungi nome e cognome
+  $("#nomeCognome").text(`${data.nome} ${data.cognome}`);
 }
+
 
 function renderPosts(posts) {
   const postsContainer = document.getElementById('post-section');

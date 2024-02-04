@@ -50,16 +50,29 @@ $result_profile_image = $stmt_profile_image->get_result();
 $row_image_profile = $result_profile_image->fetch_assoc();
 $image = $row_image_profile['profileImage'];
 
+$query_user_info = "SELECT nome, cognome FROM UTENTI WHERE email = ?";
+$stmt_user_info = $conn->prepare($query_user_info);
+$stmt_user_info->bind_param("s", $username);
+$stmt_user_info->execute();
+$result_user_info = $stmt_user_info->get_result();
+$row_user_info = $result_user_info->fetch_assoc();
+$nome = $row_user_info['nome'];
+$cognome = $row_user_info['cognome'];
+
+
 $dirImgProfile = "php/NuovaCartella/"; // Questo sarà il nome della cartella contenente le immagini profilo
 
 // Risultato finale
 $result_data = [
     "result" => true,
+    "nome" => $nome,
+    "cognome" => $cognome,
     "num_posts" => $num_posts,
     "num_followers" => $num_followers,
     "num_following" => $num_following,
     "profileImage" => $dirImgProfile . $image,
 ];
+
 
 // Stampa il risultato
 die(json_encode($result_data));
