@@ -3,9 +3,9 @@ body{
     background:#eee;
 }
 
-h1 {
-    font-size: 60px;
-    /* Altri stili per l'h1 */
+.avatar-xxl {
+    width: 150px; /* Imposta la larghezza desiderata */
+    height: 150px; /* Imposta l'altezza desiderata */
 }
 
 /* Add separation and styling for posts */
