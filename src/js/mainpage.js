@@ -37,34 +37,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (likeButton && likeButton.classList.contains('like-button')) {
       likeButton.classList.toggle('liked');
-
-      // Aggiungi la chiamata AJAX per incrementare il numero di like
-      const postId = likeButton.dataset.postId;
-
-      $.ajax({
-        type: 'GET',
-        dataType: "json",
-        url: "php/router.php",
-        data: {
-          request: 'incrementLike',
-          postId: postId
-        },
-        success: function (data) {
-          if (data.result) {
-            // Aggiorna l'UI con il nuovo numero di like
-            const likeCountElement = likeButton.parentElement.querySelector('.actions p');
-            likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
-          } else {
-            popUpFunction(data.error);
-          }
-        },
-        error: function (error) {
-          console.log(error);
-        }
-      });
     }
   });
 });
+
+function incrementLike(divId){
+  let user_id = divId.split("_");
+  console.log(divId);
+
+  // Aggiungi la chiamata AJAX per incrementare il numero di like
+  $.ajax({
+    type: 'GET',
+    dataType: "json",
+    url: "php/router.php",
+    data: {
+      request: 'incrementLike',
+      postId: user_id[1],
+    },
+    success: function (data) {
+      if (data.result) {
+        // Aggiorna l'UI con il nuovo numero di like
+        const likeCountElement = likeButton.parentElement.querySelector('.actions p');
+        likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+      } else {
+        popUpFunction(data.error);
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+  
+}
 
 {/* <img src="${post.profileImage}" alt="${post.username}" class="profile-image"></img> */ }
 function createPostMarkup(post) {
@@ -80,7 +84,7 @@ function createPostMarkup(post) {
             <p>${post.descrizione}</p>
             <div class="actions">
                 <div class="action-icons">
-                    <p>${post.likes}</p><span class="like-button"><i class="fas fa-heart"></i></span>
+                    <p>${post.likes}</p><span class="like-button" onclick="incrementLike(this.parentElement.id)" id="basic-addon1"><i class="fas fa-heart"></i></span>
                     <p>${post.comments}</p>
                     <a
                       id="faceCollapse"
