@@ -17,8 +17,8 @@
             "SELECT c.testo as text, u.nome as author
             FROM COMMENTI c, UTENTI u 
             WHERE c.utente = u.email 
-            AND u.email = ? AND c.id_post = ?");
-        $stmt->bind_param("si",$user,$postId);
+            AND c.id_post = ?");
+        $stmt->bind_param("i",$postId);
         if (!$stmt->execute()) {
             die(json_encode(["result" => false, "error" => "Errore nell'esecuzione della query: " . $stmt->error]));
         }
