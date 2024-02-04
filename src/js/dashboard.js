@@ -1,47 +1,83 @@
 document.addEventListener("DOMContentLoaded", function () {
-    $.ajax({
-        url: "php/router.php", // Usa un solo percorso
-        type: 'GET', 
-        data: {
-            request: 'dashboard'
-        },
-        dataType: "json",
-        success: function (data) {
-            if (data.result) {
-                // Aggiorna la dashboard specifica
-                updateDashboard(data);
-            } else {
-                console.error(data.error);
-            }
-        },
-        error: function (error) {
-            console.error("Errore nella richiesta al server:", error.statusText);
-        }
+  $.ajax({
+    url: "php/router.php", // Usa un solo percorso
+    type: 'GET',
+    data: {
+      request: 'dashboard'
+    },
+    dataType: "json",
+    success: function (data) {
+      if (data.result) {
+        // Aggiorna la dashboard specifica
+        updateDashboard(data);
+      } else {
+        console.error(data.error);
+      }
+    },
+    error: function (error) {
+      console.error("Errore nella richiesta al server:", error.statusText);
+    }
+  });
+
+  $.get('php/router.php', {
+    request: 'userPost'
+  })
+    .done(function (data) {
+      console.log(data);
+      if (data.result) {
+        renderPosts(data.posts);
+      } else {
+        window.generalToast.fire({
+          animation: true,
+          title: data.error,
+          didOpen: (toast) => {
+            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight + 20) + 'px';
+          }
+        });
+      }
+    })
+    .fail(function () {
+      console.log('Error occurred during the AJAX request');
     });
+ 
 });
 
 function updateDashboard(data) {
-    // Aggiorna il numero dei post, follower e seguiti
-    $("#num_posts").text(data.num_posts);
-    $("#num_followers").text(data.num_followers);
-    $("#num_following").text(data.num_following);
+  // // Aggiorna il numero dei post, follower e seguiti
+  // $("#num_posts").text(data.num_posts);
+  // $("#num_followers").text(data.num_followers);
+  // $("#num_following").text(data.num_following);
 
-    // Aggiorna l'immagine del profilo
-    $("#profileImage").attr("src", data.profileImage);
+  // // Aggiorna l'immagine del profilo
+  // $("#profileImage").attr("src", data.profileImage);
 
-    // Aggiorna la griglia di immagini
-    const imagesContainer = $("#user_images");
-    imagesContainer.empty();
-    data.posts.forEach(post => {
-        const postMarkup = createPostMarkup(post);
-        imagesContainer.append(postMarkup);
-    });
+  
 }
 
+function renderPosts(posts) {
+
+  const postsContainer = document.getElementById('post-section');
+  const fragment = document.createDocumentFragment();
+
+  posts.forEach(post => {
+    const postElement = document.createRange().createContextualFragment(createPostMarkup(post));
+    fragment.appendChild(postElement);
+    
+    const myCollapsible = fragment.getElementById(post.username+""+post.id)
+      myCollapsible.addEventListener('show.bs.collapse', event => {
+        requestComments(post.username, post.id, myCollapsible.id);
+    })
+  });
+
+  postsContainer.innerHTML = ''; // Pulisce il contenuto del container
+  postsContainer.appendChild(fragment); // Aggiunge il fragment al container
+}
+
+
 function createPostMarkup(post) {
-    let postKey = post.username+"_"+post.id; 
-    let commentKey = post.username+""+post.id; 
-    return `
+  let postKey = post.username + "_" + post.id;
+  let commentKey = post.username + "" + post.id;
+  return `
     <div class="post">
     <img src="${post.profileImage}" alt="${post.nome}" class="profile-image rounded float-start">
       <div class="text-center">
@@ -88,41 +124,41 @@ function uploadComments(divId) {
   poi prendo l'input e il suo valore */
   console.log(divId);
   div = document.getElementById(divId);
-  input = div.querySelector('input'); 
-  
+  input = div.querySelector('input');
+
   $.get('php/router.php', {
     request: 'uploadComments',
     textMessage: input.value,
     postId: user_id[1]
   })
-  .done(function(data) {
-    console.log(data);
-    if (data.result) {
-      
-      window.generalToast.fire({
-        animation: true,
-        title: data.message,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
-        },
-        didClose: (toast) => {  location.reload();}
-      });
-    } else {
-      window.generalToast.fire({
-        animation: true,
-        icon: 'error',
-        title: data.error,
-        didOpen: (toast) => {
-          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
-        }
-      });
-    }
-  })
-  .fail(function() {
-    console.log('Error occurred during the AJAX request');
-  });
+    .done(function (data) {
+      console.log(data);
+      if (data.result) {
+
+        window.generalToast.fire({
+          animation: true,
+          title: data.message,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight + 20) + 'px';
+          },
+          didClose: (toast) => { location.reload(); }
+        });
+      } else {
+        window.generalToast.fire({
+          animation: true,
+          icon: 'error',
+          title: data.error,
+          didOpen: (toast) => {
+            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight + 20) + 'px';
+          }
+        });
+      }
+    })
+    .fail(function () {
+      console.log('Error occurred during the AJAX request');
+    });
 };
 
 function requestComments(user, postId, divid) {
@@ -130,26 +166,26 @@ function requestComments(user, postId, divid) {
     request: 'loadComments',
     postId: postId
   })
-  .done(function(data) {
-    console.log(data);
-    if (data.result) {
-      renderComments(data.comments,divid);
-    } else {
-      window.generalToast.fire({
-        animation: true,
-        title: data.error,
-        didOpen: (toast) => {
-          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
-        }
-      });
-    }
-  })
-  .fail(function() {
-    console.log('Error occurred during the AJAX request');
-  });
+    .done(function (data) {
+      console.log(data);
+      if (data.result) {
+        renderComments(data.comments, divid);
+      } else {
+        window.generalToast.fire({
+          animation: true,
+          title: data.error,
+          didOpen: (toast) => {
+            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight + 20) + 'px';
+          }
+        });
+      }
+    })
+    .fail(function () {
+      console.log('Error occurred during the AJAX request');
+    });
 }
 
-function createCommentMarkup (comment) {
+function createCommentMarkup(comment) {
   let html = `
 <div class="bg-red">
         <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
@@ -166,10 +202,10 @@ function createCommentMarkup (comment) {
         </div>
       </div>
 </div>`;
-return html;
+  return html;
 }
 
-function renderComments(comments,commentsContainerId) {
+function renderComments(comments, commentsContainerId) {
   const commentsContainer = document.getElementById(commentsContainerId);
   const fragment = document.createDocumentFragment();
 
