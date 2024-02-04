@@ -10,6 +10,7 @@ $get_requests = [
     'uploadComments' => 'get/uploadComments.php',
     'loadComments' => 'get/loadComments.php',
     'incrementLike' => 'get/incrementLike.php',
+    'userPost' => 'get/userPost.php',
 ];
 
 $post_requests = [
