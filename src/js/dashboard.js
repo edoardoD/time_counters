@@ -43,8 +43,10 @@ function createPostMarkup(post) {
     let commentKey = post.username+""+post.id; 
     return `
     <div class="post">
-        <img src="${post.profileImage}" alt="${post.nome}" class="profile-image">
-        <img src="${post.path_img}" alt="Post Image" class="post-image"> <!-- Aggiunto il tag img per l'immagine del post -->
+    <img src="${post.profileImage}" alt="${post.nome}" class="profile-image rounded float-start">
+      <div class="text-center">
+        <img src="${post.path_img}" alt="Post Image" class="post-image img-fluid rounded max-width-100">
+        </div>
         <div class="post-content">
               <h4 class="mb-3">${post.nome}</h4>
               <p>${post.descrizione}</p>
