@@ -80,71 +80,103 @@ function createPostMarkup(post) {
 }
 
 function uploadComments(divId) {
-    let user_id = divId.split("_");
+  let user_id = divId.split("_");
+
+  /*per il testo del commento prendo l'elemento con id passato e 
+  poi prendo l'input e il suo valore */
+  console.log(divId);
+  div = document.getElementById(divId);
+  input = div.querySelector('input'); 
   
-    /*per il testo del commento prendo l'elemento con id passato e 
-    poi prendo l'input e il suo valore */
-    console.log(divId);
-    div = document.getElementById(divId);
-    input = div.querySelector('input'); 
-    
-    $.get('php/router.php', {
-      request: 'uploadComments',
-      textMessage: input.value,
-      user: user_id[0],
-      postId: user_id[1]
-    })
-    .done(function(data) {
-      console.log(data);
-      if (data.result) {
-        
-        window.generalToast.fire({
-          animation: true,
-          title: data.message,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
-          },
-          didClose: (toast) => {  location.reload();}
-        });
-      } else {
-        window.generalToast.fire({
-          animation: true,
-          icon: 'error',
-          title: data.error,
-          didOpen: (toast) => {
-            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
-          }
-        });
-      }
-    })
-    .fail(function() {
-      console.log('Error occurred during the AJAX request');
-    });
-  };
-  
-  function requestComments(user, postId, divid) {
-    $.get('php/router.php', {
-      request: 'loadComments',
-      user: user,
-      postId: postId
-    })
-    .done(function(data) {
-      console.log(data);
-      if (data.result) {
-        renderComments(data.comments,divid);
-      } else {
-        window.generalToast.fire({
-          animation: true,
-          title: data.error,
-          didOpen: (toast) => {
-            document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
-          }
-        });
-      }
-    })
-    .fail(function() {
-      console.log('Error occurred during the AJAX request');
-    });
-  }
+  $.get('php/router.php', {
+    request: 'uploadComments',
+    textMessage: input.value,
+    postId: user_id[1]
+  })
+  .done(function(data) {
+    console.log(data);
+    if (data.result) {
+      
+      window.generalToast.fire({
+        animation: true,
+        title: data.message,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+        },
+        didClose: (toast) => {  location.reload();}
+      });
+    } else {
+      window.generalToast.fire({
+        animation: true,
+        icon: 'error',
+        title: data.error,
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+        }
+      });
+    }
+  })
+  .fail(function() {
+    console.log('Error occurred during the AJAX request');
+  });
+};
+
+function requestComments(user, postId, divid) {
+  $.get('php/router.php', {
+    request: 'loadComments',
+    postId: postId
+  })
+  .done(function(data) {
+    console.log(data);
+    if (data.result) {
+      renderComments(data.comments,divid);
+    } else {
+      window.generalToast.fire({
+        animation: true,
+        title: data.error,
+        didOpen: (toast) => {
+          document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight+20) + 'px';
+        }
+      });
+    }
+  })
+  .fail(function() {
+    console.log('Error occurred during the AJAX request');
+  });
+}
+
+function createCommentMarkup (comment) {
+  let html = `
+<div class="bg-red">
+        <div class="d-flex flex-column bg-opacity-10 bg-dark mx-2 px-3 " style="border-radius: 18px;">
+          <div class="d-flex flex-column m-1">
+            <span class="m-0 p-0 text-dark fw-bold fs-7" type="button">${comment.author}</span>
+            <span class="m-0 p-0 text-dark ">${comment.text}</span>
+          </div>
+        </div>
+        <div class="mx-2 p-0 d-flex justify-content-start fs-7 text-muted ">
+          <div class="mx-2 fw-bold" type="button">Like</div>
+          <div class="mx-2 fw-bold" type="button">Reply</div>
+          <div class="mx-2 fw-bold" type="button">Share</div>
+          <div class="mx-2" type="button">1d</div>
+        </div>
+      </div>
+</div>`;
+return html;
+}
+
+function renderComments(comments,commentsContainerId) {
+  const commentsContainer = document.getElementById(commentsContainerId);
+  const fragment = document.createDocumentFragment();
+
+  comments.forEach(comment => {
+    const commentElement = document.createRange().createContextualFragment(createCommentMarkup(comment));
+    fragment.appendChild(commentElement);
+  });
+
+  commentsContainer.innerHTML = ''; // Pulisce il contenuto del container
+  commentsContainer.appendChild(fragment); // Aggiunge il fragment al container
+
+}
