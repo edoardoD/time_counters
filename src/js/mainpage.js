@@ -31,13 +31,37 @@ $(function () {
 
 document.addEventListener('DOMContentLoaded', function () {
   const postsContainer = document.getElementById('posts-container');
-
-
+  
   postsContainer.addEventListener('click', function (event) {
     const likeButton = event.target.closest('.like-button');
 
     if (likeButton && likeButton.classList.contains('like-button')) {
       likeButton.classList.toggle('liked');
+
+      // Aggiungi la chiamata AJAX per incrementare il numero di like
+      const postId = likeButton.dataset.postId;
+
+      $.ajax({
+        type: 'GET',
+        dataType: "json",
+        url: "php/router.php",
+        data: {
+          request: 'incrementLike',
+          postId: postId
+        },
+        success: function (data) {
+          if (data.result) {
+            // Aggiorna l'UI con il nuovo numero di like
+            const likeCountElement = likeButton.parentElement.querySelector('.actions p');
+            likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+          } else {
+            popUpFunction(data.error);
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
     }
   });
 });

@@ -9,6 +9,7 @@ $get_requests = [
     'dashboard' =>  'dashboard.php',
     'uploadComments' => 'get/uploadComments.php',
     'loadComments' => 'get/loadComments.php',
+    'incrementLike' => 'get/incrementLike.php',
 ];
 
 $post_requests = [
