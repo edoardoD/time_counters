@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-function incrementLike(divId){
-  let user_id = divId.split("_");
-  console.log(divId);
+function incrementLike(likeButton) {
+  let user_id = likeButton.id.split("_");
+  console.log(likeButton.id);
 
   // Aggiungi la chiamata AJAX per incrementare il numero di like
   $.ajax({
@@ -67,8 +67,8 @@ function incrementLike(divId){
       console.log(error);
     }
   });
-  
 }
+
 
 {/* <img src="${post.profileImage}" alt="${post.username}" class="profile-image"></img> */ }
 function createPostMarkup(post) {
@@ -86,8 +86,8 @@ function createPostMarkup(post) {
       <p>${post.descrizione}</p>
       <div class="actions">
           <div class="action-icons">
-              <p>${post.likes}</p><span class="like-button" onclick="incrementLike(this.parentElement.id)" id="basic-addon1"><i class="fas fa-heart"></i></span>
-              <p>${post.comments}</p>
+          <p>${post.likes}</p><span class="like-button" onclick="incrementLike(this)" id="${postKey}"><i class="fas fa-heart"></i></span>
+          <p>${post.comments}</p>
               <a
                   id="faceCollapse"
                   class="collapsed"

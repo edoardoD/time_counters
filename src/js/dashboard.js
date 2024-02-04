@@ -43,19 +43,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function updateDashboard(data) {
-  // // Aggiorna il numero dei post, follower e seguiti
-  // $("#num_posts").text(data.num_posts);
-  // $("#num_followers").text(data.num_followers);
-  // $("#num_following").text(data.num_following);
-
-  // // Aggiorna l'immagine del profilo
-  // $("#profileImage").attr("src", data.profileImage);
-
-  
+  // Aggiorna il numero dei post, follower e seguiti
+  $("#num_posts").text(data.num_posts);
+  $("#num_followers").text(data.num_followers);
+  $("#num_following").text(data.num_following);
+  // Aggiorna l'immagine del profilo
+  $("#profileImage").attr("src", data.profileImage);
 }
 
 function renderPosts(posts) {
-
   const postsContainer = document.getElementById('post-section');
   const fragment = document.createDocumentFragment();
 

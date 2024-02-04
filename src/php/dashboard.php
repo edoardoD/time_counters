@@ -41,39 +41,16 @@ $result_num_following = $stmt_num_following->get_result();
 $row_num_following = $result_num_following->fetch_assoc();
 $num_following = $row_num_following['num_following'];
 
-// Ottieni i post con i relativi commenti e immagini
-$query_posts = "SELECT p.*, u.nome AS nome_utente, u.cognome AS cognome_utente, u.profileImage, i.path_img, c.testo AS commento
-                FROM POST p
-                JOIN UTENTI u ON p.utente = u.email
-                LEFT JOIN IMMAGINI i ON p.id_post = i.id_post
-                LEFT JOIN COMMENTI c ON p.id_post = c.id_post
-                WHERE p.utente = ?";
+// Ottieni l'immagine del profilo dell'utente loggato
+$query_profile_image = "SELECT profileImage FROM UTENTI WHERE email = ?";
+$stmt_profile_image = $conn->prepare($query_profile_image);
+$stmt_profile_image->bind_param("s", $username);
+$stmt_profile_image->execute();
+$result_profile_image = $stmt_profile_image->get_result();
+$row_image_profile = $result_profile_image->fetch_assoc();
+$image = $row_image_profile['profileImage'];
 
-$stmt_posts = $conn->prepare($query_posts);
-$stmt_posts->bind_param("s", $username);
-$stmt_posts->execute();
-$result_posts = $stmt_posts->get_result();
-
-$dir = "php/postImages/";
-// Verifica se ci sono risultati per i post
-$posts = [];
-if ($result_posts->num_rows > 0) {
-    while ($row = $result_posts->fetch_assoc()) {
-        $post = [
-            'id' => $row['id_post'],
-            'descrizione' => $row['descrizione'],
-            'username' => $row['utente'],
-            'likes' => $row['likes'],
-            'nome' => $row['nome_utente'],
-            'profileImage' => $row['profileImage'],
-            'comments' => $row['commento'],
-            'path_img' => $dir . $row['path_img'],
-        ];
-        $posts[] = $post;
-    }
-} else {
-    die(json_encode(["result" => false, "error" => "Non ci sono post da mostrare"]));
-}
+$dirImgProfile = "php/NuovaCartella"; // Questo sarà il nome della cartella contenente le immagini profilo
 
 // Risultato finale
 $result_data = [
@@ -81,7 +58,7 @@ $result_data = [
     "num_posts" => $num_posts,
     "num_followers" => $num_followers,
     "num_following" => $num_following,
-    "posts" => $posts,
+    "profileImage" => $dirImgProfile . $image,
 ];
 
 // Stampa il risultato
