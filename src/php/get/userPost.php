@@ -44,6 +44,7 @@ try {
     $result = $stmt->get_result();
 
     $dir = "php/postImages/";
+    $dirImgProfile = "php/NuovaCartella/";
     // Verifica se ci sono risultati
     if ($result) {
         $posts = [];
@@ -55,7 +56,7 @@ try {
                 'username' => $row['utente'],
                 'likes' => $row['likes'],
                 'nome' => $row['nome_utente'],
-                'profileImage' => $row['profileImage'],
+                'profileImage' => $dirImgProfile . $row['profileImage'],
                 'comments' => $row['comments'], 
                 'path_img' => $dir . $row['path_img'],
             ];

@@ -50,7 +50,7 @@ $result_profile_image = $stmt_profile_image->get_result();
 $row_image_profile = $result_profile_image->fetch_assoc();
 $image = $row_image_profile['profileImage'];
 
-$dirImgProfile = "php/NuovaCartella"; // Questo sarà il nome della cartella contenente le immagini profilo
+$dirImgProfile = "php/NuovaCartella/"; // Questo sarà il nome della cartella contenente le immagini profilo
 
 // Risultato finale
 $result_data = [

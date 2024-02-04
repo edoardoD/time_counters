@@ -44,7 +44,7 @@ try {
     $result = $stmt->get_result();
 
     $dir = "php/postImages/";
-    $dirImgProfile = "php/NuovaCartella"; // Questo sarà il nome della cartella contenente le immagini profilo
+    $dirImgProfile = "php/NuovaCartella/"; // Questo sarà il nome della cartella contenente le immagini profilo
     // Verifica se ci sono risultati
     if ($result) {
         $posts = [];
