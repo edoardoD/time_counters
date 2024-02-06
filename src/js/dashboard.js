@@ -258,3 +258,22 @@ function incrementLike(likeButton) {
     }
   });
 }
+
+function popUpFunction(msg) {
+  Swal.fire({
+    title: 'ATTENZIONE',
+    text: '' + msg,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'registrati o esegui il login',
+    cancelButtonText: 'continua in anonimato',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Azione da eseguire se l'utente clicca su OK
+      window.location.href = "index.php?page=register";
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // Azione da eseguire se l'utente clicca su Annulla
+      window.location.href = "index.php?page=home";
+    }
+  });
+}
