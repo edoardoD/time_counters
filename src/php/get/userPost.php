@@ -44,7 +44,7 @@ try {
     $result = $stmt->get_result();
 
     $dir = "php/postImages/";
-    $dirImgProfile = "php/NuovaCartella/";
+    $dirImgProfile = "php/profileImages/";
     // Verifica se ci sono risultati
     if ($result) {
         $posts = [];

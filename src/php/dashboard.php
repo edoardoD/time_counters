@@ -60,7 +60,7 @@ $nome = $row_user_info['nome'];
 $cognome = $row_user_info['cognome'];
 
 
-$dirImgProfile = "php/NuovaCartella/"; // Questo sarà il nome della cartella contenente le immagini profilo
+$dirImgProfile = "php/profileImages/"; // Questo sarà il nome della cartella contenente le immagini profilo
 
 // Risultato finale
 $result_data = [
