@@ -12,6 +12,11 @@ body{
     height: 50px; /* Imposta l'altezza desiderata */
 }
 
+.like-button.liked i {
+    color: red; /* Cambia il colore dell'icona del pulsante del like */
+    /* Altri stili desiderati */
+  }  
+
 /* Add separation and styling for posts */
 .post {
     background-color: #fff;
