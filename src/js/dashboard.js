@@ -232,7 +232,7 @@ function renderComments(comments, commentsContainerId) {
 }
 
 function incrementLike(likeButton) {
-  let user_id = likeButton.id.split("_");
+  let user_id = likeButton.id.split("like");
   console.log(likeButton.id);
 
   // Aggiungi la chiamata AJAX per incrementare il numero di like
