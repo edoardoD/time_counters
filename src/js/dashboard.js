@@ -86,8 +86,9 @@ function renderPosts(posts) {
 
 
 function createPostMarkup(post) {
-  let postKey = post.username + "_" + post.id;
-  let commentKey = post.username + "" + post.id;
+  let postKey = post.username + "post" + post.id;
+  let collapseComment = post.username + "comment" + post.id;
+  let likeKey = post.username + "like" + post.id;
   return `
     <div class="post">
     <img src="${post.profileImage}" alt="${post.nome}" class="profile-image rounded float-start">
@@ -99,13 +100,13 @@ function createPostMarkup(post) {
               <p>${post.descrizione}</p>
               <div class="actions">
                   <div class="action-icons">
-                  <p>${post.likes}</p><span class="like-button" onclick="incrementLike(this)" id="${postKey}"><i class="fas fa-heart"></i></span>
+                  <p>${post.likes}</p><span class="like-button" onclick="incrementLike(this)" id="${likeKey}"><i class="fas fa-heart"></i></span>
                   <p>${post.comments}</p>
                       <a
                         id="faceCollapse"
                         class=" collapsed"
                         data-bs-toggle="collapse"
-                        href="#${commentKey}"
+                        href="#${collapseComment}"
                         role="button"
                         aria-expanded="false"
                         aria-controls="collapseExample"
@@ -122,14 +123,14 @@ function createPostMarkup(post) {
                     </svg>
                   </span>
           </div>
-          <div id="${commentKey}" class="collapse mt-3 scrollable">
+          <div id="${collapseComment}" class="collapse mt-3 scrollable">
           </div>
         </div>
     `;
 }
 
 function uploadComments(divId) {
-  let user_id = divId.split("_");
+  let user_id = divId.split("post");
 
   /*per il testo del commento prendo l'elemento con id passato e 
   poi prendo l'input e il suo valore */
