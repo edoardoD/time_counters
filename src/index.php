@@ -25,7 +25,7 @@
         <!-- jquery -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <!-- bootstrap -->
-        <link src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- sweetalert -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.2/sweetalert2.all.js" 
         integrity="sha512-h+uc/rWXvhloPmX380zKn7+8D9xNiLvVMkhUW+5yIoHYD2I1wzWc/cSAbAflCohdv+AE0pOF2d8zrbQ+fiPQtA==" 
