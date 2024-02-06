@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         window.generalToast.fire({
           animation: true,
+          icon: 'error',
           title: data.error,
           didOpen: (toast) => {
             document.querySelector('.swal2-popup-custom').style.marginTop = (window.navbarHeight + 20) + 'px';
