@@ -237,7 +237,7 @@ function renderPosts(posts) {
     const postElement = document.createRange().createContextualFragment(createPostMarkup(post));
     fragment.appendChild(postElement);
     
-    const myCollapsible = fragment.getElementById(post.username+""+post.id)
+    const myCollapsible = fragment.getElementById(post.username + "comment" + post.id)
       myCollapsible.addEventListener('show.bs.collapse', event => {
         requestComments(post.username, post.id, myCollapsible.id);
     })
