@@ -1,0 +1,44 @@
+<script src="js/dashboard.js"></script>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/mainpage.css">
+
+</head>
+<body class="content">
+    <div class="container db-social">
+        <div class="jumbotron jumbotron-fluid"></div>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xl-11">
+                    <div class="widget head-profile has-shadow text-center">
+                        <!-- Immagine del profilo -->
+                        <a class="avatar avatar-xxl">
+                            <img src="path-to-image.jpg" alt="Profile Image" class="img-fluid rounded-circle profile-image mb-3 profile-image-large" id="profileImage">
+                            <h2 id="nomeCognome">NomeCognome</h2>
+                        </a>                        
+                            <div class="widget-body pb-0">
+                            <!-- Informazioni sull'utente -->
+                            <ul class="list-unstyled d-flex justify-content-center">
+                                <li class="me-4">
+                                    <div class="counter" id="num_posts">0</div>
+                                    <div class="heading">post</div>
+                                </li>
+                                <li class="me-4">
+                                    <div class="counter" id="num_followers">0</div>
+                                    <div class="heading">follower</div>
+                                </li>
+                                <li>
+                                    <div class="counter" id="num_following">0</div>
+                                    <div class="heading">account seguiti</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div id="posts-container">
+                        <div id="post-section"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

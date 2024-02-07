@@ -1,0 +1,20 @@
+body{
+    margin-top: 60px;
+}
+
+
+footer a i {
+    font-size: 24px;
+    /* Imposta la dimensione desiderata per le icone */
+    margin: 0 10px;
+    /* Aggiungi spazio tra le icone */
+    color: black;
+}
+
+.swal2-popup-custom{
+    position: relative;
+}
+
+#logOut{
+    cursor: pointer;
+}
