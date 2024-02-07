@@ -139,7 +139,7 @@ function openNewPostForm() {
         btnOuter = $(".button_outer");
 
       btnUpload.on("change", function (e) {
-        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        let ext = btnUpload.val().split('.').pop().toLowerCase();
         if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
           $(".error_msg").text("Not an Image...");
         } else {
@@ -149,7 +149,6 @@ function openNewPostForm() {
             btnOuter.addClass("file_uploaded");
           }, 3000);
           fileArray = Array.from(e.target.files);
-
           fileArray.forEach(function (file, count = 0) {
 
             let uploadedFile = URL.createObjectURL(file);
