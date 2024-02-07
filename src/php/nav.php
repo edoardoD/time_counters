@@ -1,5 +1,5 @@
  
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+<nav id="nav-menu" class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="<?php echo $_SERVER['PHP_SELF']."?page=home"?>">timesCounter</a>
@@ -16,11 +16,18 @@
                     <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=about"?>">about</a>
                 </li>
                 <li class="navbar-nav">
-                    <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=login"?>">login</a>
+                    <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=register"?>">register/login</a>
                 </li>
                 <li class="navbar-nav">
                     <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF']."?page=mainpage"?>">main page</a>
                 </li>
+                <?php
+                    if(isset($_SESSION['username'])){
+                        print("<li class=\"navbar-nav\">
+                            <a id=\"logOut\" class=\"nav-link\"  onclick=\"logOut()\">logOut</a>
+                        </li>");
+                    }
+                ?>
             </ul>
         </div>
     </div>

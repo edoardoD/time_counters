@@ -5,6 +5,20 @@ body {
   /* Utilizzo di min-height per garantire che almeno l'altezza della viewport venga occupata */
 }
 
+/* Stile per il popup */
+#popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -18,19 +32,28 @@ body {
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   position: relative;
 }
 
+
 .profile-image {
-  width: 50px;
-  height: 50px;
+  width: 120px;
+  height: 100px;
   border-radius: 50%;
   margin-right: 15px;
 }
 
+.post img.post-image {
+  width: 30%; /* Fai in modo che l'immagine del post occupi il 100% della larghezza del suo contenitore */
+  height: auto; /* Impedisce il ridimensionamento della altezza mantenendo l'aspetto proporzionale */
+  border-radius: 8px; /* Puoi regolare la border-radius secondo le tue preferenze */
+}
+
 .post-content {
+  align-items: center;
   flex: 1;
+  margin-top: 10px;
 }
 
 .actions {
@@ -49,17 +72,8 @@ body {
 }
 
 .add-post-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  cursor: pointer;
+  color: #007bff;
+  font-size: 26px;
 }
 
 .like-button {
@@ -76,4 +90,170 @@ body {
 .like-button.liked i {
   color: red;
   /* Cambia il colore del cuore a rosso quando la classe 'liked' è presente */
+}
+
+.swall-alert-postInfo {
+  position: relative;
+}
+
+
+
+
+.button_outer {
+  background: #83ccd3;
+  border-radius: 30px;
+  text-align: center;
+  height: 50px;
+  width: 200px;
+  display: inline-block;
+  transition: .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn_upload {
+  padding: 17px 30px 12px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.btn_upload input {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 105%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.file_uploading {
+  width: 100%;
+  height: 10px;
+  margin-top: 20px;
+  background: #ccc;
+}
+
+.file_uploading .btn_upload {
+  display: none;
+}
+
+.processing_bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  border-radius: 30px;
+  background: #83ccd3;
+  transition: 3s;
+}
+
+.file_uploading .processing_bar {
+  width: 100%;
+}
+
+.success_box {
+  display: none;
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+
+.success_box:before {
+  content: '';
+  display: block;
+  width: 9px;
+  height: 18px;
+  border-bottom: 6px solid #fff;
+  border-right: 6px solid #fff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  left: 17px;
+  top: 10px;
+}
+
+.file_uploaded .success_box {
+  display: inline-block;
+}
+
+.file_uploaded {
+  margin-top: 0;
+  width: 50px;
+  background: #83ccd3;
+  height: 50px;
+}
+
+.uploaded_file_view {
+  max-width: auto;
+  margin: 40px auto;
+  text-align: center;
+  position: relative;
+  transition: .2s;
+  opacity: 0;
+  border: 2px solid #ddd;
+  padding: 15px;
+}
+
+.file_remove {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  background: #aaa;
+  line-height: 30px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  right: -15px;
+  top: -15px;
+}
+
+.file_remove:hover {
+  background: #222;
+  transition: .2s;
+}
+
+.uploaded_file_view img {
+  max-width: 40%;
+}
+
+.uploaded_file_view.show {
+  opacity: 1;
+}
+
+.error_msg {
+  text-align: center;
+  color: #f00
+}
+
+a{
+  color: black;
+}
+
+.facebook-comment-input{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border: .5px solid silver;
+  margin-left: 10px;
+  border-radius: 15px;
+  align-items: center;
+  width: 75%;
+  padding-left: 13px;
+}
+
+.scrollable{
+  width: auto; 
+  height: 150px; 
+  overflow: auto;
 }
