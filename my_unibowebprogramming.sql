@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Gen 29, 2024 alle 16:06
+-- Creato il: Feb 07, 2024 alle 23:46
 -- Versione del server: 8.0.30
 -- Versione PHP: 8.0.22
 
@@ -55,6 +55,18 @@ CREATE TABLE `COMMENTI` (
   `id_post` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dump dei dati per la tabella `COMMENTI`
+--
+
+INSERT INTO `COMMENTI` (`testo`, `id`, `utente`, `id_post`) VALUES
+('bellsisimo', 66, 'alessandro.martini02@gmail.com', 83),
+('bellissimo, non vedo l\'ora di prenderlo', 67, 'alessandro.martini02@gmail.com', 92),
+('fantastico, non per tutti', 68, 'alessandro.martini02@gmail.com', 91),
+('Edoardo commenta, perchè merita', 69, 'alessandro.martini02@gmail.com', 93),
+('grazie mille, ti consiglio dove acquistarlo', 70, 'edo@dodo', 92),
+('voglio rubartelo giuro', 71, 'edo@dodo', 93);
+
 -- --------------------------------------------------------
 
 --
@@ -83,12 +95,15 @@ CREATE TABLE `IMMAGINI` (
 --
 
 INSERT INTO `IMMAGINI` (`num_img`, `id_post`, `path_img`) VALUES
-(0, 2, ''),
-(1, 2, ''),
-(0, 5, ''),
-(1, 5, ''),
-(0, 6, ''),
-(1, 6, '');
+(0, 83, 'signin-image.jpg'),
+(0, 84, 'signup-image.jpg'),
+(0, 86, 'logo.png'),
+(0, 91, 'brenthling.jpg'),
+(0, 92, 'hamiltonKaki.jpg'),
+(0, 93, 'casio.jpeg'),
+(0, 94, 'doxa.jpeg'),
+(0, 95, 'tutima.jpeg'),
+(0, 96, 'costellation.jpg');
 
 -- --------------------------------------------------------
 
@@ -136,20 +151,21 @@ CREATE TABLE `OROLOGI` (
 CREATE TABLE `POST` (
   `id_post` int NOT NULL,
   `descrizione` char(100) NOT NULL,
-  `utente` varchar(40) NOT NULL
+  `utente` varchar(40) NOT NULL,
+  `likes` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dump dei dati per la tabella `POST`
 --
 
-INSERT INTO `POST` (`id_post`, `descrizione`, `utente`) VALUES
-(1, 'ciao', 'alessandro.martini02@gmail.com'),
-(2, 'gthvghghy', 'alessandro.martini02@gmail.com'),
-(3, '<gkjrnong', 'alessandro.martini02@gmail.com'),
-(4, 'asdfsafdsfd', 'alessandro.martini02@gmail.com'),
-(5, 'kmkmlm', 'alessandro.martini02@gmail.com'),
-(6, 'jkkjjnnjkjnnjkkjnjn', 'alessandro.martini02@gmail.com');
+INSERT INTO `POST` (`id_post`, `descrizione`, `utente`, `likes`) VALUES
+(91, 'acquistato per la mia promozione !', 'edo@dodo', 4),
+(92, 'con questo orologio pilot mi piace andare in montagna', 'edo@dodo', 3),
+(93, 'Un vero classico, per tutti e sempre presente', 'alessandro.martini02@gmail.com', 2),
+(94, 'Regalato da mamma, fantastico!', 'alessandro.martini02@gmail.com', 3),
+(95, 'Regalato a papà, al lavoro lo invidiano tutti!', 'alessandro.martini02@gmail.com', 10),
+(96, 'elegante e sportivo... lo adoro', 'edo@dodo', 6);
 
 -- --------------------------------------------------------
 
@@ -173,6 +189,14 @@ CREATE TABLE `SEGUITI` (
   `utente1` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dump dei dati per la tabella `SEGUITI`
+--
+
+INSERT INTO `SEGUITI` (`utente2`, `utente1`) VALUES
+('edo@dodo', 'alessandro.martini02@gmail.com'),
+('alessandro.martini02@gmail.com', 'edo@dodo');
+
 -- --------------------------------------------------------
 
 --
@@ -183,15 +207,18 @@ CREATE TABLE `UTENTI` (
   `email` varchar(40) NOT NULL,
   `nome` char(40) NOT NULL,
   `cognome` char(20) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(20) NOT NULL,
+  `profileImage` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dump dei dati per la tabella `UTENTI`
 --
 
-INSERT INTO `UTENTI` (`email`, `nome`, `cognome`, `password`) VALUES
-('alessandro.martini02@gmail.com', 'Alessandro', 'Martini', '123');
+INSERT INTO `UTENTI` (`email`, `nome`, `cognome`, `password`, `profileImage`) VALUES
+('alessandro.martini02@gmail.com', 'Alessandro', 'Martini', '123', 'foto_portfolio_ale.jpg'),
+('anon@gmail.com', 'anonimo', 'anon', '123', 'brenthling.jpg'),
+('edo@dodo', 'edo', 'dodo', '123', 'profiloDodo.jpg');
 
 --
 -- Indici per le tabelle scaricate
@@ -286,13 +313,13 @@ ALTER TABLE `UTENTI`
 -- AUTO_INCREMENT per la tabella `COMMENTI`
 --
 ALTER TABLE `COMMENTI`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT per la tabella `POST`
 --
 ALTER TABLE `POST`
-  MODIFY `id_post` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_post` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- Limiti per le tabelle scaricate

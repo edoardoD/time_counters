@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     }
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if($_SERVER['REQUEST_METHOD']=='POST'){
     if(isset($_POST['request'])){
         if(array_key_exists($_POST['request'], $post_requests)){
             require $post_requests[$_POST['request']];
