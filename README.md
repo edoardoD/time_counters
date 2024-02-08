@@ -28,3 +28,9 @@ Per visualizzare il codice del progetto, è necessario eseguire il seguente coma
 
 ```bash
 git pull origin main
+```
+oppure 
+
+```bash
+git clone edoardoD/time_counters
+```
