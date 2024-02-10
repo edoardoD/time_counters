@@ -1,7 +1,7 @@
-#disclaimer
+# disclaimer
 per un'esperienza d'uso garantita eseguire il login con le credenziali dei due account;
-user: edo@dodo, alessandro.martini02@gmail.com
-pw: 123
+- user: edo@dodo, alessandro.martini02@gmail.com
+- pw: 123
 
 # Progetto Social Network - Time Counters
 
